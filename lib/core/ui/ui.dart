@@ -6,6 +6,7 @@ export 'exit_cost_sheet.dart';
 export 'focus_button.dart';
 export 'focus_timer_ring.dart';
 export 'layout.dart';
+export 'permission_guide.dart';
 export 'session_card.dart';
 export 'state_views.dart';
 export 'tiles.dart';

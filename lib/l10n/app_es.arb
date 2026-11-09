@@ -1,12 +1,10 @@
 {
   "@@locale": "es",
   "appTitle": "Enfoque",
-
   "navHome": "Inicio",
   "navSchedule": "Horario",
   "navRooms": "Salas",
   "navProgress": "Progreso",
-
   "commonRetry": "Reintentar",
   "commonContinue": "Continuar",
   "commonCancel": "Cancelar",
@@ -14,17 +12,63 @@
   "commonLoading": "Cargando…",
   "commonGenericError": "Algo salió mal. Inténtalo de nuevo.",
   "commonMinutesShort": "{minutes} min",
-  "@commonMinutesShort": {"placeholders": {"minutes": {"type": "int"}}},
-
+  "@commonMinutesShort": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "welcomeTitle": "Estudia sin distracciones",
   "welcomeBody": "Enfoque bloquea las apps que te distraen mientras estudias. Tú eliges qué apps quedan permitidas.",
   "welcomePointBlock": "Bloqueo de apps durante tus sesiones Pomodoro",
   "welcomePointExit": "Salir antes tiene un costo: piénsalo dos veces",
   "welcomePointStreak": "Racha diaria y estadísticas, todo guardado en tu celular",
   "welcomeStart": "Empezar",
-
   "permissionsTitle": "Permisos",
-  "permissionsBody": "Para bloquear apps, Android necesita que actives estos permisos. Tus datos de uso nunca salen del celular.",
+  "permissionsIntro": "Te guiamos permiso por permiso. Estos permisos no borran ni cambian nada más de tu celular, y puedes quitarlos cuando quieras.",
+  "permissionsStep": "Paso {current} de {total}",
+  "@permissionsStep": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "permissionsHowTo": "Qué vas a hacer",
+  "permissionsSafetyNote": "Solo toca lo que se indica aquí. Si te equivocas, no pasa nada: vuelve y repite el paso.",
+  "permStepFindApp": "Si ves una lista de apps, busca «Enfoque (local)» y tócala.",
+  "permStepBack": "Vuelve a Enfoque con el botón Atrás. Lo detectamos solos.",
+  "permUsageStep1": "Toca «Abrir ajustes». Se abrirá «Acceso a datos de uso» (el nombre puede variar un poco según tu celular).",
+  "permUsageStep2": "Activa el interruptor «Permitir acceso al uso».",
+  "permOverlayStep1": "Toca «Abrir ajustes». Se abrirá «Mostrar sobre otras apps».",
+  "permOverlayStep2": "Activa el interruptor «Permitir mostrar sobre otras apps».",
+  "permNotifStep1": "Toca «Permitir notificaciones». Android te preguntará si Enfoque puede enviarte notificaciones.",
+  "permNotifStep2": "Elige «Permitir». Si en cambio se abren los ajustes, activa «Mostrar notificaciones».",
+  "permBatteryStep1": "Toca «Quitar restricción». Aparecerá una ventana de Android.",
+  "permBatteryStep2": "Elige «Permitir». Si se abre una lista, busca «Enfoque (local)» y elige «Sin restricciones» o «No optimizar».",
+  "permOpenSettings": "Abrir ajustes",
+  "permAllowNotifications": "Permitir notificaciones",
+  "permBatteryAction": "Quitar restricción",
+  "permVerify": "Ya lo activé, verificar",
+  "permSkip": "Omitir por ahora",
+  "permStillOff": "Todavía aparece desactivado. Revisa que el interruptor de «Enfoque (local)» esté encendido.",
+  "permNowOn": "¡Listo! Permiso activado.",
+  "permRestrictedTitle": "¿El interruptor está gris o dice «Ajuste restringido»?",
+  "permRestrictedBody": "Pasa en Android 13 o superior con apps instaladas desde un archivo. Es normal y se soluciona así:",
+  "permRestrictedStep1": "Toca «Abrir información de la app».",
+  "permRestrictedStep2": "Toca el menú ⋮ (arriba a la derecha) y elige «Permitir ajustes restringidos». Confirma con tu PIN o huella.",
+  "permRestrictedStep3": "Vuelve aquí y toca «Abrir ajustes» otra vez.",
+  "permOpenAppInfo": "Abrir información de la app",
+  "permissionsSummary": "Resumen",
+  "permStatusPending": "Pendiente",
+  "permStatusSkipped": "Omitido",
+  "permissionsAllDone": "¡Todo listo! Ya puedes continuar.",
+  "permissionsRequiredDone": "Los permisos obligatorios están listos. Los recomendados hacen el bloqueo más confiable, pero puedes continuar.",
+  "permissionsRequiredMissing": "Activa los dos permisos obligatorios para continuar.",
   "permissionUsageTitle": "Acceso a datos de uso",
   "permissionUsageBody": "Para saber qué app está abierta durante una sesión.",
   "permissionOverlayTitle": "Mostrar sobre otras apps",
@@ -35,72 +79,163 @@
   "permissionBatteryBody": "Para que Android no detenga el bloqueo a mitad de la sesión.",
   "permissionRequired": "Obligatorio",
   "permissionRecommended": "Recomendado",
-  "permissionGrant": "Activar",
   "permissionGranted": "Activado",
   "permissionsContinue": "Continuar",
-  "permissionsMissing": "Activa los permisos obligatorios para continuar.",
-
   "allowlistTitle": "Apps permitidas",
   "allowlistBody": "Estas apps se pueden abrir durante una sesión. Las llamadas y la pantalla de inicio siempre funcionan.",
   "allowlistSearch": "Buscar apps",
   "allowlistEmpty": "No se encontraron apps.",
   "allowlistCount": "{count, plural, =0{Ninguna app permitida} =1{1 app permitida} other{{count} apps permitidas}}",
-  "@allowlistCount": {"placeholders": {"count": {"type": "int"}}},
+  "@allowlistCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "allowlistDone": "Listo",
-
   "homeGreeting": "¿Listo para concentrarte?",
   "homeTodayProgress": "Hoy: {done} de {goal} min",
-  "@homeTodayProgress": {"placeholders": {"done": {"type": "int"}, "goal": {"type": "int"}}},
+  "@homeTodayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
   "homeGoalReached": "¡Meta de hoy cumplida!",
   "homePresetLabel": "Tipo de sesión",
   "homePresetClassic": "25 / 5",
   "homePresetLong": "50 / 10",
   "homePresetFree": "Libre",
   "homeCyclesLabel": "Bloques: {cycles}",
-  "@homeCyclesLabel": {"placeholders": {"cycles": {"type": "int"}}},
+  "@homeCyclesLabel": {
+    "placeholders": {
+      "cycles": {
+        "type": "int"
+      }
+    }
+  },
   "homeFreeMinutesLabel": "Duración: {minutes} min",
-  "@homeFreeMinutesLabel": {"placeholders": {"minutes": {"type": "int"}}},
+  "@homeFreeMinutesLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeSessionSummary": "{focus} min de enfoque · termina a las {time}",
-  "@homeSessionSummary": {"placeholders": {"focus": {"type": "int"}, "time": {"type": "String"}}},
+  "@homeSessionSummary": {
+    "placeholders": {
+      "focus": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "homeStart": "Empezar sesión",
   "homeAllowedApps": "Apps permitidas",
   "homeSettings": "Ajustes",
   "homeNeedsPermissions": "Faltan permisos para bloquear apps.",
   "homeReviewPermissions": "Revisar",
-
   "streakDays": "{count, plural, =0{Sin racha} =1{1 día} other{{count} días}}",
-  "@streakDays": {"placeholders": {"count": {"type": "int"}}},
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "streakLabel": "Racha",
-
   "sessionPhaseFocus": "Enfoque",
   "sessionPhaseRest": "Descanso",
   "sessionPhaseDone": "Terminado",
   "sessionCycle": "Bloque {current} de {total}",
-  "@sessionCycle": {"placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}},
+  "@sessionCycle": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "sessionRemainingTotal": "Quedan {time} en total",
-  "@sessionRemainingTotal": {"placeholders": {"time": {"type": "String"}}},
+  "@sessionRemainingTotal": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "sessionDistractions": "{count, plural, =0{Sin intentos de distracción} =1{1 intento de distracción} other{{count} intentos de distracción}}",
-  "@sessionDistractions": {"placeholders": {"count": {"type": "int"}}},
+  "@sessionDistractions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "sessionAllowedApps": "Apps permitidas",
   "sessionExitEarly": "Salir antes",
   "sessionTimerSemantics": "{phase}, quedan {time}",
-  "@sessionTimerSemantics": {"placeholders": {"phase": {"type": "String"}, "time": {"type": "String"}}},
-
+  "@sessionTimerSemantics": {
+    "placeholders": {
+      "phase": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "exitTitle": "¿Seguro que quieres salir?",
   "exitStep": "Paso {step} de 3",
-  "@exitStep": {"placeholders": {"step": {"type": "int"}}},
+  "@exitStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
   "exitStep1Body": "Respira. Espera un minuto antes de decidir.",
   "exitStep1Countdown": "Puedes continuar en {seconds} s",
-  "@exitStep1Countdown": {"placeholders": {"seconds": {"type": "int"}}},
+  "@exitStep1Countdown": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
   "exitStep2Body": "Escribe por qué quieres salir (mínimo {min} caracteres).",
-  "@exitStep2Body": {"placeholders": {"min": {"type": "int"}}},
+  "@exitStep2Body": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "exitStep2Hint": "Quiero salir porque…",
   "exitStep2Counter": "{current} / {min}",
-  "@exitStep2Counter": {"placeholders": {"current": {"type": "int"}, "min": {"type": "int"}}},
+  "@exitStep2Counter": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "exitStep3Body": "Si sales ahora, pierdes la racha de hoy y los puntos de esta sesión.",
   "exitConfirm": "Salir y perder la racha",
   "exitKeepStudying": "Seguir estudiando",
-
   "summaryCompletedTitle": "¡Sesión completada!",
   "summaryEarlyExitTitle": "Saliste antes",
   "summaryInterruptedTitle": "Sesión interrumpida",
@@ -108,7 +243,6 @@
   "summaryPoints": "Puntos",
   "summaryDistractions": "Intentos de distracción",
   "summaryBackHome": "Volver al inicio",
-
   "progressTitle": "Progreso",
   "statCurrentStreak": "Racha actual",
   "statBestStreak": "Mejor racha",
@@ -121,21 +255,24 @@
   "statRecentSessions": "Sesiones recientes",
   "statEmptyTitle": "Aún no hay sesiones",
   "statEmptyBody": "Cuando termines tu primera sesión, aquí verás tu progreso.",
-
   "sessionCardCompleted": "Completada",
   "sessionCardEarlyExit": "Salida anticipada",
   "sessionCardInterrupted": "Interrumpida",
   "sessionCardActive": "En curso",
-
   "scheduleComingTitle": "Horario y exámenes",
   "scheduleComingBody": "Llega en la fase 2: materias, horario, exámenes y planificador automático.",
   "roomsComingTitle": "Salas de estudio",
   "roomsComingBody": "Llega en la fase 3: estudia en grupo con presencia en vivo.",
-
   "settingsTitle": "Ajustes",
   "settingsDailyGoal": "Meta diaria",
   "settingsDailyGoalValue": "{minutes} minutos",
-  "@settingsDailyGoalValue": {"placeholders": {"minutes": {"type": "int"}}},
+  "@settingsDailyGoalValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "settingsStrictness": "Modo estricto",
   "settingsStrictnessBody": "Bloquea también durante los descansos.",
   "settingsTheme": "Tema",

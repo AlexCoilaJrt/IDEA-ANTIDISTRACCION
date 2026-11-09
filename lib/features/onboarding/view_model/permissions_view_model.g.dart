@@ -8,15 +8,18 @@ part of 'permissions_view_model.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Estado de los permisos. Se vuelve a leer al regresar de Ajustes.
+/// Asistente de permisos: uno a la vez, con detección automática al volver
+/// de Ajustes.
 
 @ProviderFor(PermissionsViewModel)
 final permissionsViewModelProvider = PermissionsViewModelProvider._();
 
-/// Estado de los permisos. Se vuelve a leer al regresar de Ajustes.
+/// Asistente de permisos: uno a la vez, con detección automática al volver
+/// de Ajustes.
 final class PermissionsViewModelProvider
-    extends $AsyncNotifierProvider<PermissionsViewModel, AppPermissions> {
-  /// Estado de los permisos. Se vuelve a leer al regresar de Ajustes.
+    extends $AsyncNotifierProvider<PermissionsViewModel, PermissionsUiState> {
+  /// Asistente de permisos: uno a la vez, con detección automática al volver
+  /// de Ajustes.
   PermissionsViewModelProvider._()
     : super(
         from: null,
@@ -37,21 +40,24 @@ final class PermissionsViewModelProvider
 }
 
 String _$permissionsViewModelHash() =>
-    r'0411c0e42dff7d7e236164c230beca1cb3032030';
+    r'dc95de3da00e184f441fd44289085011e38bbb6f';
 
-/// Estado de los permisos. Se vuelve a leer al regresar de Ajustes.
+/// Asistente de permisos: uno a la vez, con detección automática al volver
+/// de Ajustes.
 
-abstract class _$PermissionsViewModel extends $AsyncNotifier<AppPermissions> {
-  FutureOr<AppPermissions> build();
+abstract class _$PermissionsViewModel
+    extends $AsyncNotifier<PermissionsUiState> {
+  FutureOr<PermissionsUiState> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<AppPermissions>, AppPermissions>;
+    final ref =
+        this.ref as $Ref<AsyncValue<PermissionsUiState>, PermissionsUiState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<AppPermissions>, AppPermissions>,
-              AsyncValue<AppPermissions>,
+              AnyNotifier<AsyncValue<PermissionsUiState>, PermissionsUiState>,
+              AsyncValue<PermissionsUiState>,
               Object?,
               Object?
             >;

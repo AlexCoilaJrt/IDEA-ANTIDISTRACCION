@@ -9,16 +9,25 @@ part of 'app_state.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Emite cada vez que la app vuelve a primer plano.
+///
+/// Emite un contador y no `void`: Riverpod descarta valores repetidos, así
+/// que con `null` solo se notificaba el primer regreso.
 
 @ProviderFor(appResumed)
 final appResumedProvider = AppResumedProvider._();
 
 /// Emite cada vez que la app vuelve a primer plano.
+///
+/// Emite un contador y no `void`: Riverpod descarta valores repetidos, así
+/// que con `null` solo se notificaba el primer regreso.
 
 final class AppResumedProvider
-    extends $FunctionalProvider<AsyncValue<void>, void, Stream<void>>
-    with $FutureModifier<void>, $StreamProvider<void> {
+    extends $FunctionalProvider<AsyncValue<int>, int, Stream<int>>
+    with $FutureModifier<int>, $StreamProvider<int> {
   /// Emite cada vez que la app vuelve a primer plano.
+  ///
+  /// Emite un contador y no `void`: Riverpod descarta valores repetidos, así
+  /// que con `null` solo se notificaba el primer regreso.
   AppResumedProvider._()
     : super(
         from: null,
@@ -35,16 +44,16 @@ final class AppResumedProvider
 
   @$internal
   @override
-  $StreamProviderElement<void> $createElement($ProviderPointer pointer) =>
+  $StreamProviderElement<int> $createElement($ProviderPointer pointer) =>
       $StreamProviderElement(pointer);
 
   @override
-  Stream<void> create(Ref ref) {
+  Stream<int> create(Ref ref) {
     return appResumed(ref);
   }
 }
 
-String _$appResumedHash() => r'06068f0d9edfa735633a4ad02d33dc46a590705c';
+String _$appResumedHash() => r'7033612431642f62e288a7ee8ff5633224701744';
 
 /// Sesión recién cerrada cuyo resumen se debe mostrar.
 

@@ -7,6 +7,7 @@ void main() {
   setUpAll(() => initializeDateFormatting('es'));
 
   testWidgets('bienvenida, permisos y apps permitidas', onboardingFlow);
+  testWidgets('asistente de permisos paso a paso', permissionsWizardFlow);
   testWidgets('salida con costo en tres escalones', earlyExitFlow);
   testWidgets('sesión completada actualiza la racha', completedFlow);
 }

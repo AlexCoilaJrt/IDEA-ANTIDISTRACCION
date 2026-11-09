@@ -118,6 +118,9 @@ abstract class BlockerHostApi {
   /// Abre la pantalla del sistema para conceder el permiso.
   void requestPermission(PermissionKindDto kind);
 
+  /// Abre "Información de la app" (para "Permitir ajustes restringidos").
+  void openAppDetails();
+
   /// Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES).
   @async
   List<InstalledAppDto> getLaunchableApps();

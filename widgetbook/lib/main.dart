@@ -112,26 +112,54 @@ class EnfoqueWidgetbook extends StatelessWidget {
                 onChanged: (_) {},
               ),
             }),
-            _component('PermissionStepCard', {
-              'Pendiente': (_) => PermissionStepCard(
-                title: 'Acceso a datos de uso',
-                body: 'Para saber qué app está abierta durante una sesión.',
-                badge: 'Obligatorio',
-                state: PermissionStepState.pending,
-                actionLabel: 'Activar',
-                grantedLabel: 'Activado',
-                icon: Icons.query_stats,
-                onRequest: () {},
+            _component('PermissionGuideCard', {
+              'Paso': (_) => SingleChildScrollView(
+                child: PermissionGuideCard(
+                  icon: Icons.query_stats,
+                  title: 'Acceso a datos de uso',
+                  reason: 'Para saber qué app está abierta durante una sesión.',
+                  badge: 'Obligatorio',
+                  howToTitle: 'Qué vas a hacer',
+                  steps: const [
+                    'Toca «Abrir ajustes».',
+                    'Busca «Enfoque (local)» y tócala.',
+                    'Activa el interruptor.',
+                  ],
+                  safetyNote: 'Solo toca lo que se indica aquí.',
+                  primaryLabel: 'Abrir ajustes',
+                  onPrimary: () {},
+                  verifyLabel: 'Ya lo activé, verificar',
+                  onVerify: () {},
+                  help: const HelpExpansion(
+                    title: '¿Aparece «Ajuste restringido»?',
+                    body: 'Pasa en Android 13+.',
+                    steps: ['Abre la información de la app.'],
+                  ),
+                ),
               ),
-              'Concedido': (_) => PermissionStepCard(
-                title: 'Notificaciones',
-                body: 'Para mostrar el aviso fijo con el tiempo restante.',
-                badge: 'Recomendado',
-                state: PermissionStepState.granted,
-                actionLabel: 'Activar',
-                grantedLabel: 'Activado',
-                icon: Icons.notifications_outlined,
-                onRequest: () {},
+              'Resumen': (_) => const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  PermissionStatusRow(
+                    icon: Icons.query_stats,
+                    title: 'Acceso a datos de uso',
+                    status: PermissionRowStatus.granted,
+                    statusLabel: 'Activado',
+                  ),
+                  PermissionStatusRow(
+                    icon: Icons.layers_outlined,
+                    title: 'Mostrar sobre otras apps',
+                    status: PermissionRowStatus.pending,
+                    statusLabel: 'Pendiente',
+                    selected: true,
+                  ),
+                  PermissionStatusRow(
+                    icon: Icons.battery_saver_outlined,
+                    title: 'Batería',
+                    status: PermissionRowStatus.skipped,
+                    statusLabel: 'Omitido',
+                  ),
+                ],
               ),
             }),
             _component('HeatmapCalendar', {

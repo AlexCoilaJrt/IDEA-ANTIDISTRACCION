@@ -49,8 +49,8 @@ La app guía al usuario, pero estos son los permisos:
 ## Calidad
 
 ```bash
-dart format . && flutter analyze && flutter test                 # Flutter: 80 pruebas
-cd android && ./gradlew :app:testLocalDebugUnitTest            # Kotlin: lógica del motor (JUnit)
+dart format . && flutter analyze && flutter test                 # Flutter: 88 pruebas
+cd android && ./gradlew :app:testLocalDebugUnitTest -Ptarget=lib/main_local.dart   # Kotlin (JUnit)
 flutter test integration_test --flavor local                   # en un celular/emulador
 cd widgetbook && flutter test                                  # catálogo de componentes
 ```

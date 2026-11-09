@@ -9,10 +9,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'app_state.g.dart';
 
 /// Emite cada vez que la app vuelve a primer plano.
+///
+/// Emite un contador y no `void`: Riverpod descarta valores repetidos, así
+/// que con `null` solo se notificaba el primer regreso.
 @Riverpod(keepAlive: true)
-Stream<void> appResumed(Ref ref) {
-  final controller = StreamController<void>.broadcast();
-  final listener = AppLifecycleListener(onResume: () => controller.add(null));
+Stream<int> appResumed(Ref ref) {
+  final controller = StreamController<int>.broadcast();
+  var count = 0;
+  final listener = AppLifecycleListener(
+    onResume: () => controller.add(++count),
+  );
   ref.onDispose(() {
     listener.dispose();
     unawaited(controller.close());

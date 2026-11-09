@@ -29,6 +29,8 @@ class BlockerService implements BlockerFlutterApi {
   Future<void> requestPermission(PermissionKindDto kind) =>
       _host.requestPermission(kind);
 
+  Future<void> openAppDetails() => _host.openAppDetails();
+
   Future<List<InstalledAppDto>> getLaunchableApps() =>
       _host.getLaunchableApps();
 

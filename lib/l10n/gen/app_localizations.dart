@@ -208,11 +208,203 @@ abstract class AppLocalizations {
   /// **'Permisos'**
   String get permissionsTitle;
 
-  /// No description provided for @permissionsBody.
+  /// No description provided for @permissionsIntro.
   ///
   /// In es, this message translates to:
-  /// **'Para bloquear apps, Android necesita que actives estos permisos. Tus datos de uso nunca salen del celular.'**
-  String get permissionsBody;
+  /// **'Te guiamos permiso por permiso. Estos permisos no borran ni cambian nada más de tu celular, y puedes quitarlos cuando quieras.'**
+  String get permissionsIntro;
+
+  /// No description provided for @permissionsStep.
+  ///
+  /// In es, this message translates to:
+  /// **'Paso {current} de {total}'**
+  String permissionsStep(int current, int total);
+
+  /// No description provided for @permissionsHowTo.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué vas a hacer'**
+  String get permissionsHowTo;
+
+  /// No description provided for @permissionsSafetyNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo toca lo que se indica aquí. Si te equivocas, no pasa nada: vuelve y repite el paso.'**
+  String get permissionsSafetyNote;
+
+  /// No description provided for @permStepFindApp.
+  ///
+  /// In es, this message translates to:
+  /// **'Si ves una lista de apps, busca «Enfoque (local)» y tócala.'**
+  String get permStepFindApp;
+
+  /// No description provided for @permStepBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Vuelve a Enfoque con el botón Atrás. Lo detectamos solos.'**
+  String get permStepBack;
+
+  /// No description provided for @permUsageStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Abrir ajustes». Se abrirá «Acceso a datos de uso» (el nombre puede variar un poco según tu celular).'**
+  String get permUsageStep1;
+
+  /// No description provided for @permUsageStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa el interruptor «Permitir acceso al uso».'**
+  String get permUsageStep2;
+
+  /// No description provided for @permOverlayStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Abrir ajustes». Se abrirá «Mostrar sobre otras apps».'**
+  String get permOverlayStep1;
+
+  /// No description provided for @permOverlayStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa el interruptor «Permitir mostrar sobre otras apps».'**
+  String get permOverlayStep2;
+
+  /// No description provided for @permNotifStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Permitir notificaciones». Android te preguntará si Enfoque puede enviarte notificaciones.'**
+  String get permNotifStep1;
+
+  /// No description provided for @permNotifStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige «Permitir». Si en cambio se abren los ajustes, activa «Mostrar notificaciones».'**
+  String get permNotifStep2;
+
+  /// No description provided for @permBatteryStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Quitar restricción». Aparecerá una ventana de Android.'**
+  String get permBatteryStep1;
+
+  /// No description provided for @permBatteryStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige «Permitir». Si se abre una lista, busca «Enfoque (local)» y elige «Sin restricciones» o «No optimizar».'**
+  String get permBatteryStep2;
+
+  /// No description provided for @permOpenSettings.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir ajustes'**
+  String get permOpenSettings;
+
+  /// No description provided for @permAllowNotifications.
+  ///
+  /// In es, this message translates to:
+  /// **'Permitir notificaciones'**
+  String get permAllowNotifications;
+
+  /// No description provided for @permBatteryAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar restricción'**
+  String get permBatteryAction;
+
+  /// No description provided for @permVerify.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya lo activé, verificar'**
+  String get permVerify;
+
+  /// No description provided for @permSkip.
+  ///
+  /// In es, this message translates to:
+  /// **'Omitir por ahora'**
+  String get permSkip;
+
+  /// No description provided for @permStillOff.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía aparece desactivado. Revisa que el interruptor de «Enfoque (local)» esté encendido.'**
+  String get permStillOff;
+
+  /// No description provided for @permNowOn.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Listo! Permiso activado.'**
+  String get permNowOn;
+
+  /// No description provided for @permRestrictedTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿El interruptor está gris o dice «Ajuste restringido»?'**
+  String get permRestrictedTitle;
+
+  /// No description provided for @permRestrictedBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasa en Android 13 o superior con apps instaladas desde un archivo. Es normal y se soluciona así:'**
+  String get permRestrictedBody;
+
+  /// No description provided for @permRestrictedStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Abrir información de la app».'**
+  String get permRestrictedStep1;
+
+  /// No description provided for @permRestrictedStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca el menú ⋮ (arriba a la derecha) y elige «Permitir ajustes restringidos». Confirma con tu PIN o huella.'**
+  String get permRestrictedStep2;
+
+  /// No description provided for @permRestrictedStep3.
+  ///
+  /// In es, this message translates to:
+  /// **'Vuelve aquí y toca «Abrir ajustes» otra vez.'**
+  String get permRestrictedStep3;
+
+  /// No description provided for @permOpenAppInfo.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir información de la app'**
+  String get permOpenAppInfo;
+
+  /// No description provided for @permissionsSummary.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen'**
+  String get permissionsSummary;
+
+  /// No description provided for @permStatusPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente'**
+  String get permStatusPending;
+
+  /// No description provided for @permStatusSkipped.
+  ///
+  /// In es, this message translates to:
+  /// **'Omitido'**
+  String get permStatusSkipped;
+
+  /// No description provided for @permissionsAllDone.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Todo listo! Ya puedes continuar.'**
+  String get permissionsAllDone;
+
+  /// No description provided for @permissionsRequiredDone.
+  ///
+  /// In es, this message translates to:
+  /// **'Los permisos obligatorios están listos. Los recomendados hacen el bloqueo más confiable, pero puedes continuar.'**
+  String get permissionsRequiredDone;
+
+  /// No description provided for @permissionsRequiredMissing.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa los dos permisos obligatorios para continuar.'**
+  String get permissionsRequiredMissing;
 
   /// No description provided for @permissionUsageTitle.
   ///
@@ -274,12 +466,6 @@ abstract class AppLocalizations {
   /// **'Recomendado'**
   String get permissionRecommended;
 
-  /// No description provided for @permissionGrant.
-  ///
-  /// In es, this message translates to:
-  /// **'Activar'**
-  String get permissionGrant;
-
   /// No description provided for @permissionGranted.
   ///
   /// In es, this message translates to:
@@ -291,12 +477,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Continuar'**
   String get permissionsContinue;
-
-  /// No description provided for @permissionsMissing.
-  ///
-  /// In es, this message translates to:
-  /// **'Activa los permisos obligatorios para continuar.'**
-  String get permissionsMissing;
 
   /// No description provided for @allowlistTitle.
   ///

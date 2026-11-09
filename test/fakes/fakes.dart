@@ -286,6 +286,14 @@ class FakeBlockerRepository implements BlockerRepository {
     return const Result.ok(null);
   }
 
+  int appDetailsOpened = 0;
+
+  @override
+  Future<Result<void>> openAppDetails() async {
+    appDetailsOpened++;
+    return const Result.ok(null);
+  }
+
   @override
   Future<Result<bool>> consumeExitRequest() async {
     final r = exitRequested;

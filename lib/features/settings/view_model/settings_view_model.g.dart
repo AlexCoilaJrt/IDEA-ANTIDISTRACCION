@@ -36,7 +36,7 @@ final class SettingsViewModelProvider
   SettingsViewModel create() => SettingsViewModel();
 }
 
-String _$settingsViewModelHash() => r'f147a3d2e80cc607183681f52799ab659b7de87a';
+String _$settingsViewModelHash() => r'630ebf56442c58150fe33e2e18f91f06484ce183';
 
 /// Ajustes: meta diaria, modo estricto y tema.
 

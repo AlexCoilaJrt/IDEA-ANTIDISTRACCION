@@ -73,8 +73,124 @@ class AppLocalizationsEs extends AppLocalizations {
   String get permissionsTitle => 'Permisos';
 
   @override
-  String get permissionsBody =>
-      'Para bloquear apps, Android necesita que actives estos permisos. Tus datos de uso nunca salen del celular.';
+  String get permissionsIntro =>
+      'Te guiamos permiso por permiso. Estos permisos no borran ni cambian nada más de tu celular, y puedes quitarlos cuando quieras.';
+
+  @override
+  String permissionsStep(int current, int total) {
+    return 'Paso $current de $total';
+  }
+
+  @override
+  String get permissionsHowTo => 'Qué vas a hacer';
+
+  @override
+  String get permissionsSafetyNote =>
+      'Solo toca lo que se indica aquí. Si te equivocas, no pasa nada: vuelve y repite el paso.';
+
+  @override
+  String get permStepFindApp =>
+      'Si ves una lista de apps, busca «Enfoque (local)» y tócala.';
+
+  @override
+  String get permStepBack =>
+      'Vuelve a Enfoque con el botón Atrás. Lo detectamos solos.';
+
+  @override
+  String get permUsageStep1 =>
+      'Toca «Abrir ajustes». Se abrirá «Acceso a datos de uso» (el nombre puede variar un poco según tu celular).';
+
+  @override
+  String get permUsageStep2 =>
+      'Activa el interruptor «Permitir acceso al uso».';
+
+  @override
+  String get permOverlayStep1 =>
+      'Toca «Abrir ajustes». Se abrirá «Mostrar sobre otras apps».';
+
+  @override
+  String get permOverlayStep2 =>
+      'Activa el interruptor «Permitir mostrar sobre otras apps».';
+
+  @override
+  String get permNotifStep1 =>
+      'Toca «Permitir notificaciones». Android te preguntará si Enfoque puede enviarte notificaciones.';
+
+  @override
+  String get permNotifStep2 =>
+      'Elige «Permitir». Si en cambio se abren los ajustes, activa «Mostrar notificaciones».';
+
+  @override
+  String get permBatteryStep1 =>
+      'Toca «Quitar restricción». Aparecerá una ventana de Android.';
+
+  @override
+  String get permBatteryStep2 =>
+      'Elige «Permitir». Si se abre una lista, busca «Enfoque (local)» y elige «Sin restricciones» o «No optimizar».';
+
+  @override
+  String get permOpenSettings => 'Abrir ajustes';
+
+  @override
+  String get permAllowNotifications => 'Permitir notificaciones';
+
+  @override
+  String get permBatteryAction => 'Quitar restricción';
+
+  @override
+  String get permVerify => 'Ya lo activé, verificar';
+
+  @override
+  String get permSkip => 'Omitir por ahora';
+
+  @override
+  String get permStillOff =>
+      'Todavía aparece desactivado. Revisa que el interruptor de «Enfoque (local)» esté encendido.';
+
+  @override
+  String get permNowOn => '¡Listo! Permiso activado.';
+
+  @override
+  String get permRestrictedTitle =>
+      '¿El interruptor está gris o dice «Ajuste restringido»?';
+
+  @override
+  String get permRestrictedBody =>
+      'Pasa en Android 13 o superior con apps instaladas desde un archivo. Es normal y se soluciona así:';
+
+  @override
+  String get permRestrictedStep1 => 'Toca «Abrir información de la app».';
+
+  @override
+  String get permRestrictedStep2 =>
+      'Toca el menú ⋮ (arriba a la derecha) y elige «Permitir ajustes restringidos». Confirma con tu PIN o huella.';
+
+  @override
+  String get permRestrictedStep3 =>
+      'Vuelve aquí y toca «Abrir ajustes» otra vez.';
+
+  @override
+  String get permOpenAppInfo => 'Abrir información de la app';
+
+  @override
+  String get permissionsSummary => 'Resumen';
+
+  @override
+  String get permStatusPending => 'Pendiente';
+
+  @override
+  String get permStatusSkipped => 'Omitido';
+
+  @override
+  String get permissionsAllDone => '¡Todo listo! Ya puedes continuar.';
+
+  @override
+  String get permissionsRequiredDone =>
+      'Los permisos obligatorios están listos. Los recomendados hacen el bloqueo más confiable, pero puedes continuar.';
+
+  @override
+  String get permissionsRequiredMissing =>
+      'Activa los dos permisos obligatorios para continuar.';
 
   @override
   String get permissionUsageTitle => 'Acceso a datos de uso';
@@ -111,17 +227,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get permissionRecommended => 'Recomendado';
 
   @override
-  String get permissionGrant => 'Activar';
-
-  @override
   String get permissionGranted => 'Activado';
 
   @override
   String get permissionsContinue => 'Continuar';
-
-  @override
-  String get permissionsMissing =>
-      'Activa los permisos obligatorios para continuar.';
 
   @override
   String get allowlistTitle => 'Apps permitidas';

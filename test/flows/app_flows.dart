@@ -54,6 +54,51 @@ Future<void> onboardingFlow(WidgetTester tester) async {
   expect(deps.settings.settings.onboardingDone, isTrue);
 }
 
+/// Asistente de permisos: empieza sin ninguno, detecta cada permiso al
+/// activarlo y permite omitir los recomendados.
+Future<void> permissionsWizardFlow(WidgetTester tester) async {
+  final deps = TestDeps(settings: const AppSettings());
+  deps.blocker.perms = AppPermissions.none;
+  await _pumpApp(tester, deps);
+  await _tap(tester, find.text('Empezar'));
+
+  expect(find.text('Paso 1 de 4'), findsOneWidget);
+  expect(
+    find.text('Activa los dos permisos obligatorios para continuar.'),
+    findsOneWidget,
+  );
+  await _tap(tester, find.text('Abrir ajustes'));
+  expect(deps.blocker.requested, [PermissionKind.usageAccess]);
+
+  // "Verificar" sin haberlo activado avisa que sigue desactivado.
+  await _tap(tester, find.text('Ya lo activé, verificar'));
+  expect(find.textContaining('Todavía aparece desactivado'), findsOneWidget);
+
+  // El usuario lo activa en Android: se detecta solo y avanza.
+  deps.blocker.perms = deps.blocker.perms.copyWith(usageAccess: true);
+  await tester.pump(const Duration(seconds: 2));
+  await _settle(tester);
+  expect(find.text('Paso 2 de 4'), findsOneWidget);
+  expect(find.text('Mostrar sobre otras apps'), findsWidgets);
+  // Los obligatorios no se pueden omitir.
+  expect(find.text('Omitir por ahora'), findsNothing);
+
+  deps.blocker.perms = deps.blocker.perms.copyWith(overlay: true);
+  await tester.pump(const Duration(seconds: 2));
+  await _settle(tester);
+  expect(find.text('Paso 3 de 4'), findsOneWidget);
+
+  // Recomendado: se puede omitir.
+  await _tap(tester, find.text('Omitir por ahora'));
+  expect(find.text('Paso 4 de 4'), findsOneWidget);
+  await _tap(tester, find.text('Omitir por ahora'));
+  expect(find.text('¡Todo listo! Ya puedes continuar.'), findsOneWidget);
+  expect(find.text('Omitido'), findsNWidgets(2));
+
+  await _tap(tester, find.text('Continuar'));
+  expect(find.text('Apps permitidas'), findsOneWidget);
+}
+
 Future<void> earlyExitFlow(WidgetTester tester) async {
   final deps = TestDeps();
   await _pumpApp(tester, deps);

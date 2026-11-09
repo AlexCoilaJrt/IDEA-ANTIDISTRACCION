@@ -635,6 +635,25 @@ class BlockerHostApi {
     );
   }
 
+  /// Abre "Información de la app" (para "Permitir ajustes restringidos").
+  Future<void> openAppDetails() async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.enfoque.BlockerHostApi.openAppDetails$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    _extractReplyValueOrThrow(
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
+  }
+
   /// Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES).
   Future<List<InstalledAppDto>> getLaunchableApps() async {
     final pigeonVar_channelName =

@@ -17,6 +17,9 @@ abstract class BlockerRepository {
 
   Future<Result<void>> requestPermission(PermissionKind kind);
 
+  /// Abre "Información de la app" (para permitir ajustes restringidos).
+  Future<Result<void>> openAppDetails();
+
   /// `true` una sola vez si el usuario tocó "Salir antes" en el bloqueo.
   Future<Result<bool>> consumeExitRequest();
 
@@ -96,6 +99,9 @@ class BlockerRepositoryImpl implements BlockerRepository {
         PermissionKindDto.batteryOptimization,
     }),
   );
+
+  @override
+  Future<Result<void>> openAppDetails() => guard(_service.openAppDetails);
 
   @override
   Future<Result<bool>> consumeExitRequest() =>

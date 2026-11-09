@@ -590,6 +590,8 @@ interface BlockerHostApi {
   fun getPermissions(): PermissionsDto
   /** Abre la pantalla del sistema para conceder el permiso. */
   fun requestPermission(kind: PermissionKindDto)
+  /** Abre "Información de la app" (para "Permitir ajustes restringidos"). */
+  fun openAppDetails()
   /** Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES). */
   suspend fun getLaunchableApps(): List<InstalledAppDto>
   fun launchApp(packageName: String)
@@ -690,6 +692,22 @@ interface BlockerHostApi {
             val kindArg = args[0] as PermissionKindDto
             val wrapped: List<Any?> = try {
               api.requestPermission(kindArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              BlockerApiPigeonUtils.wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.enfoque.BlockerHostApi.openAppDetails$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.openAppDetails()
               listOf(null)
             } catch (exception: Throwable) {
               BlockerApiPigeonUtils.wrapError(exception)
