@@ -1,0 +1,22 @@
+name: enfoque_widgetbook
+description: "Catálogo de componentes de Enfoque (Widgetbook)."
+publish_to: none
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  enfoque:
+    path: ../
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  widgetbook: ^3.25.0
+
+flutter:
+  uses-material-design: true
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

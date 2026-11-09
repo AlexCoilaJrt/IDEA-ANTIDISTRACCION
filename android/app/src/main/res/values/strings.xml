@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">Sesión de enfoque</string>
+    <string name="channel_description">Aviso fijo mientras una sesión de estudio está activa.</string>
+    <string name="notification_title">Sesión de enfoque en curso</string>
+    <string name="notification_text">Las apps no permitidas están bloqueadas.</string>
+    <string name="block_title">Estás en una sesión de enfoque</string>
+    <string name="block_message">Esta app no está permitida ahora.</string>
+    <string name="block_phase_focus">Bloque de enfoque</string>
+    <string name="block_phase_break_strict">Descanso (modo estricto)</string>
+    <string name="block_remaining">Quedan %1$d:%2$02d:%3$02d</string>
+    <string name="block_back">Volver a Enfoque</string>
+    <string name="block_allowed">Apps permitidas</string>
+    <string name="block_exit">Salir antes</string>
+</resources>
