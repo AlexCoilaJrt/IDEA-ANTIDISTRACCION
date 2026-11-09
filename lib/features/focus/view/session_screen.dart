@@ -6,6 +6,7 @@ import 'package:enfoque/core/ui/ui.dart';
 import 'package:enfoque/core/utils/formatters.dart';
 import 'package:enfoque/domain/logic/exit_cost.dart';
 import 'package:enfoque/domain/logic/pomodoro_clock.dart';
+import 'package:enfoque/domain/models/models.dart';
 import 'package:enfoque/features/focus/view_model/exit_cost_view_model.dart';
 import 'package:enfoque/features/focus/view_model/session_view_model.dart';
 import 'package:enfoque/l10n/gen/app_localizations.dart';
@@ -39,9 +40,28 @@ class SessionScreen extends ConsumerWidget {
     return PopScope(
       canPop: false,
       child: FocusScaffold(
+        header: Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            AppSpacing.md,
+            AppSpacing.lg,
+            AppSpacing.sm,
+          ),
+          child: Row(
+            children: [
+              const BrandMark(size: 32),
+              const Gap(AppSpacing.md),
+              Text(
+                l10n.sessionTitle,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ],
+          ),
+        ),
         body: _SessionBody(state: state),
         bottom: FocusButton(
           label: l10n.sessionExitEarly,
+          icon: Icons.close,
           variant: FocusButtonVariant.text,
           onPressed: () => showExitCostSheet(context, state.session.id),
         ),
@@ -61,38 +81,72 @@ class _SessionBody extends ConsumerWidget {
     final theme = Theme.of(context);
     final colors = context.semanticColors;
     final phase = state.phase;
-    final (label, color) = switch (phase.kind) {
-      PomodoroPhaseKind.focus => (l10n.sessionPhaseFocus, colors.focus),
+    final session = state.session;
+    final plan = session.plan;
+    final resting = phase.kind == PomodoroPhaseKind.rest;
+    final (stateLabel, phaseName, color) = switch (phase.kind) {
       PomodoroPhaseKind.rest => (
+        phase.isLongBreak ? l10n.sessionPhaseLongRest : l10n.sessionStateRest,
         phase.isLongBreak ? l10n.sessionPhaseLongRest : l10n.sessionPhaseRest,
         colors.onBreak,
       ),
-      PomodoroPhaseKind.done => (l10n.sessionPhaseDone, colors.focus),
+      _ => (l10n.sessionStateFocus, l10n.sessionPhaseFocus, colors.focus),
     };
+    final blocking = !resting || state.strictness == Strictness.strict;
     final time = Formatters.countdown(phase.remainingInPhase);
-    final plan = state.session.plan;
+    final elapsedMinutes =
+        (plan.totalDuration - phase.remainingTotal).inMinutes;
+    final cheers = [l10n.sessionCheer1, l10n.sessionCheer2, l10n.sessionCheer3];
 
     return Column(
       children: [
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            StatusPill(
+              label: session.label ?? l10n.sessionNoSubject,
+              color: session.label == null
+                  ? AppColors.indigoLight
+                  : Color.lerp(
+                      AppColors.subject(session.label),
+                      Colors.white,
+                      0.35,
+                    )!,
+              dot: true,
+              uppercase: true,
+            ),
+            StatusPill(
+              label: blocking
+                  ? l10n.sessionBlockingOn
+                  : l10n.sessionBlockingPaused,
+              color: blocking ? colors.focus : colors.onBreak,
+              icon: blocking ? Icons.lock_outline : Icons.lock_open_outlined,
+            ),
+          ],
+        ),
         const Gap(AppSpacing.xxl),
         FocusTimerRing(
           progress: phase.progress,
           timeText: time,
-          label: label,
+          label: stateLabel,
           color: color,
+          glow: !resting,
           caption: plan.cycles > 1
-              ? l10n.sessionCycle(phase.cycle, plan.cycles)
-              : null,
-          semanticsLabel: l10n.sessionTimerSemantics(label, time),
+              ? l10n.sessionCaption(phase.cycle, plan.cycles, phaseName)
+              : phaseName,
+          semanticsLabel: l10n.sessionTimerSemantics(stateLabel, time),
         ),
-        const Gap(AppSpacing.xl),
+        const Gap(AppSpacing.lg),
         Text(
           l10n.sessionRemainingTotal(
             Formatters.countdown(phase.remainingTotal),
           ),
-          style: theme.textTheme.bodyLarge,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
-        const Gap(AppSpacing.sm),
         Text(
           l10n.sessionDistractions(state.distractionCount),
           style: theme.textTheme.bodyMedium?.copyWith(
@@ -102,21 +156,58 @@ class _SessionBody extends ConsumerWidget {
           ),
         ),
         if (state.allowedApps.isNotEmpty) ...[
-          SectionTitle(l10n.sessionAllowedApps),
+          const Gap(AppSpacing.xl),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.apps,
+                size: AppSizes.iconSm,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const Gap(AppSpacing.sm),
+              Text(
+                l10n.sessionAllowedApps.toUpperCase(),
+                style: theme.textTheme.labelLarge?.copyWith(letterSpacing: 1.2),
+              ),
+            ],
+          ),
+          const Gap(AppSpacing.md),
           Wrap(
+            alignment: WrapAlignment.center,
             spacing: AppSpacing.sm,
-            runSpacing: AppSpacing.sm,
+            runSpacing: AppSpacing.md,
             children: [
               for (final app in state.allowedApps)
-                ActionChip(
-                  label: Text(app.label),
-                  onPressed: () => ref
+                AppBubble(
+                  label: app.label,
+                  icon: state.icons[app.packageName],
+                  onTap: () => ref
                       .read(sessionViewModelProvider.notifier)
                       .launchAllowedApp(app.packageName),
                 ),
             ],
           ),
         ],
+        const Gap(AppSpacing.xl),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.favorite_outline,
+              size: AppSizes.iconSm,
+              color: colors.focus,
+            ),
+            const Gap(AppSpacing.sm),
+            Flexible(
+              child: Text(
+                cheers[(elapsedMinutes ~/ 5) % cheers.length],
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

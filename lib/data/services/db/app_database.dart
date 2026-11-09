@@ -16,6 +16,9 @@ class Sessions extends Table {
 
   /// Desde la versión 2 del esquema.
   IntColumn get longBreakMin => integer().withDefault(const Constant(0))();
+
+  /// Materia o tema de la sesión (desde la versión 4 del esquema).
+  TextColumn get label => text().nullable()();
   IntColumn get focusedMin => integer().withDefault(const Constant(0))();
   IntColumn get outcome => integer()();
   BoolColumn get earlyExit => boolean().withDefault(const Constant(false))();
@@ -95,7 +98,7 @@ class AppDatabase extends _$AppDatabase {
     : super(executor ?? driftDatabase(name: 'enfoque'));
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -105,6 +108,8 @@ class AppDatabase extends _$AppDatabase {
       if (from < 2) await m.addColumn(sessions, sessions.longBreakMin);
       // v3: horario semanal.
       if (from < 3) await m.createTable(studyBlocks);
+      // v4: materia de cada sesión.
+      if (from < 4) await m.addColumn(sessions, sessions.label);
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');

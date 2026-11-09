@@ -49,6 +49,7 @@ class BlockerRepositoryImpl implements BlockerRepository {
         cycles: config.plan.cycles,
         longBreakMinutes: config.plan.longBreakMinutes,
         allowedPackages: config.allowedPackages,
+        label: config.label,
         strictness: switch (config.strictness) {
           Strictness.standard => StrictnessDto.standard,
           Strictness.strict => StrictnessDto.strict,

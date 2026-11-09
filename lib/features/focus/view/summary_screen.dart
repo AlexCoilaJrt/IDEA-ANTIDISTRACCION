@@ -35,7 +35,11 @@ class SummaryScreen extends ConsumerWidget {
           ),
           _ => LoadingState(label: l10n.commonLoading),
         },
-        bottom: FocusButton(label: l10n.summaryBackHome, onPressed: close),
+        bottom: FocusButton(
+          label: l10n.summaryBackHome,
+          variant: FocusButtonVariant.mint,
+          onPressed: close,
+        ),
       ),
     );
   }
@@ -78,18 +82,19 @@ class _SummaryBody extends StatelessWidget {
         StatGrid(
           columns: 3,
           children: [
-            StatTile(
+            MetricTile(
               label: l10n.summaryFocused,
               value: '${session.focusedMinutes}',
               icon: Icons.timer_outlined,
               color: colors.focus,
             ),
-            StatTile(
+            MetricTile(
               label: l10n.summaryPoints,
               value: '${session.points}',
               icon: Icons.star_outline,
+              color: AppColors.indigoLight,
             ),
-            StatTile(
+            MetricTile(
               label: l10n.summaryDistractions,
               value: '${session.distractionCount}',
               icon: Icons.block,

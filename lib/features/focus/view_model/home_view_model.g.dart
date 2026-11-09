@@ -8,15 +8,15 @@ part of 'home_view_model.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Pantalla de inicio: elegir el tipo de sesión y empezar.
+/// Inicio: saludo, próxima sesión, sesión rápida, hoy y esta semana.
 
 @ProviderFor(HomeViewModel)
 final homeViewModelProvider = HomeViewModelProvider._();
 
-/// Pantalla de inicio: elegir el tipo de sesión y empezar.
+/// Inicio: saludo, próxima sesión, sesión rápida, hoy y esta semana.
 final class HomeViewModelProvider
     extends $AsyncNotifierProvider<HomeViewModel, HomeState> {
-  /// Pantalla de inicio: elegir el tipo de sesión y empezar.
+  /// Inicio: saludo, próxima sesión, sesión rápida, hoy y esta semana.
   HomeViewModelProvider._()
     : super(
         from: null,
@@ -36,9 +36,9 @@ final class HomeViewModelProvider
   HomeViewModel create() => HomeViewModel();
 }
 
-String _$homeViewModelHash() => r'b2a40820ae8570eefa35b49e86d24fc44fe531ea';
+String _$homeViewModelHash() => r'340c14348d6361238da1eb1c408a36a8ae326f6c';
 
-/// Pantalla de inicio: elegir el tipo de sesión y empezar.
+/// Inicio: saludo, próxima sesión, sesión rápida, hoy y esta semana.
 
 abstract class _$HomeViewModel extends $AsyncNotifier<HomeState> {
   FutureOr<HomeState> build();

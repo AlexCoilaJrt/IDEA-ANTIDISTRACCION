@@ -38,7 +38,7 @@ class StartSessionUseCase {
 
   /// Empieza con el plan de los ajustes, o con [plan] si viene de un bloque
   /// del horario.
-  Future<Result<FocusSession>> call({PomodoroPlan? plan}) async {
+  Future<Result<FocusSession>> call({PomodoroPlan? plan, String? label}) async {
     final permissions = await _blocker.permissions();
     if (permissions case Ok(:final value) when !value.canBlock) {
       return const Result.error(MissingPermissionsException());
@@ -62,6 +62,7 @@ class StartSessionUseCase {
     final created = await _sessions.create(
       startedAt: startedAt,
       plan: sessionPlan,
+      label: label,
     );
     if (created case Failure(:final error)) return Result.error(error);
     final session = created.valueOrNull!;
@@ -75,6 +76,7 @@ class StartSessionUseCase {
           for (final app in allowedResult.valueOrNull!) app.packageName,
         ],
         strictness: settings.strictness,
+        label: label,
       ),
     );
     if (started case Failure(:final error, :final stackTrace)) {

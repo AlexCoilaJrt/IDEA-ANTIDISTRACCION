@@ -676,6 +676,96 @@ final class StreakDaysProvider
 
 String _$streakDaysHash() => r'780836394d97d28b9a9eaf4f191cb4a2dfdf475c';
 
+/// Racha actual (cabeceras, Inicio y Progreso).
+
+@ProviderFor(streakSummary)
+final streakSummaryProvider = StreakSummaryProvider._();
+
+/// Racha actual (cabeceras, Inicio y Progreso).
+
+final class StreakSummaryProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<StreakSummary>,
+          StreakSummary,
+          FutureOr<StreakSummary>
+        >
+    with $FutureModifier<StreakSummary>, $FutureProvider<StreakSummary> {
+  /// Racha actual (cabeceras, Inicio y Progreso).
+  StreakSummaryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'streakSummaryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$streakSummaryHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<StreakSummary> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<StreakSummary> create(Ref ref) {
+    return streakSummary(ref);
+  }
+}
+
+String _$streakSummaryHash() => r'a196c7663be2f1b948d4ca15845df2ad8d8c2c11';
+
+/// Sesiones del último año (Inicio y Progreso las comparten).
+
+@ProviderFor(sessionHistory)
+final sessionHistoryProvider = SessionHistoryProvider._();
+
+/// Sesiones del último año (Inicio y Progreso las comparten).
+
+final class SessionHistoryProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<FocusSession>>,
+          List<FocusSession>,
+          Stream<List<FocusSession>>
+        >
+    with
+        $FutureModifier<List<FocusSession>>,
+        $StreamProvider<List<FocusSession>> {
+  /// Sesiones del último año (Inicio y Progreso las comparten).
+  SessionHistoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'sessionHistoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$sessionHistoryHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<FocusSession>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<FocusSession>> create(Ref ref) {
+    return sessionHistory(ref);
+  }
+}
+
+String _$sessionHistoryHash() => r'4240c31489eef138e460e8a2d21c262d5a38fe30';
+
 @ProviderFor(studyBlocks)
 final studyBlocksProvider = StudyBlocksProvider._();
 

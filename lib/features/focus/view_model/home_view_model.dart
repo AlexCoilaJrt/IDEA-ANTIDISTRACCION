@@ -1,5 +1,6 @@
 import 'package:enfoque/app/dependencies.dart';
 import 'package:enfoque/core/utils/result.dart';
+import 'package:enfoque/domain/logic/stats_calculator.dart';
 import 'package:enfoque/domain/logic/streak_calculator.dart';
 import 'package:enfoque/domain/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,40 +13,61 @@ part 'home_view_model.g.dart';
 abstract class HomeState with _$HomeState {
   const factory({
     required AppSettings settings,
-    required int todayMinutes,
     required StreakSummary streak,
-    required DateTime plannedEnd,
     required DateTime now,
+    required int todayMinutes,
+    required int todaySessions,
+    required int todayExits,
+
+    /// Minutos de lunes a domingo de esta semana.
+    required List<int> week,
+    required int weekTotal,
+
+    /// Cambio frente a la semana pasada; `null` si no hay con qué comparar.
+    int? weekChange,
     @Default(false) bool starting,
   }) = _HomeState;
 
   const new _();
 
+  /// Lunes = 0.
+  int get todayIndex => now.weekday - 1;
+
+  int? get bestDayIndex => StatsCalculator.bestIndex(week);
+
   bool get goalReached => todayMinutes >= settings.dailyGoalMinutes;
 }
 
-/// Pantalla de inicio: elegir el tipo de sesión y empezar.
+/// Inicio: saludo, próxima sesión, sesión rápida, hoy y esta semana.
 @riverpod
 class HomeViewModel extends _$HomeViewModel {
   @override
   Future<HomeState> build() async {
     final settings = await ref.watch(settingsStreamProvider.future);
     final days = await ref.watch(streakDaysProvider.future);
+    final sessions = await ref.watch(sessionHistoryProvider.future);
     final now = ref.watch(clockProvider)();
-    final today = StreakCalculator.dateOnly(now);
-    final todayMinutes = days
-        .where((d) => StreakCalculator.dateOnly(d.day) == today)
-        .fold(0, (sum, d) => sum + d.focusedMinutes);
+    final today = StatsCalculator.today(sessions, now);
+    final (from, to) = StatsCalculator.range(StatsPeriod.week, now);
+    final (pFrom, pTo) = StatsCalculator.previousRange(StatsPeriod.week, now);
+    final weekTotal = StatsCalculator.totalMinutes(sessions, from, to);
     return HomeState(
       settings: settings,
-      todayMinutes: todayMinutes,
+      now: now,
       streak: StreakCalculator.summarize(
         days,
         today: now,
         goalMinutes: settings.dailyGoalMinutes,
       ),
-      plannedEnd: now.add(settings.plan.totalDuration),
-      now: now,
+      todayMinutes: today.minutes,
+      todaySessions: today.sessions,
+      todayExits: today.earlyExits,
+      week: StatsCalculator.weekMinutes(sessions, now),
+      weekTotal: weekTotal,
+      weekChange: StatsCalculator.percentChange(
+        weekTotal,
+        StatsCalculator.totalMinutes(sessions, pFrom, pTo),
+      ),
     );
   }
 
@@ -58,11 +80,14 @@ class HomeViewModel extends _$HomeViewModel {
   Future<void> setFreeMinutes(int minutes) =>
       _update((s) => s.copyWith(freeMinutes: minutes.clamp(5, 240)));
 
-  /// Empieza la sesión. El router abre la pantalla de sesión solo.
-  Future<Result<FocusSession>> startSession() async {
+  /// Sesión rápida (plan de los ajustes) o la del horario ([block]).
+  /// El router abre la pantalla de sesión solo.
+  Future<Result<FocusSession>> startSession({StudyBlock? block}) async {
     final current = state.value;
     if (current != null) state = AsyncData(current.copyWith(starting: true));
-    final result = await ref.read(startSessionUseCaseProvider).call();
+    final result = await ref
+        .read(startSessionUseCaseProvider)
+        .call(plan: block?.plan, label: block?.label);
     if (!ref.mounted) return result;
     final after = state.value;
     if (after != null) state = AsyncData(after.copyWith(starting: false));

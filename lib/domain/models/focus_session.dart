@@ -32,6 +32,9 @@ abstract class FocusSession with _$FocusSession {
     String? exitReason,
     int? subjectId,
     String? roomId,
+
+    /// Materia o tema (viene del bloque del horario).
+    String? label,
   }) = _FocusSession;
 
   const new _();

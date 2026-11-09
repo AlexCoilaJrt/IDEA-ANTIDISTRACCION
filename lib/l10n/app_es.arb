@@ -122,17 +122,6 @@
   "blockEditorDeleteTitle": "¿Eliminar este bloque?",
   "blockEditorDeleteBody": "Dejarás de recibir sus avisos. Tus sesiones pasadas no se borran.",
   "commonDelete": "Eliminar",
-  "homeNextScheduled": "Próxima en tu horario: {title}, {when}",
-  "@homeNextScheduled": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      },
-      "when": {
-        "type": "String"
-      }
-    }
-  },
   "commonRetry": "Reintentar",
   "commonContinue": "Continuar",
   "commonCancel": "Cancelar",
@@ -147,11 +136,281 @@
       }
     }
   },
+  "welcomeBrand": "ENFOQUE",
+  "welcomeSkip": "Saltar",
+  "welcomeNext": "Siguiente",
+  "welcome1Badge": "Modo Zen activo",
+  "welcome1Body": "Enfoque bloquea las apps que te distraen mientras estudias.",
+  "welcome2Badge": "Pomodoro y horario",
+  "welcome2Title": "Tu semana organizada",
+  "welcome2Body": "Programa tus sesiones de estudio y te avisamos a la hora, con descansos incluidos.",
+  "welcome3Badge": "Racha y progreso",
+  "welcome3Title": "Cada día cuenta",
+  "welcome3Body": "Mantén tu racha, mira tu progreso y aprende a resistir las distracciones. Todo queda en tu celular.",
+  "homeHello": "Hola, {name}",
+  "@homeHello": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHelloNoName": "Hola",
+  "homeReady": "Todo listo para hoy",
+  "homeStreakRun": "{count, plural, =0{Sin racha} =1{1 día seguido} other{{count} días seguidos}}",
+  "@homeStreakRun": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "streakChip": "{count} d",
+  "@streakChip": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "streakSemantics": "{count, plural, =1{1 día de racha} other{{count} días de racha}}",
+  "@streakSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNextSession": "Próxima sesión",
+  "homeNowSession": "Ahora, según tu horario",
+  "homeWhenRange": "{day} {start} a {end}",
+  "@homeWhenRange": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBlocksPomodoro": "{cycles, plural, =1{1 bloque Pomodoro de {focus} min} other{{cycles} bloques Pomodoro de {focus} min}}",
+  "@homeBlocksPomodoro": {
+    "placeholders": {
+      "cycles": {
+        "type": "int"
+      },
+      "focus": {
+        "type": "int"
+      }
+    }
+  },
+  "homeBlocksFree": "{minutes} min de enfoque libre",
+  "@homeBlocksFree": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoScheduleTitle": "Sin sesiones programadas",
+  "homeNoScheduleBody": "Organiza tu semana en Horario y te avisaremos a la hora de estudiar.",
+  "homeOpenSchedule": "Ir a Horario",
+  "homeQuickTitle": "Sesión rápida",
+  "homeQuickPomodoro": "{cycles} × {focus}/{rest} min · toca para ajustar",
+  "@homeQuickPomodoro": {
+    "placeholders": {
+      "cycles": {
+        "type": "int"
+      },
+      "focus": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "homeQuickFree": "Temporizador libre de {minutes} min",
+  "@homeQuickFree": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeToday": "Hoy",
+  "homeGoal": "Meta: {goal}",
+  "@homeGoal": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "homeMetricFocused": "concentrado",
+  "homeMetricSessions": "sesiones",
+  "homeMetricExits": "salidas",
+  "homeThisWeek": "Esta semana",
+  "homeWeekTotal": "Total: {total}",
+  "@homeWeekTotal": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "homeVsLastWeek": "{change} % vs semana pasada",
+  "@homeVsLastWeek": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBestDay": "Mejor día: {day} ({time})",
+  "@homeBestDay": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDetails": "Detalles",
+  "weekdayInitials": "L,M,X,J,V,S,D",
+  "durationHm": "{hours} h {minutes} min",
+  "@durationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "durationShortHm": "{hours}h {minutes}m",
+  "@durationShortHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationShortM": "{minutes}m",
+  "@durationShortM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionTitle": "Sesión activa",
+  "sessionBlockingOn": "Bloqueo activo",
+  "sessionBlockingPaused": "Bloqueo en pausa",
+  "sessionStateFocus": "Concentrado",
+  "sessionStateRest": "Descanso",
+  "sessionCaption": "Bloque {current} de {total} · {phase}",
+  "@sessionCaption": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "phase": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionNoSubject": "Sesión de enfoque",
+  "sessionCheer1": "Cada minuto cuenta. Vas muy bien.",
+  "sessionCheer2": "Respira y sigue a tu ritmo.",
+  "sessionCheer3": "Tu yo del futuro te lo va a agradecer.",
+  "statsWeek": "Semana",
+  "statsMonth": "Mes",
+  "statsYear": "Año",
+  "statsFocused": "Concentrado",
+  "statsCompleted": "Completadas",
+  "statsActive": "Activa",
+  "statsHours": "Horas de estudio",
+  "statsHoursSub": "Distribución por materia",
+  "statsConsistency": "Consistencia mensual",
+  "statsLess": "Menos tiempo",
+  "statsMore": "Más de 3 h",
+  "statsBySubject": "Por materia",
+  "statsTotal": "Total: {total}",
+  "@statsTotal": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "statsSubjectsCount": "{count, plural, =1{materia} other{materias}}",
+  "@statsSubjectsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoSubject": "Sin materia",
+  "statsDistractionTitle": "Filtro de distracciones",
+  "statsDistractionSub": "Protección activa de tu enfoque",
+  "statsDistractionApp": "{app} bloqueada",
+  "@statsDistractionApp": {
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "statsDistractionCount": "{count, plural, =1{1 intento interceptado} other{{count} intentos interceptados}}",
+  "@statsDistractionCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDistractionNone": "Sin intentos de distracción en este período. ¡Excelente!",
+  "statsDistractionBetter": "¡Excelente autodisciplina! Bajaste un {percent} % respecto al período anterior.",
+  "@statsDistractionBetter": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDistractionWorse": "Subiste un {percent} % respecto al período anterior. Tú puedes.",
+  "@statsDistractionWorse": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "roomsTitle": "Salas de estudio",
+  "roomsSoon": "Próximamente",
+  "roomsCreate": "Crear sala",
+  "roomsCode": "Con código",
+  "roomsFeature1": "Estudia en grupo con presencia en vivo.",
+  "roomsFeature2": "Mira quién está concentrado o en descanso.",
+  "roomsFeature3": "La sala se entera si alguien sale antes.",
+  "settingsName": "Tu nombre",
+  "settingsNameHint": "Para saludarte en Inicio",
   "welcomeTitle": "Estudia sin distracciones",
-  "welcomeBody": "Enfoque bloquea las apps que te distraen mientras estudias. Tú eliges qué apps quedan permitidas.",
-  "welcomePointBlock": "Bloqueo de apps durante tus sesiones Pomodoro",
-  "welcomePointExit": "Salir antes tiene un costo: piénsalo dos veces",
-  "welcomePointStreak": "Racha diaria y estadísticas, todo guardado en tu celular",
   "welcomeStart": "Empezar",
   "permissionsTitle": "Permisos",
   "permissionsIntro": "Te guiamos permiso por permiso. Estos permisos no borran ni cambian nada más de tu celular, y puedes quitarlos cuando quieras.",
@@ -226,19 +485,6 @@
     }
   },
   "allowlistDone": "Listo",
-  "homeGreeting": "¿Listo para concentrarte?",
-  "homeTodayProgress": "Hoy: {done} de {goal} min",
-  "@homeTodayProgress": {
-    "placeholders": {
-      "done": {
-        "type": "int"
-      },
-      "goal": {
-        "type": "int"
-      }
-    }
-  },
-  "homeGoalReached": "¡Meta de hoy cumplida!",
   "homePresetLabel": "Tipo de sesión",
   "homePresetClassic": "25 / 5",
   "homePresetLong": "50 / 10",
@@ -256,17 +502,6 @@
     "placeholders": {
       "minutes": {
         "type": "int"
-      }
-    }
-  },
-  "homeSessionSummary": "{focus} min de enfoque · termina a las {time}",
-  "@homeSessionSummary": {
-    "placeholders": {
-      "focus": {
-        "type": "int"
-      },
-      "time": {
-        "type": "String"
       }
     }
   },
@@ -289,8 +524,6 @@
   "homeStart": "Empezar sesión",
   "homeAllowedApps": "Apps permitidas",
   "homeSettings": "Ajustes",
-  "homeNeedsPermissions": "Faltan permisos para bloquear apps.",
-  "homeReviewPermissions": "Revisar",
   "streakDays": "{count, plural, =0{Sin racha} =1{1 día} other{{count} días}}",
   "@streakDays": {
     "placeholders": {
@@ -299,7 +532,6 @@
       }
     }
   },
-  "streakLabel": "Racha",
   "sessionPhaseFocus": "Enfoque",
   "sessionPhaseRest": "Descanso",
   "sessionPhaseLongRest": "Descanso largo",

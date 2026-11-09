@@ -43,6 +43,7 @@ class SessionConfigDto {
     required this.longBreakMinutes,
     required this.allowedPackages,
     required this.strictness,
+    this.label,
   });
 
   int sessionId;
@@ -56,6 +57,9 @@ class SessionConfigDto {
   int longBreakMinutes;
   List<String> allowedPackages;
   StrictnessDto strictness;
+
+  /// Materia de la sesión, para la pantalla de bloqueo.
+  String? label;
 }
 
 /// Un intento de abrir una app no permitida. Nunca sale del celular.

@@ -1,113 +1,37 @@
+import 'dart:math' as math;
+
 import 'package:enfoque/app/theme/tokens.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-/// Calendario de calor: una columna por semana, una fila por día.
-class HeatmapCalendar extends StatelessWidget {
+/// Un tramo de color dentro de una barra o de la dona.
+typedef ChartSlice = ({Color color, int value});
+
+/// Barras apiladas por materia (horas de estudio).
+class StackedBarChart extends StatelessWidget {
   const new({
-    required this.minutesByDay,
-    required this.endDay,
-    required this.goalMinutes,
-    required this.semanticsLabel,
-    super.key,
-    this.weeks = 12,
-  });
-
-  /// Minutos por día (claves a medianoche local).
-  final Map<DateTime, int> minutesByDay;
-  final DateTime endDay;
-  final int goalMinutes;
-  final int weeks;
-  final String semanticsLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final end = DateTime(endDay.year, endDay.month, endDay.day);
-    // La última columna termina en el domingo de la semana actual.
-    final lastSunday = DateTime(
-      end.year,
-      end.month,
-      end.day + (7 - end.weekday),
-    );
-    final firstDay = DateTime(
-      lastSunday.year,
-      lastSunday.month,
-      lastSunday.day - weeks * 7 + 1,
-    );
-
-    Color colorFor(DateTime day) {
-      if (day.isAfter(end)) return Colors.transparent;
-      final minutes = minutesByDay[day] ?? 0;
-      if (minutes == 0) return scheme.surfaceContainerHighest;
-      final ratio = (minutes / goalMinutes).clamp(0.25, 1.0);
-      return scheme.primary.withValues(alpha: ratio);
-    }
-
-    return Semantics(
-      label: semanticsLabel,
-      excludeSemantics: true,
-      child: FittedBox(
-        alignment: Alignment.centerLeft,
-        child: Row(
-          children: [
-            for (var w = 0; w < weeks; w++)
-              Padding(
-                padding: const EdgeInsets.only(right: AppSpacing.xs),
-                child: Column(
-                  children: [
-                    for (var d = 0; d < 7; d++)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-                        child: Container(
-                          width: AppSizes.heatmapCell,
-                          height: AppSizes.heatmapCell,
-                          decoration: BoxDecoration(
-                            color: colorFor(
-                              DateTime(
-                                firstDay.year,
-                                firstDay.month,
-                                firstDay.day + w * 7 + d,
-                              ),
-                            ),
-                            borderRadius: BorderRadius.circular(AppSpacing.xs),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Barras de minutos por día.
-class WeekBarChart extends StatelessWidget {
-  const new({
-    required this.values,
+    required this.bars,
     required this.labels,
-    required this.goalMinutes,
     required this.semanticsLabel,
     super.key,
+    this.highlight,
   });
 
-  final List<int> values;
+  /// Tramos de cada barra, de abajo hacia arriba.
+  final List<List<ChartSlice>> bars;
+
+  /// Etiqueta bajo cada barra (vacía para no mostrarla).
   final List<String> labels;
-  final int goalMinutes;
+  final int? highlight;
   final String semanticsLabel;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    final maxValue = [
-      goalMinutes,
-      ...values,
-    ].reduce((a, b) => a > b ? a : b).toDouble();
+    final totals = [for (final b in bars) b.fold(0, (a, s) => a + s.value)];
+    final maxValue = math.max(1, totals.fold(0, math.max)).toDouble();
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final width = (AppSizes.weekBarWidth * 7 / bars.length).clamp(4.0, 22.0);
 
     return Semantics(
       label: semanticsLabel,
@@ -117,20 +41,10 @@ class WeekBarChart extends StatelessWidget {
         child: BarChart(
           duration: reduceMotion ? Duration.zero : AppDurations.medium,
           BarChartData(
-            maxY: maxValue * 1.15,
+            maxY: maxValue * 1.1,
             barTouchData: const BarTouchData(enabled: false),
             gridData: const FlGridData(show: false),
             borderData: FlBorderData(show: false),
-            extraLinesData: ExtraLinesData(
-              horizontalLines: [
-                HorizontalLine(
-                  y: goalMinutes.toDouble(),
-                  color: scheme.outline,
-                  dashArray: const [4, 4],
-                  strokeWidth: 1,
-                ),
-              ],
-            ),
             titlesData: FlTitlesData(
               leftTitles: const AxisTitles(),
               rightTitles: const AxisTitles(),
@@ -139,33 +53,128 @@ class WeekBarChart extends StatelessWidget {
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: AppSpacing.xl,
-                  getTitlesWidget: (value, meta) => Padding(
-                    padding: const EdgeInsets.only(top: AppSpacing.xs),
-                    child: Text(
-                      labels[value.toInt()],
-                      style: theme.textTheme.labelSmall,
-                    ),
-                  ),
+                  getTitlesWidget: (value, meta) {
+                    final i = value.toInt();
+                    return Padding(
+                      padding: const EdgeInsets.only(top: AppSpacing.xs),
+                      child: Text(
+                        labels[i],
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: i == highlight
+                              ? AppColors.mint
+                              : theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
             barGroups: [
-              for (var i = 0; i < values.length; i++)
+              for (var i = 0; i < bars.length; i++)
                 BarChartGroupData(
                   x: i,
                   barRods: [
-                    BarChartRodData(
-                      toY: values[i].toDouble(),
-                      width: AppSpacing.lg,
-                      color: values[i] >= goalMinutes
-                          ? scheme.primary
-                          : scheme.primary.withValues(alpha: 0.5),
-                      borderRadius: BorderRadius.circular(AppSpacing.xs),
+                    _rod(
+                      bars[i],
+                      totals[i],
+                      width,
+                      theme.colorScheme.surfaceContainerHighest,
+                      maxValue,
                     ),
                   ],
                 ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  static BarChartRodData _rod(
+    List<ChartSlice> slices,
+    int total,
+    double width,
+    Color empty,
+    double maxValue,
+  ) {
+    final radius = BorderRadius.circular(width / 2.5);
+    if (total == 0) {
+      // Barra mínima para que el día vacío se vea.
+      return BarChartRodData(
+        toY: maxValue * 0.04,
+        width: width,
+        color: empty,
+        borderRadius: radius,
+      );
+    }
+    var from = 0.0;
+    final items = <BarChartRodStackItem>[];
+    for (final s in slices) {
+      items.add(BarChartRodStackItem(from, from + s.value, s.color));
+      from += s.value;
+    }
+    return BarChartRodData(
+      toY: total.toDouble(),
+      width: width,
+      borderRadius: radius,
+      rodStackItems: items,
+      color: Colors.transparent,
+    );
+  }
+}
+
+/// Dona de minutos por materia con un número en el centro.
+class SubjectDonut extends StatelessWidget {
+  const new({
+    required this.slices,
+    required this.centerValue,
+    required this.centerLabel,
+    required this.semanticsLabel,
+    super.key,
+  });
+
+  final List<ChartSlice> slices;
+  final String centerValue;
+  final String centerLabel;
+  final String semanticsLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      label: semanticsLabel,
+      excludeSemantics: true,
+      child: SizedBox.square(
+        dimension: AppSizes.donut,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            PieChart(
+              duration: Duration.zero,
+              PieChartData(
+                startDegreeOffset: -90,
+                sectionsSpace: 2,
+                centerSpaceRadius: AppSizes.donut / 2 - 14,
+                sections: [
+                  for (final s in slices)
+                    PieChartSectionData(
+                      value: s.value.toDouble(),
+                      color: s.color,
+                      radius: 14,
+                      showTitle: false,
+                    ),
+                ],
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(centerValue, style: theme.textTheme.headlineSmall),
+                Text(centerLabel, style: theme.textTheme.bodySmall),
+              ],
+            ),
+          ],
         ),
       ),
     );

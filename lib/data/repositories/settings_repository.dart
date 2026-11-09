@@ -24,6 +24,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   static const _theme = 'theme_mode';
   static const _onboarding = 'onboarding_done';
   static const _seeded = 'allowlist_seeded';
+  static const _name = 'display_name';
 
   @override
   Future<Result<AppSettings>> load() =>
@@ -44,6 +45,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       _theme: s.themeMode.name,
       _onboarding: '${s.onboardingDone}',
       _seeded: '${s.allowlistSeeded}',
+      _name: s.displayName.trim(),
     };
     await _db.batch((b) {
       b.insertAllOnConflictUpdate(_db.settings, [
@@ -67,6 +69,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       themeMode: byName(AppThemeMode.values, map[_theme], d.themeMode),
       onboardingDone: map[_onboarding] == 'true',
       allowlistSeeded: map[_seeded] == 'true',
+      displayName: map[_name] ?? '',
     );
   }
 }

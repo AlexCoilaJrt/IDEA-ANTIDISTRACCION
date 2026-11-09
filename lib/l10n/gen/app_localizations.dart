@@ -364,12 +364,6 @@ abstract class AppLocalizations {
   /// **'Eliminar'**
   String get commonDelete;
 
-  /// No description provided for @homeNextScheduled.
-  ///
-  /// In es, this message translates to:
-  /// **'Próxima en tu horario: {title}, {when}'**
-  String homeNextScheduled(String title, String when);
-
   /// No description provided for @commonRetry.
   ///
   /// In es, this message translates to:
@@ -412,35 +406,509 @@ abstract class AppLocalizations {
   /// **'{minutes} min'**
   String commonMinutesShort(int minutes);
 
+  /// No description provided for @welcomeBrand.
+  ///
+  /// In es, this message translates to:
+  /// **'ENFOQUE'**
+  String get welcomeBrand;
+
+  /// No description provided for @welcomeSkip.
+  ///
+  /// In es, this message translates to:
+  /// **'Saltar'**
+  String get welcomeSkip;
+
+  /// No description provided for @welcomeNext.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguiente'**
+  String get welcomeNext;
+
+  /// No description provided for @welcome1Badge.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo Zen activo'**
+  String get welcome1Badge;
+
+  /// No description provided for @welcome1Body.
+  ///
+  /// In es, this message translates to:
+  /// **'Enfoque bloquea las apps que te distraen mientras estudias.'**
+  String get welcome1Body;
+
+  /// No description provided for @welcome2Badge.
+  ///
+  /// In es, this message translates to:
+  /// **'Pomodoro y horario'**
+  String get welcome2Badge;
+
+  /// No description provided for @welcome2Title.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu semana organizada'**
+  String get welcome2Title;
+
+  /// No description provided for @welcome2Body.
+  ///
+  /// In es, this message translates to:
+  /// **'Programa tus sesiones de estudio y te avisamos a la hora, con descansos incluidos.'**
+  String get welcome2Body;
+
+  /// No description provided for @welcome3Badge.
+  ///
+  /// In es, this message translates to:
+  /// **'Racha y progreso'**
+  String get welcome3Badge;
+
+  /// No description provided for @welcome3Title.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada día cuenta'**
+  String get welcome3Title;
+
+  /// No description provided for @welcome3Body.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantén tu racha, mira tu progreso y aprende a resistir las distracciones. Todo queda en tu celular.'**
+  String get welcome3Body;
+
+  /// No description provided for @homeHello.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola, {name}'**
+  String homeHello(String name);
+
+  /// No description provided for @homeHelloNoName.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola'**
+  String get homeHelloNoName;
+
+  /// No description provided for @homeReady.
+  ///
+  /// In es, this message translates to:
+  /// **'Todo listo para hoy'**
+  String get homeReady;
+
+  /// No description provided for @homeStreakRun.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{Sin racha} =1{1 día seguido} other{{count} días seguidos}}'**
+  String homeStreakRun(int count);
+
+  /// No description provided for @streakChip.
+  ///
+  /// In es, this message translates to:
+  /// **'{count} d'**
+  String streakChip(int count);
+
+  /// No description provided for @streakSemantics.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{1 día de racha} other{{count} días de racha}}'**
+  String streakSemantics(int count);
+
+  /// No description provided for @homeNextSession.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima sesión'**
+  String get homeNextSession;
+
+  /// No description provided for @homeNowSession.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora, según tu horario'**
+  String get homeNowSession;
+
+  /// No description provided for @homeWhenRange.
+  ///
+  /// In es, this message translates to:
+  /// **'{day} {start} a {end}'**
+  String homeWhenRange(String day, String start, String end);
+
+  /// No description provided for @homeBlocksPomodoro.
+  ///
+  /// In es, this message translates to:
+  /// **'{cycles, plural, =1{1 bloque Pomodoro de {focus} min} other{{cycles} bloques Pomodoro de {focus} min}}'**
+  String homeBlocksPomodoro(int cycles, int focus);
+
+  /// No description provided for @homeBlocksFree.
+  ///
+  /// In es, this message translates to:
+  /// **'{minutes} min de enfoque libre'**
+  String homeBlocksFree(int minutes);
+
+  /// No description provided for @homeNoScheduleTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin sesiones programadas'**
+  String get homeNoScheduleTitle;
+
+  /// No description provided for @homeNoScheduleBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Organiza tu semana en Horario y te avisaremos a la hora de estudiar.'**
+  String get homeNoScheduleBody;
+
+  /// No description provided for @homeOpenSchedule.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir a Horario'**
+  String get homeOpenSchedule;
+
+  /// No description provided for @homeQuickTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión rápida'**
+  String get homeQuickTitle;
+
+  /// No description provided for @homeQuickPomodoro.
+  ///
+  /// In es, this message translates to:
+  /// **'{cycles} × {focus}/{rest} min · toca para ajustar'**
+  String homeQuickPomodoro(int cycles, int focus, int rest);
+
+  /// No description provided for @homeQuickFree.
+  ///
+  /// In es, this message translates to:
+  /// **'Temporizador libre de {minutes} min'**
+  String homeQuickFree(int minutes);
+
+  /// No description provided for @homeToday.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get homeToday;
+
+  /// No description provided for @homeGoal.
+  ///
+  /// In es, this message translates to:
+  /// **'Meta: {goal}'**
+  String homeGoal(String goal);
+
+  /// No description provided for @homeMetricFocused.
+  ///
+  /// In es, this message translates to:
+  /// **'concentrado'**
+  String get homeMetricFocused;
+
+  /// No description provided for @homeMetricSessions.
+  ///
+  /// In es, this message translates to:
+  /// **'sesiones'**
+  String get homeMetricSessions;
+
+  /// No description provided for @homeMetricExits.
+  ///
+  /// In es, this message translates to:
+  /// **'salidas'**
+  String get homeMetricExits;
+
+  /// No description provided for @homeThisWeek.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta semana'**
+  String get homeThisWeek;
+
+  /// No description provided for @homeWeekTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Total: {total}'**
+  String homeWeekTotal(String total);
+
+  /// No description provided for @homeVsLastWeek.
+  ///
+  /// In es, this message translates to:
+  /// **'{change} % vs semana pasada'**
+  String homeVsLastWeek(String change);
+
+  /// No description provided for @homeBestDay.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejor día: {day} ({time})'**
+  String homeBestDay(String day, String time);
+
+  /// No description provided for @homeDetails.
+  ///
+  /// In es, this message translates to:
+  /// **'Detalles'**
+  String get homeDetails;
+
+  /// No description provided for @weekdayInitials.
+  ///
+  /// In es, this message translates to:
+  /// **'L,M,X,J,V,S,D'**
+  String get weekdayInitials;
+
+  /// No description provided for @durationHm.
+  ///
+  /// In es, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String durationHm(int hours, String minutes);
+
+  /// No description provided for @durationShortHm.
+  ///
+  /// In es, this message translates to:
+  /// **'{hours}h {minutes}m'**
+  String durationShortHm(int hours, int minutes);
+
+  /// No description provided for @durationShortM.
+  ///
+  /// In es, this message translates to:
+  /// **'{minutes}m'**
+  String durationShortM(int minutes);
+
+  /// No description provided for @sessionTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión activa'**
+  String get sessionTitle;
+
+  /// No description provided for @sessionBlockingOn.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueo activo'**
+  String get sessionBlockingOn;
+
+  /// No description provided for @sessionBlockingPaused.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloqueo en pausa'**
+  String get sessionBlockingPaused;
+
+  /// No description provided for @sessionStateFocus.
+  ///
+  /// In es, this message translates to:
+  /// **'Concentrado'**
+  String get sessionStateFocus;
+
+  /// No description provided for @sessionStateRest.
+  ///
+  /// In es, this message translates to:
+  /// **'Descanso'**
+  String get sessionStateRest;
+
+  /// No description provided for @sessionCaption.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloque {current} de {total} · {phase}'**
+  String sessionCaption(int current, int total, String phase);
+
+  /// No description provided for @sessionNoSubject.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión de enfoque'**
+  String get sessionNoSubject;
+
+  /// No description provided for @sessionCheer1.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada minuto cuenta. Vas muy bien.'**
+  String get sessionCheer1;
+
+  /// No description provided for @sessionCheer2.
+  ///
+  /// In es, this message translates to:
+  /// **'Respira y sigue a tu ritmo.'**
+  String get sessionCheer2;
+
+  /// No description provided for @sessionCheer3.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu yo del futuro te lo va a agradecer.'**
+  String get sessionCheer3;
+
+  /// No description provided for @statsWeek.
+  ///
+  /// In es, this message translates to:
+  /// **'Semana'**
+  String get statsWeek;
+
+  /// No description provided for @statsMonth.
+  ///
+  /// In es, this message translates to:
+  /// **'Mes'**
+  String get statsMonth;
+
+  /// No description provided for @statsYear.
+  ///
+  /// In es, this message translates to:
+  /// **'Año'**
+  String get statsYear;
+
+  /// No description provided for @statsFocused.
+  ///
+  /// In es, this message translates to:
+  /// **'Concentrado'**
+  String get statsFocused;
+
+  /// No description provided for @statsCompleted.
+  ///
+  /// In es, this message translates to:
+  /// **'Completadas'**
+  String get statsCompleted;
+
+  /// No description provided for @statsActive.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa'**
+  String get statsActive;
+
+  /// No description provided for @statsHours.
+  ///
+  /// In es, this message translates to:
+  /// **'Horas de estudio'**
+  String get statsHours;
+
+  /// No description provided for @statsHoursSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribución por materia'**
+  String get statsHoursSub;
+
+  /// No description provided for @statsConsistency.
+  ///
+  /// In es, this message translates to:
+  /// **'Consistencia mensual'**
+  String get statsConsistency;
+
+  /// No description provided for @statsLess.
+  ///
+  /// In es, this message translates to:
+  /// **'Menos tiempo'**
+  String get statsLess;
+
+  /// No description provided for @statsMore.
+  ///
+  /// In es, this message translates to:
+  /// **'Más de 3 h'**
+  String get statsMore;
+
+  /// No description provided for @statsBySubject.
+  ///
+  /// In es, this message translates to:
+  /// **'Por materia'**
+  String get statsBySubject;
+
+  /// No description provided for @statsTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Total: {total}'**
+  String statsTotal(String total);
+
+  /// No description provided for @statsSubjectsCount.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{materia} other{materias}}'**
+  String statsSubjectsCount(int count);
+
+  /// No description provided for @statsNoSubject.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin materia'**
+  String get statsNoSubject;
+
+  /// No description provided for @statsDistractionTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Filtro de distracciones'**
+  String get statsDistractionTitle;
+
+  /// No description provided for @statsDistractionSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Protección activa de tu enfoque'**
+  String get statsDistractionSub;
+
+  /// No description provided for @statsDistractionApp.
+  ///
+  /// In es, this message translates to:
+  /// **'{app} bloqueada'**
+  String statsDistractionApp(String app);
+
+  /// No description provided for @statsDistractionCount.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{1 intento interceptado} other{{count} intentos interceptados}}'**
+  String statsDistractionCount(int count);
+
+  /// No description provided for @statsDistractionNone.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin intentos de distracción en este período. ¡Excelente!'**
+  String get statsDistractionNone;
+
+  /// No description provided for @statsDistractionBetter.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Excelente autodisciplina! Bajaste un {percent} % respecto al período anterior.'**
+  String statsDistractionBetter(int percent);
+
+  /// No description provided for @statsDistractionWorse.
+  ///
+  /// In es, this message translates to:
+  /// **'Subiste un {percent} % respecto al período anterior. Tú puedes.'**
+  String statsDistractionWorse(int percent);
+
+  /// No description provided for @roomsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Salas de estudio'**
+  String get roomsTitle;
+
+  /// No description provided for @roomsSoon.
+  ///
+  /// In es, this message translates to:
+  /// **'Próximamente'**
+  String get roomsSoon;
+
+  /// No description provided for @roomsCreate.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear sala'**
+  String get roomsCreate;
+
+  /// No description provided for @roomsCode.
+  ///
+  /// In es, this message translates to:
+  /// **'Con código'**
+  String get roomsCode;
+
+  /// No description provided for @roomsFeature1.
+  ///
+  /// In es, this message translates to:
+  /// **'Estudia en grupo con presencia en vivo.'**
+  String get roomsFeature1;
+
+  /// No description provided for @roomsFeature2.
+  ///
+  /// In es, this message translates to:
+  /// **'Mira quién está concentrado o en descanso.'**
+  String get roomsFeature2;
+
+  /// No description provided for @roomsFeature3.
+  ///
+  /// In es, this message translates to:
+  /// **'La sala se entera si alguien sale antes.'**
+  String get roomsFeature3;
+
+  /// No description provided for @settingsName.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nombre'**
+  String get settingsName;
+
+  /// No description provided for @settingsNameHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Para saludarte en Inicio'**
+  String get settingsNameHint;
+
   /// No description provided for @welcomeTitle.
   ///
   /// In es, this message translates to:
   /// **'Estudia sin distracciones'**
   String get welcomeTitle;
-
-  /// No description provided for @welcomeBody.
-  ///
-  /// In es, this message translates to:
-  /// **'Enfoque bloquea las apps que te distraen mientras estudias. Tú eliges qué apps quedan permitidas.'**
-  String get welcomeBody;
-
-  /// No description provided for @welcomePointBlock.
-  ///
-  /// In es, this message translates to:
-  /// **'Bloqueo de apps durante tus sesiones Pomodoro'**
-  String get welcomePointBlock;
-
-  /// No description provided for @welcomePointExit.
-  ///
-  /// In es, this message translates to:
-  /// **'Salir antes tiene un costo: piénsalo dos veces'**
-  String get welcomePointExit;
-
-  /// No description provided for @welcomePointStreak.
-  ///
-  /// In es, this message translates to:
-  /// **'Racha diaria y estadísticas, todo guardado en tu celular'**
-  String get welcomePointStreak;
 
   /// No description provided for @welcomeStart.
   ///
@@ -784,24 +1252,6 @@ abstract class AppLocalizations {
   /// **'Listo'**
   String get allowlistDone;
 
-  /// No description provided for @homeGreeting.
-  ///
-  /// In es, this message translates to:
-  /// **'¿Listo para concentrarte?'**
-  String get homeGreeting;
-
-  /// No description provided for @homeTodayProgress.
-  ///
-  /// In es, this message translates to:
-  /// **'Hoy: {done} de {goal} min'**
-  String homeTodayProgress(int done, int goal);
-
-  /// No description provided for @homeGoalReached.
-  ///
-  /// In es, this message translates to:
-  /// **'¡Meta de hoy cumplida!'**
-  String get homeGoalReached;
-
   /// No description provided for @homePresetLabel.
   ///
   /// In es, this message translates to:
@@ -838,12 +1288,6 @@ abstract class AppLocalizations {
   /// **'Duración: {minutes} min'**
   String homeFreeMinutesLabel(int minutes);
 
-  /// No description provided for @homeSessionSummary.
-  ///
-  /// In es, this message translates to:
-  /// **'{focus} min de enfoque · termina a las {time}'**
-  String homeSessionSummary(int focus, String time);
-
   /// No description provided for @homeLongBreakIncluded.
   ///
   /// In es, this message translates to:
@@ -874,29 +1318,11 @@ abstract class AppLocalizations {
   /// **'Ajustes'**
   String get homeSettings;
 
-  /// No description provided for @homeNeedsPermissions.
-  ///
-  /// In es, this message translates to:
-  /// **'Faltan permisos para bloquear apps.'**
-  String get homeNeedsPermissions;
-
-  /// No description provided for @homeReviewPermissions.
-  ///
-  /// In es, this message translates to:
-  /// **'Revisar'**
-  String get homeReviewPermissions;
-
   /// No description provided for @streakDays.
   ///
   /// In es, this message translates to:
   /// **'{count, plural, =0{Sin racha} =1{1 día} other{{count} días}}'**
   String streakDays(int count);
-
-  /// No description provided for @streakLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Racha'**
-  String get streakLabel;
 
   /// No description provided for @sessionPhaseFocus.
   ///

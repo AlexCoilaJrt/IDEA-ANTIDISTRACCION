@@ -117,9 +117,11 @@ class FocusService : Service() {
             BlockerEvents.distraction(DistractionDto(packageName = foreground, atMillis = now))
         }
 
-        if (block) {
-            overlay.show(allowedLabels)
-            overlay.update(store.endsAt - now, inBreak)
+        if (block && foreground != null) {
+            overlay.show(foreground, store.label, allowedLabels)
+            val total = (store.endsAt - store.startedAt).coerceAtLeast(1)
+            val progress = ((now - store.startedAt).toFloat() / total).coerceIn(0f, 1f)
+            overlay.update(store.endsAt - now, progress, inBreak)
         } else {
             overlay.hide()
         }

@@ -17,7 +17,7 @@ Esta versión es la **fase 1 (núcleo sin conexión)**: todo funciona en el celu
 | Racha y estadísticas | Racha actual y mejor, minutos de hoy/semana, gráfico de 7 días, calendario de calor de 12 semanas, sesiones recientes. |
 | Bienvenida | Pantalla inicial, permisos guiados y elección de apps. |
 | Datos | drift (SQLite) local. La lista de apps abiertas **nunca sale del celular**. |
-| Diseño | Material 3, modo oscuro primero, tokens en `lib/app/theme/`, componentes en `lib/core/ui/`, textos en español (ARB). |
+| Diseño | Sistema "Enfoque" (`stitch_enfoque_focus_app_design_prompts/enfoque/DESIGN.md`): Material 3 oscuro, Plus Jakarta Sans incluida (OFL), botones píldora, menta/índigo/fuego/coral, colores por materia. Tokens en `lib/app/theme/`, componentes en `lib/core/ui/`, textos en español (ARB). La pantalla de bloqueo nativa usa los mismos tokens y fuente. |
 
 | Horario semanal (adelanto de la F2) | Bloques fijos por días y hora (25/5, 50/10 o libre, con materia opcional), agenda de lunes a domingo, detección de cruces y "Próxima sesión" en Inicio. Avisos nativos 10 min antes y a la hora con el botón **Empezar ahora**; siguen llegando sin abrir la app y tras reiniciar el celular. |
 
@@ -52,13 +52,14 @@ La app guía al usuario, pero estos son los permisos:
 ## Calidad
 
 ```bash
-dart format . && flutter analyze && flutter test                 # Flutter: 121 pruebas
+dart format . && flutter analyze && flutter test                 # Flutter: 147 pruebas
 cd android && ./gradlew :app:testLocalDebugUnitTest -Ptarget=lib/main_local.dart   # Kotlin (JUnit)
 flutter test integration_test --flavor local                   # en un celular/emulador
 cd widgetbook && flutter test                                  # catálogo de componentes
 ```
 
 - Goldens de componentes en claro y oscuro: `flutter test --update-goldens test/core/ui`.
+- Capturas reales de las pantallas (fuente e íconos de verdad) para comparar con el diseño: `flutter test --run-skipped --update-goldens --tags screenshots test/screenshots` (quedan en `test/screenshots/out/`).
 - Catálogo Widgetbook: `cd widgetbook && flutter run -d chrome` (requiere `flutter create --platforms web .` dentro de `widgetbook/` la primera vez) o en un celular.
 
 ## Generar código

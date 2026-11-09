@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$SessionUiState {
 
  FocusSession get session; PomodoroPhase get phase; List<AllowedApp> get allowedApps; int get distractionCount;/// El usuario tocó "Salir antes" en la pantalla de bloqueo nativa.
- bool get exitRequested;
+ bool get exitRequested;/// Íconos de las apps permitidas (por paquete).
+ Map<String, Uint8List> get icons; Strictness get strictness;
 /// Create a copy of SessionUiState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,20 +29,20 @@ $SessionUiStateCopyWith<SessionUiState> get copyWith => _$SessionUiStateCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as SessionUiState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionUiState&&(identical(other.session, _this.session) || other.session == _this.session)&&(identical(other.phase, _this.phase) || other.phase == _this.phase)&&const DeepCollectionEquality().equals(other.allowedApps, _this.allowedApps)&&(identical(other.distractionCount, _this.distractionCount) || other.distractionCount == _this.distractionCount)&&(identical(other.exitRequested, _this.exitRequested) || other.exitRequested == _this.exitRequested));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionUiState&&(identical(other.session, _this.session) || other.session == _this.session)&&(identical(other.phase, _this.phase) || other.phase == _this.phase)&&const DeepCollectionEquality().equals(other.allowedApps, _this.allowedApps)&&(identical(other.distractionCount, _this.distractionCount) || other.distractionCount == _this.distractionCount)&&(identical(other.exitRequested, _this.exitRequested) || other.exitRequested == _this.exitRequested)&&const DeepCollectionEquality().equals(other.icons, _this.icons)&&(identical(other.strictness, _this.strictness) || other.strictness == _this.strictness));
 }
 
 
 @override
 int get hashCode {
   final _this = this as SessionUiState;
-  return Object.hash(runtimeType,_this.session,_this.phase,const DeepCollectionEquality().hash(_this.allowedApps),_this.distractionCount,_this.exitRequested);
+  return Object.hash(runtimeType,_this.session,_this.phase,const DeepCollectionEquality().hash(_this.allowedApps),_this.distractionCount,_this.exitRequested,const DeepCollectionEquality().hash(_this.icons),_this.strictness);
 }
 
 @override
 String toString() {
   final _this = this as SessionUiState;
-  return 'SessionUiState(session: ${_this.session}, phase: ${_this.phase}, allowedApps: ${_this.allowedApps}, distractionCount: ${_this.distractionCount}, exitRequested: ${_this.exitRequested})';
+  return 'SessionUiState(session: ${_this.session}, phase: ${_this.phase}, allowedApps: ${_this.allowedApps}, distractionCount: ${_this.distractionCount}, exitRequested: ${_this.exitRequested}, icons: ${_this.icons}, strictness: ${_this.strictness})';
 }
 
 
@@ -52,7 +53,7 @@ abstract mixin class $SessionUiStateCopyWith<$Res>  {
   factory $SessionUiStateCopyWith(SessionUiState value, $Res Function(SessionUiState) _then) = _$SessionUiStateCopyWithImpl;
 @useResult
 $Res call({
- FocusSession session, PomodoroPhase phase, List<AllowedApp> allowedApps, int distractionCount, bool exitRequested
+ FocusSession session, PomodoroPhase phase, List<AllowedApp> allowedApps, int distractionCount, bool exitRequested, Map<String, Uint8List> icons, Strictness strictness
 });
 
 
@@ -69,14 +70,16 @@ class _$SessionUiStateCopyWithImpl<$Res>
 
 /// Create a copy of SessionUiState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? session = null,Object? phase = null,Object? allowedApps = null,Object? distractionCount = null,Object? exitRequested = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? session = null,Object? phase = null,Object? allowedApps = null,Object? distractionCount = null,Object? exitRequested = null,Object? icons = null,Object? strictness = null,}) {
   return _then(SessionUiState(
 session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
 as FocusSession,phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
 as PomodoroPhase,allowedApps: null == allowedApps ? _self.allowedApps : allowedApps // ignore: cast_nullable_to_non_nullable
 as List<AllowedApp>,distractionCount: null == distractionCount ? _self.distractionCount : distractionCount // ignore: cast_nullable_to_non_nullable
 as int,exitRequested: null == exitRequested ? _self.exitRequested : exitRequested // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,icons: null == icons ? _self.icons : icons // ignore: cast_nullable_to_non_nullable
+as Map<String, Uint8List>,strictness: null == strictness ? _self.strictness : strictness // ignore: cast_nullable_to_non_nullable
+as Strictness,
   ));
 }
 /// Create a copy of SessionUiState
@@ -170,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested,  Map<String, Uint8List> icons,  Strictness strictness)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SessionUiState() when $default != null:
-return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested);case _:
+return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested,_that.icons,_that.strictness);case _:
   return orElse();
 
 }
@@ -191,10 +194,10 @@ return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCou
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested,  Map<String, Uint8List> icons,  Strictness strictness)  $default,) {final _that = this;
 switch (_that) {
 case _SessionUiState():
-return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested);case _:
+return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested,_that.icons,_that.strictness);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +214,10 @@ return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCou
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FocusSession session,  PomodoroPhase phase,  List<AllowedApp> allowedApps,  int distractionCount,  bool exitRequested,  Map<String, Uint8List> icons,  Strictness strictness)?  $default,) {final _that = this;
 switch (_that) {
 case _SessionUiState() when $default != null:
-return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested);case _:
+return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCount,_that.exitRequested,_that.icons,_that.strictness);case _:
   return null;
 
 }
@@ -226,7 +229,7 @@ return $default(_that.session,_that.phase,_that.allowedApps,_that.distractionCou
 
 
 class _SessionUiState implements SessionUiState {
-  const _SessionUiState({required this.session, required this.phase, required  List<AllowedApp> allowedApps, this.distractionCount = 0, this.exitRequested = false}): _allowedApps = allowedApps;
+  const _SessionUiState({required this.session, required this.phase, required  List<AllowedApp> allowedApps, this.distractionCount = 0, this.exitRequested = false,  Map<String, Uint8List> icons = const <String, Uint8List>{}, this.strictness = Strictness.standard}): _allowedApps = allowedApps,_icons = icons;
   
 
 @override final  FocusSession session;
@@ -241,6 +244,16 @@ class _SessionUiState implements SessionUiState {
 @override@JsonKey() final  int distractionCount;
 /// El usuario tocó "Salir antes" en la pantalla de bloqueo nativa.
 @override@JsonKey() final  bool exitRequested;
+/// Íconos de las apps permitidas (por paquete).
+ final  Map<String, Uint8List> _icons;
+/// Íconos de las apps permitidas (por paquete).
+@override@JsonKey() Map<String, Uint8List> get icons {
+  if (_icons is EqualUnmodifiableMapView) return _icons;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_icons);
+}
+
+@override@JsonKey() final  Strictness strictness;
 
 /// Create a copy of SessionUiState
 /// with the given fields replaced by the non-null parameter values.
@@ -252,18 +265,18 @@ _$SessionUiStateCopyWith<_SessionUiState> get copyWith => __$SessionUiStateCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionUiState&&(identical(other.session, session) || other.session == session)&&(identical(other.phase, phase) || other.phase == phase)&&const DeepCollectionEquality().equals(other.allowedApps, _allowedApps)&&(identical(other.distractionCount, distractionCount) || other.distractionCount == distractionCount)&&(identical(other.exitRequested, exitRequested) || other.exitRequested == exitRequested));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionUiState&&(identical(other.session, session) || other.session == session)&&(identical(other.phase, phase) || other.phase == phase)&&const DeepCollectionEquality().equals(other.allowedApps, _allowedApps)&&(identical(other.distractionCount, distractionCount) || other.distractionCount == distractionCount)&&(identical(other.exitRequested, exitRequested) || other.exitRequested == exitRequested)&&const DeepCollectionEquality().equals(other.icons, _icons)&&(identical(other.strictness, strictness) || other.strictness == strictness));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,session,phase,const DeepCollectionEquality().hash(_allowedApps),distractionCount,exitRequested);
+    return Object.hash(runtimeType,session,phase,const DeepCollectionEquality().hash(_allowedApps),distractionCount,exitRequested,const DeepCollectionEquality().hash(_icons),strictness);
 }
 
 @override
 String toString() {
-    return 'SessionUiState(session: $session, phase: $phase, allowedApps: $allowedApps, distractionCount: $distractionCount, exitRequested: $exitRequested)';
+    return 'SessionUiState(session: $session, phase: $phase, allowedApps: $allowedApps, distractionCount: $distractionCount, exitRequested: $exitRequested, icons: $icons, strictness: $strictness)';
 }
 
 
@@ -274,7 +287,7 @@ abstract mixin class _$SessionUiStateCopyWith<$Res> implements $SessionUiStateCo
   factory _$SessionUiStateCopyWith(_SessionUiState value, $Res Function(_SessionUiState) _then) = __$SessionUiStateCopyWithImpl;
 @override @useResult
 $Res call({
- FocusSession session, PomodoroPhase phase, List<AllowedApp> allowedApps, int distractionCount, bool exitRequested
+ FocusSession session, PomodoroPhase phase, List<AllowedApp> allowedApps, int distractionCount, bool exitRequested, Map<String, Uint8List> icons, Strictness strictness
 });
 
 
@@ -291,14 +304,16 @@ class __$SessionUiStateCopyWithImpl<$Res>
 
 /// Create a copy of SessionUiState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? session = null,Object? phase = null,Object? allowedApps = null,Object? distractionCount = null,Object? exitRequested = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? session = null,Object? phase = null,Object? allowedApps = null,Object? distractionCount = null,Object? exitRequested = null,Object? icons = null,Object? strictness = null,}) {
   return _then(_SessionUiState(
 session: null == session ? _self.session : session // ignore: cast_nullable_to_non_nullable
 as FocusSession,phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
 as PomodoroPhase,allowedApps: null == allowedApps ? _self._allowedApps : allowedApps // ignore: cast_nullable_to_non_nullable
 as List<AllowedApp>,distractionCount: null == distractionCount ? _self.distractionCount : distractionCount // ignore: cast_nullable_to_non_nullable
 as int,exitRequested: null == exitRequested ? _self.exitRequested : exitRequested // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,icons: null == icons ? _self._icons : icons // ignore: cast_nullable_to_non_nullable
+as Map<String, Uint8List>,strictness: null == strictness ? _self.strictness : strictness // ignore: cast_nullable_to_non_nullable
+as Strictness,
   ));
 }
 

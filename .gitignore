@@ -49,3 +49,7 @@ app.*.map.json
 
 # Datos locales de los emuladores de Firebase (F3)
 emulator-data/
+
+# Capturas de diseño generadas a pedido
+test/screenshots/out/
+test/**/failures/

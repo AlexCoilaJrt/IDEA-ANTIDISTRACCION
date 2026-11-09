@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:enfoque/app/app_state.dart';
 import 'package:enfoque/app/dependencies.dart';
@@ -21,6 +22,10 @@ abstract class SessionUiState with _$SessionUiState {
 
     /// El usuario tocó "Salir antes" en la pantalla de bloqueo nativa.
     @Default(false) bool exitRequested,
+
+    /// Íconos de las apps permitidas (por paquete).
+    @Default(<String, Uint8List>{}) Map<String, Uint8List> icons,
+    @Default(Strictness.standard) Strictness strictness,
   }) = _SessionUiState;
 }
 
@@ -36,6 +41,9 @@ class SessionViewModel extends _$SessionViewModel {
     if (session == null) return null;
     final allowed = ref.watch(allowedAppsStreamProvider).value ?? const [];
     final clock = ref.watch(clockProvider);
+    final strictness =
+        ref.watch(settingsStreamProvider).value?.strictness ??
+        Strictness.standard;
 
     _ticker = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
     ref
@@ -61,6 +69,7 @@ class SessionViewModel extends _$SessionViewModel {
       session: session,
       phase: PomodoroClock.phaseAt(session.plan, session.startedAt, clock()),
       allowedApps: allowed,
+      strictness: strictness,
     );
   }
 
@@ -105,6 +114,16 @@ class SessionViewModel extends _$SessionViewModel {
       }
     }
     await _checkExitRequest();
+    await _loadIcons();
+  }
+
+  Future<void> _loadIcons() async {
+    final apps = (await ref.read(allowedAppsRepositoryProvider).installedApps())
+        .valueOrNull;
+    if (!ref.mounted || apps == null) return;
+    final s = state;
+    if (s == null) return;
+    state = s.copyWith(icons: {for (final a in apps) a.packageName: ?a.icon});
   }
 
   Future<void> _checkExitRequest() async {

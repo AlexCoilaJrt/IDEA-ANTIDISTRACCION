@@ -34,12 +34,27 @@ Future<void> _tap(WidgetTester tester, Finder finder) async {
   await _settle(tester);
 }
 
+/// Pasa los 3 pasos de la bienvenida.
+Future<void> _passWelcome(WidgetTester tester) async {
+  expect(find.text('Estudia sin distracciones'), findsOneWidget);
+  await _tap(tester, find.text('Siguiente'));
+  expect(find.text('Tu semana organizada'), findsOneWidget);
+  await _tap(tester, find.text('Siguiente'));
+  expect(find.text('Cada día cuenta'), findsOneWidget);
+  await _tap(tester, find.text('Empezar'));
+}
+
+/// Abre la hoja de sesión rápida y empieza.
+Future<void> _startQuick(WidgetTester tester) async {
+  await _tap(tester, find.text('Sesión rápida'));
+  await _tap(tester, find.text('Empezar sesión'));
+}
+
 Future<void> onboardingFlow(WidgetTester tester) async {
   final deps = TestDeps(settings: const AppSettings());
   await _pumpApp(tester, deps);
 
-  expect(find.text('Estudia sin distracciones'), findsOneWidget);
-  await _tap(tester, find.text('Empezar'));
+  await _passWelcome(tester);
 
   expect(find.text('Acceso a datos de uso'), findsOneWidget);
   expect(find.text('Activado'), findsNWidgets(5));
@@ -50,7 +65,7 @@ Future<void> onboardingFlow(WidgetTester tester) async {
   expect(find.text('2 apps permitidas'), findsOneWidget);
   await _tap(tester, find.text('Listo'));
 
-  expect(find.text('¿Listo para concentrarte?'), findsOneWidget);
+  expect(find.text('Hola'), findsOneWidget);
   expect(deps.settings.settings.onboardingDone, isTrue);
 }
 
@@ -60,7 +75,7 @@ Future<void> permissionsWizardFlow(WidgetTester tester) async {
   final deps = TestDeps(settings: const AppSettings());
   deps.blocker.perms = AppPermissions.none;
   await _pumpApp(tester, deps);
-  await _tap(tester, find.text('Empezar'));
+  await _passWelcome(tester);
 
   expect(find.text('Paso 1 de 5'), findsOneWidget);
   expect(
@@ -106,9 +121,11 @@ Future<void> earlyExitFlow(WidgetTester tester) async {
   final deps = TestDeps();
   await _pumpApp(tester, deps);
 
-  await _tap(tester, find.text('Empezar sesión'));
+  await _startQuick(tester);
   expect(deps.blocker.active, isTrue);
-  expect(find.text('Enfoque'), findsOneWidget);
+  expect(find.text('Sesión activa'), findsOneWidget);
+  expect(find.text('CONCENTRADO'), findsOneWidget);
+  expect(find.text('Bloqueo activo'), findsOneWidget);
   expect(find.text('25:00'), findsOneWidget);
 
   // Un intento de distracción llega desde el motor nativo.
@@ -137,7 +154,7 @@ Future<void> earlyExitFlow(WidgetTester tester) async {
   expect(session.exitLevel, 3);
 
   await _tap(tester, find.text('Volver al inicio'));
-  expect(find.text('¿Listo para concentrarte?'), findsOneWidget);
+  expect(find.text('Hola'), findsOneWidget);
 }
 
 /// 5 bloques de 25/5: después del 4.º viene el descanso largo de 15 min.
@@ -146,11 +163,11 @@ Future<void> longBreakFlow(WidgetTester tester) async {
     settings: const AppSettings(onboardingDone: true, cycles: 5),
   );
   await _pumpApp(tester, deps);
+  await _tap(tester, find.text('Sesión rápida'));
   expect(
     find.text('Incluye un descanso largo de 15 min después del bloque 4.'),
     findsOneWidget,
   );
-
   await _tap(tester, find.text('Empezar sesión'));
   expect(deps.blocker.config!.plan.longBreakMinutes, 15);
   // 5 x 25 + 5 + 5 + 5 + 15 = 155 min.
@@ -159,14 +176,16 @@ Future<void> longBreakFlow(WidgetTester tester) async {
   // Bloque 4 termina a los 115 min.
   deps.clock.advance(const Duration(minutes: 116));
   await _settle(tester, 15);
-  expect(find.text('Descanso largo'), findsOneWidget);
+  expect(find.text('DESCANSO LARGO'), findsOneWidget);
   expect(find.text('14:00'), findsOneWidget);
-  expect(find.text('Bloque 4 de 5'), findsOneWidget);
+  expect(find.text('Bloque 4 de 5 · Descanso largo'), findsOneWidget);
+  // En modo estándar los descansos no bloquean.
+  expect(find.text('Bloqueo en pausa'), findsOneWidget);
 
   deps.clock.advance(const Duration(minutes: 15));
   await _settle(tester, 15);
-  expect(find.text('Enfoque'), findsOneWidget);
-  expect(find.text('Bloque 5 de 5'), findsOneWidget);
+  expect(find.text('CONCENTRADO'), findsOneWidget);
+  expect(find.text('Bloque 5 de 5 · Enfoque'), findsOneWidget);
 }
 
 /// Horario: crear un bloque, verlo en la agenda y empezar desde el aviso.
@@ -196,16 +215,19 @@ Future<void> scheduleFlow(WidgetTester tester) async {
     ..pendingStartBlock = deps.schedule.blocksById.keys.single
     ..emit(StartRequested());
   await _settle(tester);
-  expect(find.text('Enfoque'), findsOneWidget);
-  expect(find.text('Bloque 1 de 2'), findsOneWidget);
+  expect(find.text('CONCENTRADO'), findsOneWidget);
+  expect(find.text('Bloque 1 de 2 · Enfoque'), findsOneWidget);
+  // La materia del bloque llega a la sesión y al motor nativo.
+  expect(find.text('MATEMÁTICAS'), findsOneWidget);
+  expect(deps.blocker.config!.label, 'Matemáticas');
 }
 
 Future<void> completedFlow(WidgetTester tester) async {
   final deps = TestDeps();
   await _pumpApp(tester, deps);
 
-  await _tap(tester, find.text('Empezar sesión'));
-  expect(find.text('Enfoque'), findsOneWidget);
+  await _startQuick(tester);
+  expect(find.text('CONCENTRADO'), findsOneWidget);
 
   // Pasa el tiempo: el ViewModel detecta el fin y cierra la sesión.
   deps.clock.advance(const Duration(minutes: 25, seconds: 1));
@@ -218,5 +240,7 @@ Future<void> completedFlow(WidgetTester tester) async {
   expect(deps.streak.days.values.single.focusedMinutes, 25);
 
   await _tap(tester, find.text('Volver al inicio'));
-  expect(find.text('¡Meta de hoy cumplida!'), findsOneWidget);
+  // Inicio muestra lo estudiado hoy.
+  expect(find.text('25m'), findsOneWidget);
+  expect(find.text('1 día seguido'), findsOneWidget);
 }

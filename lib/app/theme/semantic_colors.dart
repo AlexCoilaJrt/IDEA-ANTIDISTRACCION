@@ -1,3 +1,4 @@
+import 'package:enfoque/app/theme/tokens.dart';
 import 'package:flutter/material.dart';
 
 /// Colores con significado propio de la app.
@@ -25,15 +26,17 @@ class SemanticColors extends ThemeExtension<SemanticColors> {
     onStreak: Color(0xFFFFFFFF),
   );
 
+  /// Estados del diseño: concentrado (menta), descanso (ámbar),
+  /// distraído/salió (coral) y racha (naranja fuego).
   static const dark = SemanticColors(
-    focus: Color(0xFF5FD99A),
-    onFocus: Color(0xFF00391F),
-    onBreak: Color(0xFFFFC56B),
-    onOnBreak: Color(0xFF452B00),
-    away: Color(0xFFFF8A75),
-    onAway: Color(0xFF5C1408),
-    streak: Color(0xFFFF9F52),
-    onStreak: Color(0xFF4A1C00),
+    focus: AppColors.mint,
+    onFocus: AppColors.onMint,
+    onBreak: AppColors.amber,
+    onOnBreak: AppColors.onMint,
+    away: AppColors.coral,
+    onAway: AppColors.onMint,
+    streak: AppColors.fire,
+    onStreak: AppColors.onMint,
   );
 
   final Color focus;

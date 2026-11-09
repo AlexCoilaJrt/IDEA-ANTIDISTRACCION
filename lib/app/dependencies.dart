@@ -6,6 +6,7 @@ import 'package:enfoque/data/repositories/settings_repository.dart';
 import 'package:enfoque/data/repositories/streak_repository.dart';
 import 'package:enfoque/data/services/blocker/blocker_service.dart';
 import 'package:enfoque/data/services/db/app_database.dart';
+import 'package:enfoque/domain/logic/streak_calculator.dart';
 import 'package:enfoque/domain/models/models.dart';
 import 'package:enfoque/domain/use_cases/session_use_cases.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -104,6 +105,27 @@ Stream<FocusSession?> activeSession(Ref ref) =>
 @Riverpod(keepAlive: true)
 Stream<List<DayFocus>> streakDays(Ref ref) =>
     ref.watch(streakRepositoryProvider).watchDays();
+
+/// Racha actual (cabeceras, Inicio y Progreso).
+@riverpod
+Future<StreakSummary> streakSummary(Ref ref) async {
+  final settings = await ref.watch(settingsStreamProvider.future);
+  final days = await ref.watch(streakDaysProvider.future);
+  return StreakCalculator.summarize(
+    days,
+    today: ref.watch(clockProvider)(),
+    goalMinutes: settings.dailyGoalMinutes,
+  );
+}
+
+/// Sesiones del último año (Inicio y Progreso las comparten).
+@Riverpod(keepAlive: true)
+Stream<List<FocusSession>> sessionHistory(Ref ref) {
+  final now = ref.watch(clockProvider)();
+  return ref
+      .watch(sessionRepositoryProvider)
+      .watchSince(DateTime(now.year - 1, now.month, now.day));
+}
 
 @Riverpod(keepAlive: true)
 Stream<List<StudyBlock>> studyBlocks(Ref ref) =>

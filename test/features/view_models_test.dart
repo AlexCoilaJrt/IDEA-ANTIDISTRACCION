@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enfoque/app/app_state.dart';
 import 'package:enfoque/core/utils/result.dart';
+import 'package:enfoque/domain/logic/stats_calculator.dart';
 import 'package:enfoque/domain/models/models.dart';
 import 'package:enfoque/domain/use_cases/session_use_cases.dart';
 import 'package:enfoque/features/allowlist/view_model/allowlist_view_model.dart';
@@ -32,16 +33,71 @@ void main() {
           hadEarlyExit: false,
         ),
       );
+      // Hoy (lunes 9): una completada de 10 min y una salida anticipada.
+      const plan = PomodoroPlan(focusMinutes: 25, breakMinutes: 5, cycles: 1);
+      final done = (await deps.sessions.create(
+        startedAt: DateTime(2026, 11, 9, 7),
+        plan: plan,
+      )).valueOrNull!;
+      await deps.sessions.complete(
+        done.id,
+        outcome: SessionOutcome.completed,
+        endedAt: DateTime(2026, 11, 9, 7, 25),
+        focusedMinutes: 10,
+        distractions: const [],
+      );
+      final quit = (await deps.sessions.create(
+        startedAt: DateTime(2026, 11, 9, 8),
+        plan: plan,
+      )).valueOrNull!;
+      await deps.sessions.complete(
+        quit.id,
+        outcome: SessionOutcome.earlyExit,
+        endedAt: DateTime(2026, 11, 9, 8, 5),
+        focusedMinutes: 5,
+        distractions: const [],
+      );
       // Riverpod 3 pausa los providers sin oyentes.
       final container = ProviderContainer.test(overrides: deps.overrides)
         ..listen(homeViewModelProvider, (_, _) {});
 
       final state = await container.read(homeViewModelProvider.future);
 
-      expect(state.todayMinutes, 10);
+      expect(state.todayMinutes, 15);
+      expect(state.todaySessions, 1);
+      expect(state.todayExits, 1);
+      expect(state.week, [15, 0, 0, 0, 0, 0, 0]);
+      expect(state.weekTotal, 15);
+      expect(state.weekChange, isNull);
+      expect(state.todayIndex, 0);
+      expect(state.bestDayIndex, 0);
       expect(state.streak.current, 1);
       expect(state.goalReached, isFalse);
-      expect(state.plannedEnd, DateTime(2026, 11, 9, 9, 25));
+      expect(state.now, DateTime(2026, 11, 9, 9));
+    });
+
+    test('empezar desde un bloque del horario usa su plan y materia', () async {
+      final deps = TestDeps();
+      final container = ProviderContainer.test(overrides: deps.overrides)
+        ..listen(homeViewModelProvider, (_, _) {});
+      await container.read(homeViewModelProvider.future);
+      const block = StudyBlock(
+        id: 3,
+        weekdays: {1},
+        startMinute: 600,
+        cycles: 2,
+        label: 'Cálculo',
+      );
+
+      final session =
+          (await container
+                  .read(homeViewModelProvider.notifier)
+                  .startSession(block: block))
+              .valueOrNull!;
+
+      expect(session.label, 'Cálculo');
+      expect(session.plan, block.plan);
+      expect(deps.blocker.config!.label, 'Cálculo');
     });
 
     test('cambiar el preset guarda los ajustes', () async {
@@ -199,12 +255,24 @@ void main() {
 
     final state = await container.read(statsViewModelProvider.future);
 
-    expect(state.todayMinutes, 25);
-    expect(state.weekMinutes, 25);
-    expect(state.completedSessions, 1);
-    expect(state.weekDistractions, 1);
+    expect(state.period, StatsPeriod.week);
+    expect(state.totalMinutes, 25);
+    expect(state.completionRate, 100);
     expect(state.streak.current, 1);
-    expect(state.lastWeekMinutes, [0, 0, 0, 0, 0, 0, 25]);
+    expect(state.bars, hasLength(7));
+    expect(state.bars.first.total, 25);
+    expect(state.subjects.single.key, isNull);
+    expect(state.distractionTotal, 1);
+    expect(state.topDistraction!.label, 'x');
+    expect(state.topDistraction!.attempts, 1);
     expect(state.isEmpty, isFalse);
+
+    // Cambiar a "Año" recalcula con 12 barras.
+    container
+        .read(statsViewModelProvider.notifier)
+        .selectPeriod(StatsPeriod.year);
+    final year = await container.read(statsViewModelProvider.future);
+    expect(year.bars, hasLength(12));
+    expect(year.bars[10].total, 25);
   });
 }

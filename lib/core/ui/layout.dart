@@ -10,8 +10,12 @@ class FocusScaffold extends StatelessWidget {
     this.actions,
     this.bottom,
     this.leading,
+    this.header,
     this.scrollable = true,
   });
+
+  /// Cabecera propia (p. ej. `BrandHeader`) en lugar de la AppBar.
+  final Widget? header;
 
   final String? title;
   final Widget body;
@@ -44,6 +48,7 @@ class FocusScaffold extends StatelessWidget {
             ),
             child: Column(
               children: [
+                ?header,
                 Expanded(
                   child: scrollable
                       ? SingleChildScrollView(

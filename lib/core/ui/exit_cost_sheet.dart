@@ -1,5 +1,6 @@
 import 'package:enfoque/app/theme/semantic_colors.dart';
 import 'package:enfoque/app/theme/tokens.dart';
+import 'package:enfoque/core/ui/focus_button.dart';
 import 'package:enfoque/l10n/gen/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -105,21 +106,25 @@ class ExitCostSheet extends StatelessWidget {
           const SizedBox(height: AppSpacing.xl),
           body,
           const SizedBox(height: AppSpacing.xl),
-          FilledButton(
+          FocusButton(
+            label: l10n.exitKeepStudying,
+            icon: Icons.play_arrow_rounded,
+            variant: FocusButtonVariant.mint,
             onPressed: onKeepStudying,
-            child: Text(l10n.exitKeepStudying),
           ),
           const SizedBox(height: AppSpacing.sm),
           if (step < 3)
-            OutlinedButton(
+            FocusButton(
+              label: l10n.commonContinue,
+              variant: FocusButtonVariant.secondary,
               onPressed: onContinue,
-              child: Text(l10n.commonContinue),
             )
           else
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(foregroundColor: away),
-              onPressed: busy ? null : onConfirmExit,
-              child: Text(l10n.exitConfirm),
+            FocusButton(
+              label: l10n.exitConfirm,
+              variant: FocusButtonVariant.danger,
+              loading: busy,
+              onPressed: onConfirmExit,
             ),
         ],
       ),

@@ -2,6 +2,7 @@
 library;
 
 export 'charts.dart';
+export 'design.dart';
 export 'exit_cost_sheet.dart';
 export 'focus_button.dart';
 export 'focus_timer_ring.dart';

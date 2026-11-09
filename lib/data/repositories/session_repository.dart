@@ -8,6 +8,7 @@ abstract class SessionRepository {
   Future<Result<FocusSession>> create({
     required DateTime startedAt,
     required PomodoroPlan plan,
+    String? label,
   });
 
   Future<Result<FocusSession?>> active();
@@ -35,6 +36,12 @@ abstract class SessionRepository {
 
   /// Sesiones (de la más reciente a la más antigua) desde [from].
   Stream<List<FocusSession>> watchSince(DateTime from);
+
+  /// Intentos de distracción por app en `[from, to)`. Nunca sale del celular.
+  Future<Result<Map<String, int>>> distractionsByApp(
+    DateTime from,
+    DateTime to,
+  );
 }
 
 class SessionRepositoryImpl implements SessionRepository {
@@ -46,6 +53,7 @@ class SessionRepositoryImpl implements SessionRepository {
   Future<Result<FocusSession>> create({
     required DateTime startedAt,
     required PomodoroPlan plan,
+    String? label,
   }) => guard(() async {
     final id = await _db
         .into(_db.sessions)
@@ -57,6 +65,7 @@ class SessionRepositoryImpl implements SessionRepository {
             breakMin: plan.breakMinutes,
             cycles: plan.cycles,
             longBreakMin: Value(plan.longBreakMinutes),
+            label: Value(label),
             outcome: SessionOutcome.active.index,
           ),
         );
@@ -150,6 +159,25 @@ class SessionRepositoryImpl implements SessionRepository {
           .watch()
           .map((rows) => rows.map(_toDomain).toList());
 
+  @override
+  Future<Result<Map<String, int>>> distractionsByApp(
+    DateTime from,
+    DateTime to,
+  ) => guard(() async {
+    final count = _db.distractionEvents.id.count();
+    final pkg = _db.distractionEvents.packageName;
+    final rows =
+        await (_db.selectOnly(_db.distractionEvents)
+              ..addColumns([pkg, count])
+              ..where(
+                _db.distractionEvents.at.isBiggerOrEqualValue(from) &
+                    _db.distractionEvents.at.isSmallerThanValue(to),
+              )
+              ..groupBy([pkg]))
+            .get();
+    return {for (final r in rows) r.read(pkg)!: r.read(count) ?? 0};
+  });
+
   SimpleSelectStatement<$SessionsTable, SessionRow> _activeQuery() =>
       _db.select(_db.sessions)
         ..where((t) => t.outcome.equals(SessionOutcome.active.index))
@@ -180,5 +208,6 @@ class SessionRepositoryImpl implements SessionRepository {
     distractionCount: r.distractionCount,
     subjectId: r.subjectId,
     roomId: r.roomId,
+    label: r.label,
   );
 }

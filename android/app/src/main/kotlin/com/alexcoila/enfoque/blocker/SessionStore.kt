@@ -17,6 +17,7 @@ class SessionStore(context: Context) {
     val endsAt: Long get() = prefs.getLong(KEY_ENDS_AT, 0)
     val allowedPackages: Set<String>
         get() = prefs.getStringSet(KEY_ALLOWED, emptySet()) ?: emptySet()
+    val label: String? get() = prefs.getString(KEY_LABEL, null)
     val strictness: StrictnessDto
         get() = StrictnessDto.ofRaw(prefs.getInt(KEY_STRICTNESS, 0)) ?: StrictnessDto.STANDARD
     val plan: PomodoroPlan
@@ -40,6 +41,7 @@ class SessionStore(context: Context) {
             .putInt(KEY_LONG_BREAK, config.longBreakMinutes.toInt())
             .putStringSet(KEY_ALLOWED, config.allowedPackages.toSet())
             .putInt(KEY_STRICTNESS, config.strictness.raw)
+            .putString(KEY_LABEL, config.label)
             .putString(KEY_DISTRACTIONS, "[]")
             .apply()
     }
@@ -96,6 +98,7 @@ class SessionStore(context: Context) {
         private const val KEY_LONG_BREAK = "long_break_min"
         private const val KEY_ALLOWED = "allowed"
         private const val KEY_STRICTNESS = "strictness"
+        private const val KEY_LABEL = "label"
         private const val KEY_DISTRACTIONS = "distractions"
         private const val KEY_EXIT_REQUESTED = "exit_requested"
     }

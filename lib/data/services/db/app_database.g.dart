@@ -98,6 +98,15 @@ class $SessionsTable extends Sessions
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _focusedMinMeta = const VerificationMeta(
     'focusedMin',
   );
@@ -201,6 +210,7 @@ class $SessionsTable extends Sessions
     breakMin,
     cycles,
     longBreakMin,
+    label,
     focusedMin,
     outcome,
     earlyExit,
@@ -278,6 +288,12 @@ class $SessionsTable extends Sessions
           data['long_break_min']!,
           _longBreakMinMeta,
         ),
+      );
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
       );
     }
     if (data.containsKey('focused_min')) {
@@ -374,6 +390,10 @@ class $SessionsTable extends Sessions
         DriftSqlType.int,
         data['${effectivePrefix}long_break_min'],
       )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      ),
       focusedMin: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}focused_min'],
@@ -426,6 +446,9 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
 
   /// Desde la versión 2 del esquema.
   final int longBreakMin;
+
+  /// Materia o tema de la sesión (desde la versión 4 del esquema).
+  final String? label;
   final int focusedMin;
   final int outcome;
   final bool earlyExit;
@@ -443,6 +466,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     required this.breakMin,
     required this.cycles,
     required this.longBreakMin,
+    this.label,
     required this.focusedMin,
     required this.outcome,
     required this.earlyExit,
@@ -465,6 +489,9 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     map['break_min'] = Variable<int>(breakMin);
     map['cycles'] = Variable<int>(cycles);
     map['long_break_min'] = Variable<int>(longBreakMin);
+    if (!nullToAbsent || label != null) {
+      map['label'] = Variable<String>(label);
+    }
     map['focused_min'] = Variable<int>(focusedMin);
     map['outcome'] = Variable<int>(outcome);
     map['early_exit'] = Variable<bool>(earlyExit);
@@ -494,6 +521,9 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       breakMin: Value(breakMin),
       cycles: Value(cycles),
       longBreakMin: Value(longBreakMin),
+      label: label == null && nullToAbsent
+          ? const Value.absent()
+          : Value(label),
       focusedMin: Value(focusedMin),
       outcome: Value(outcome),
       earlyExit: Value(earlyExit),
@@ -525,6 +555,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       breakMin: serializer.fromJson<int>(json['breakMin']),
       cycles: serializer.fromJson<int>(json['cycles']),
       longBreakMin: serializer.fromJson<int>(json['longBreakMin']),
+      label: serializer.fromJson<String?>(json['label']),
       focusedMin: serializer.fromJson<int>(json['focusedMin']),
       outcome: serializer.fromJson<int>(json['outcome']),
       earlyExit: serializer.fromJson<bool>(json['earlyExit']),
@@ -547,6 +578,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       'breakMin': serializer.toJson<int>(breakMin),
       'cycles': serializer.toJson<int>(cycles),
       'longBreakMin': serializer.toJson<int>(longBreakMin),
+      'label': serializer.toJson<String?>(label),
       'focusedMin': serializer.toJson<int>(focusedMin),
       'outcome': serializer.toJson<int>(outcome),
       'earlyExit': serializer.toJson<bool>(earlyExit),
@@ -567,6 +599,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     int? breakMin,
     int? cycles,
     int? longBreakMin,
+    Value<String?> label = const Value.absent(),
     int? focusedMin,
     int? outcome,
     bool? earlyExit,
@@ -584,6 +617,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     breakMin: breakMin ?? this.breakMin,
     cycles: cycles ?? this.cycles,
     longBreakMin: longBreakMin ?? this.longBreakMin,
+    label: label.present ? label.value : this.label,
     focusedMin: focusedMin ?? this.focusedMin,
     outcome: outcome ?? this.outcome,
     earlyExit: earlyExit ?? this.earlyExit,
@@ -607,6 +641,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       longBreakMin: data.longBreakMin.present
           ? data.longBreakMin.value
           : this.longBreakMin,
+      label: data.label.present ? data.label.value : this.label,
       focusedMin: data.focusedMin.present
           ? data.focusedMin.value
           : this.focusedMin,
@@ -635,6 +670,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
           ..write('breakMin: $breakMin, ')
           ..write('cycles: $cycles, ')
           ..write('longBreakMin: $longBreakMin, ')
+          ..write('label: $label, ')
           ..write('focusedMin: $focusedMin, ')
           ..write('outcome: $outcome, ')
           ..write('earlyExit: $earlyExit, ')
@@ -657,6 +693,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     breakMin,
     cycles,
     longBreakMin,
+    label,
     focusedMin,
     outcome,
     earlyExit,
@@ -678,6 +715,7 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
           other.breakMin == this.breakMin &&
           other.cycles == this.cycles &&
           other.longBreakMin == this.longBreakMin &&
+          other.label == this.label &&
           other.focusedMin == this.focusedMin &&
           other.outcome == this.outcome &&
           other.earlyExit == this.earlyExit &&
@@ -697,6 +735,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
   final Value<int> breakMin;
   final Value<int> cycles;
   final Value<int> longBreakMin;
+  final Value<String?> label;
   final Value<int> focusedMin;
   final Value<int> outcome;
   final Value<bool> earlyExit;
@@ -714,6 +753,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     this.breakMin = const Value.absent(),
     this.cycles = const Value.absent(),
     this.longBreakMin = const Value.absent(),
+    this.label = const Value.absent(),
     this.focusedMin = const Value.absent(),
     this.outcome = const Value.absent(),
     this.earlyExit = const Value.absent(),
@@ -732,6 +772,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     required int breakMin,
     required int cycles,
     this.longBreakMin = const Value.absent(),
+    this.label = const Value.absent(),
     this.focusedMin = const Value.absent(),
     required int outcome,
     this.earlyExit = const Value.absent(),
@@ -755,6 +796,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     Expression<int>? breakMin,
     Expression<int>? cycles,
     Expression<int>? longBreakMin,
+    Expression<String>? label,
     Expression<int>? focusedMin,
     Expression<int>? outcome,
     Expression<bool>? earlyExit,
@@ -773,6 +815,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
       if (breakMin != null) 'break_min': breakMin,
       if (cycles != null) 'cycles': cycles,
       if (longBreakMin != null) 'long_break_min': longBreakMin,
+      if (label != null) 'label': label,
       if (focusedMin != null) 'focused_min': focusedMin,
       if (outcome != null) 'outcome': outcome,
       if (earlyExit != null) 'early_exit': earlyExit,
@@ -793,6 +836,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     Value<int>? breakMin,
     Value<int>? cycles,
     Value<int>? longBreakMin,
+    Value<String?>? label,
     Value<int>? focusedMin,
     Value<int>? outcome,
     Value<bool>? earlyExit,
@@ -811,6 +855,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
       breakMin: breakMin ?? this.breakMin,
       cycles: cycles ?? this.cycles,
       longBreakMin: longBreakMin ?? this.longBreakMin,
+      label: label ?? this.label,
       focusedMin: focusedMin ?? this.focusedMin,
       outcome: outcome ?? this.outcome,
       earlyExit: earlyExit ?? this.earlyExit,
@@ -848,6 +893,9 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     }
     if (longBreakMin.present) {
       map['long_break_min'] = Variable<int>(longBreakMin.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
     }
     if (focusedMin.present) {
       map['focused_min'] = Variable<int>(focusedMin.value);
@@ -887,6 +935,7 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
           ..write('breakMin: $breakMin, ')
           ..write('cycles: $cycles, ')
           ..write('longBreakMin: $longBreakMin, ')
+          ..write('label: $label, ')
           ..write('focusedMin: $focusedMin, ')
           ..write('outcome: $outcome, ')
           ..write('earlyExit: $earlyExit, ')
@@ -2456,6 +2505,7 @@ typedef $$SessionsTableCreateCompanionBuilder = SessionsCompanion Function({
   required int breakMin,
   required int cycles,
   Value<int> longBreakMin,
+  Value<String?> label,
   Value<int> focusedMin,
   required int outcome,
   Value<bool> earlyExit,
@@ -2474,6 +2524,7 @@ typedef $$SessionsTableUpdateCompanionBuilder = SessionsCompanion Function({
   Value<int> breakMin,
   Value<int> cycles,
   Value<int> longBreakMin,
+  Value<String?> label,
   Value<int> focusedMin,
   Value<int> outcome,
   Value<bool> earlyExit,
@@ -2556,6 +2607,11 @@ class $$SessionsTableFilterComposer
 
   ColumnFilters<int> get longBreakMin => $composableBuilder(
     column: $table.longBreakMin,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2674,6 +2730,11 @@ class $$SessionsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get focusedMin => $composableBuilder(
     column: $table.focusedMin,
     builder: (column) => ColumnOrderings(column),
@@ -2751,6 +2812,9 @@ class $$SessionsTableAnnotationComposer
     column: $table.longBreakMin,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
 
   GeneratedColumn<int> get focusedMin => $composableBuilder(
     column: $table.focusedMin,
@@ -2845,6 +2909,7 @@ class $$SessionsTableTableManager
                 Value<int> breakMin = const Value.absent(),
                 Value<int> cycles = const Value.absent(),
                 Value<int> longBreakMin = const Value.absent(),
+                Value<String?> label = const Value.absent(),
                 Value<int> focusedMin = const Value.absent(),
                 Value<int> outcome = const Value.absent(),
                 Value<bool> earlyExit = const Value.absent(),
@@ -2862,6 +2927,7 @@ class $$SessionsTableTableManager
                 breakMin: breakMin,
                 cycles: cycles,
                 longBreakMin: longBreakMin,
+                label: label,
                 focusedMin: focusedMin,
                 outcome: outcome,
                 earlyExit: earlyExit,
@@ -2881,6 +2947,7 @@ class $$SessionsTableTableManager
                 required int breakMin,
                 required int cycles,
                 Value<int> longBreakMin = const Value.absent(),
+                Value<String?> label = const Value.absent(),
                 Value<int> focusedMin = const Value.absent(),
                 required int outcome,
                 Value<bool> earlyExit = const Value.absent(),
@@ -2898,6 +2965,7 @@ class $$SessionsTableTableManager
                 breakMin: breakMin,
                 cycles: cycles,
                 longBreakMin: longBreakMin,
+                label: label,
                 focusedMin: focusedMin,
                 outcome: outcome,
                 earlyExit: earlyExit,

@@ -19,6 +19,9 @@ class SettingsViewModel extends _$SettingsViewModel {
     ),
   );
 
+  Future<void> setDisplayName(String name) =>
+      _save((s) => s.copyWith(displayName: name.trim()));
+
   Future<void> setThemeMode(AppThemeMode mode) =>
       _save((s) => s.copyWith(themeMode: mode));
 

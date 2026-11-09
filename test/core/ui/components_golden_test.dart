@@ -31,23 +31,105 @@ void main() {
       timeText: '15:00',
       label: 'Enfoque',
       caption: 'Bloque 1 de 2',
-      color: Colors.green,
+      color: Color(0xFF3DDBB4),
+      glow: true,
       semanticsLabel: 'Enfoque, quedan 15:00',
     ),
-    'streak_badge': const Row(
+    'streak_chip_and_pills': const Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        StreakBadge(label: '5 días', active: true),
-        SizedBox(width: 8),
-        StreakBadge(label: 'Sin racha', active: false),
+        StreakChip(label: '12 d', semanticsLabel: '12 días de racha'),
+        SizedBox(height: 8),
+        StatusPill(
+          label: 'Bloqueo activo',
+          color: Color(0xFF3DDBB4),
+          icon: Icons.lock_outline,
+        ),
+        SizedBox(height: 8),
+        StatusPill(
+          label: 'Cálculo',
+          color: Color(0xFFC1C1FF),
+          dot: true,
+          uppercase: true,
+        ),
+        SizedBox(height: 8),
+        SubjectTag(label: 'Cálculo', filled: true),
+        SizedBox(height: 8),
+        SubjectTag(label: 'Física'),
       ],
     ),
-    'stat_grid': const StatGrid(
-      columns: 2,
+    'brand_header': const BrandHeader(title: 'Enfoque', section: 'Inicio'),
+    'metric_grid': const StatGrid(
+      columns: 3,
       children: [
-        StatTile(label: 'Hoy', value: '45 min', icon: Icons.today),
-        StatTile(label: 'Mejor racha', value: '12 días', icon: Icons.star),
-        StatTile(label: 'Sesiones', value: '30'),
+        MetricTile(
+          icon: Icons.schedule,
+          value: '1h 45m',
+          label: 'concentrado',
+          color: Color(0xFF3DDBB4),
+        ),
+        MetricTile(
+          icon: Icons.done_all,
+          value: '3',
+          label: 'sesiones',
+          color: Color(0xFFC1C1FF),
+          badge: '+18%',
+        ),
+        MetricTile(
+          icon: Icons.shield_outlined,
+          value: '0',
+          label: 'salidas',
+          color: Color(0xFF3DDBB4),
+        ),
+      ],
+    ),
+    'week_bars': const WeekBars(
+      values: [40, 90, 30, 120, 0, 0, 0],
+      labels: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
+      highlight: 3,
+      semanticsLabel: 'Esta semana',
+    ),
+    'stacked_bar_chart': const StackedBarChart(
+      bars: [
+        [
+          (color: Color(0xFF3B82F6), value: 50),
+          (color: Color(0xFF8B5CF6), value: 30),
+        ],
+        [(color: Color(0xFF3B82F6), value: 20)],
+        [],
+        [(color: Color(0xFF10B981), value: 90)],
+      ],
+      labels: ['L', 'M', 'X', 'J'],
+      highlight: 3,
+      semanticsLabel: 'Horas',
+    ),
+    'subject_donut': const SubjectDonut(
+      slices: [
+        (color: Color(0xFF8B5CF6), value: 45),
+        (color: Color(0xFF3B82F6), value: 30),
+        (color: Color(0xFF10B981), value: 25),
+      ],
+      centerValue: '3',
+      centerLabel: 'materias',
+      semanticsLabel: 'Por materia',
+    ),
+    'block_segments_and_dots': const Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BlockSegments(total: 4, done: 1),
+        SizedBox(height: 16),
+        PageDots(count: 3, index: 0),
+      ],
+    ),
+    'onboarding_illustration': const OnboardingIllustration(
+      icon: Icons.eco,
+      accent: Color(0xFF3DDBB4),
+    ),
+    'app_bubble': Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppBubble(label: 'Calculadora', onTap: () {}),
+        AppBubble(label: 'PDF', onTap: () {}),
       ],
     ),
     'session_card': const SessionCard(
@@ -110,13 +192,16 @@ void main() {
       value: true,
       onChanged: (_) {},
     ),
-    'heatmap_calendar': HeatmapCalendar(
+    'month_calendar': MonthCalendar(
+      month: DateTime(2026, 11),
+      today: DateTime(2026, 11, 18),
       minutesByDay: {
-        for (var i = 0; i < 40; i += 2) DateTime(2026, 11, 9 - i): (i * 7) % 60,
+        for (var d = 1; d <= 18; d++) DateTime(2026, 11, d): (d * 23) % 200,
       },
-      endDay: DateTime(2026, 11, 9),
-      goalMinutes: 25,
-      semanticsLabel: 'Calendario',
+      weekdayInitials: const ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
+      lessLabel: 'Menos tiempo',
+      moreLabel: 'Más de 3 h',
+      semanticsLabel: 'Consistencia',
     ),
     'empty_state': const EmptyState(
       title: 'Aún no hay sesiones',
@@ -144,7 +229,7 @@ void main() {
     for (final brightness in Brightness.values) {
       testWidgets('$name ${brightness.name}', (tester) async {
         tester.view
-          ..physicalSize = const Size(400, 640)
+          ..physicalSize = const Size(412, 760)
           ..devicePixelRatio = 1;
         addTearDown(tester.view.reset);
         await tester.pumpWidget(themed(widget, brightness: brightness));

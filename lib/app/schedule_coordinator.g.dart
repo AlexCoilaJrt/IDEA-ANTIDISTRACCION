@@ -48,7 +48,7 @@ final class ScheduleCoordinatorProvider
 }
 
 String _$scheduleCoordinatorHash() =>
-    r'c73ed78d3370ecd133e85ae2ebf2a6cffc0a942c';
+    r'486364dab2b303089d84906a763ccd84ab22ce0b';
 
 /// Mantiene los recordatorios nativos al día con el horario y atiende el
 /// botón "Empezar ahora" de los avisos.

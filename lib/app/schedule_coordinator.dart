@@ -53,7 +53,7 @@ class ScheduleCoordinator extends _$ScheduleCoordinator {
     if (!ref.mounted) return;
     final result = await ref
         .read(startSessionUseCaseProvider)
-        .call(plan: block?.plan);
+        .call(plan: block?.plan, label: block?.label);
     if (!ref.mounted) return;
     // El router abre la pantalla de sesión solo cuando hay una activa.
     state = switch (result) {

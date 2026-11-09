@@ -32,6 +32,116 @@ class EnfoqueWidgetbook extends StatelessWidget {
         WidgetbookCategory(
           name: 'Componentes',
           children: [
+            _component('Marca y estado', {
+              'Cabecera': (_) =>
+                  const BrandHeader(title: 'Enfoque', section: 'Inicio'),
+              'Racha': (_) => const StreakChip(
+                label: '12 d',
+                semanticsLabel: '12 días de racha',
+              ),
+              'Píldoras': (_) => const Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  StatusPill(
+                    label: 'Bloqueo activo',
+                    color: Color(0xFF3DDBB4),
+                    icon: Icons.lock_outline,
+                  ),
+                  StatusPill(
+                    label: 'Cálculo diferencial',
+                    color: Color(0xFFC1C1FF),
+                    dot: true,
+                    uppercase: true,
+                  ),
+                  SubjectTag(label: 'Cálculo', filled: true),
+                  SubjectTag(label: 'Física'),
+                ],
+              ),
+            }),
+            _component('MetricTile / StatGrid', {
+              'Hoy': (_) => const StatGrid(
+                columns: 3,
+                children: [
+                  MetricTile(
+                    icon: Icons.schedule,
+                    value: '1h 45m',
+                    label: 'concentrado',
+                    color: Color(0xFF3DDBB4),
+                  ),
+                  MetricTile(
+                    icon: Icons.done_all,
+                    value: '3',
+                    label: 'sesiones',
+                    color: Color(0xFFC1C1FF),
+                  ),
+                  MetricTile(
+                    icon: Icons.shield_outlined,
+                    value: '0',
+                    label: 'salidas',
+                    color: Color(0xFF3DDBB4),
+                  ),
+                ],
+              ),
+            }),
+            _component('Gráficos', {
+              'Semana': (_) => const WeekBars(
+                values: [40, 90, 30, 120, 0, 0, 0],
+                labels: ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
+                highlight: 3,
+                semanticsLabel: 'Esta semana',
+              ),
+              'Barras por materia': (_) => const StackedBarChart(
+                bars: [
+                  [
+                    (color: Color(0xFF3B82F6), value: 50),
+                    (color: Color(0xFF8B5CF6), value: 30),
+                  ],
+                  [(color: Color(0xFF10B981), value: 70)],
+                  [],
+                ],
+                labels: ['L', 'M', 'X'],
+                semanticsLabel: 'Horas',
+              ),
+              'Dona': (_) => const SubjectDonut(
+                slices: [
+                  (color: Color(0xFF8B5CF6), value: 45),
+                  (color: Color(0xFF3B82F6), value: 30),
+                  (color: Color(0xFF10B981), value: 25),
+                ],
+                centerValue: '3',
+                centerLabel: 'materias',
+                semanticsLabel: 'Por materia',
+              ),
+              'Calendario': (_) => MonthCalendar(
+                month: DateTime(2026, 11),
+                today: DateTime(2026, 11, 18),
+                minutesByDay: {
+                  for (var d = 1; d <= 18; d++)
+                    DateTime(2026, 11, d): (d * 23) % 200,
+                },
+                weekdayInitials: const ['L', 'M', 'X', 'J', 'V', 'S', 'D'],
+                lessLabel: 'Menos tiempo',
+                moreLabel: 'Más de 3 h',
+                semanticsLabel: 'Consistencia',
+              ),
+            }),
+            _component('Bienvenida', {
+              'Ilustración': (_) => const OnboardingIllustration(
+                icon: Icons.eco,
+                accent: Color(0xFF3DDBB4),
+              ),
+              'Puntos': (_) => const PageDots(count: 3, index: 1),
+              'Bloques': (_) => const BlockSegments(total: 4, done: 1),
+            }),
+            _component('AppBubble', {
+              'Apps permitidas': (_) => Row(
+                children: [
+                  AppBubble(label: 'Calculadora', onTap: () {}),
+                  AppBubble(label: 'PDF Lector', onTap: () {}),
+                ],
+              ),
+            }),
             _component('FocusButton', {
               'Principal': (_) => FocusButton(
                 label: 'Empezar sesión',
@@ -41,6 +151,17 @@ class EnfoqueWidgetbook extends StatelessWidget {
               'Secundario': (_) => FocusButton(
                 label: 'Apps permitidas',
                 variant: FocusButtonVariant.secondary,
+                onPressed: () {},
+              ),
+              'Menta': (_) => FocusButton(
+                label: 'Volver a estudiar',
+                icon: Icons.play_arrow_rounded,
+                variant: FocusButtonVariant.mint,
+                onPressed: () {},
+              ),
+              'Peligro': (_) => FocusButton(
+                label: 'Salir y perder la racha',
+                variant: FocusButtonVariant.danger,
                 onPressed: () {},
               ),
               'Cargando': (_) => const FocusButton(
@@ -64,25 +185,6 @@ class EnfoqueWidgetbook extends StatelessWidget {
                 label: 'Descanso',
                 color: Color(0xFFFFC56B),
                 semanticsLabel: 'Descanso, queda 1 minuto',
-              ),
-            }),
-            _component('StreakBadge', {
-              'Activa': (_) => const StreakBadge(label: '5 días', active: true),
-              'Pendiente': (_) =>
-                  const StreakBadge(label: '4 días', active: false),
-            }),
-            _component('StatTile / StatGrid', {
-              'Grilla': (_) => const StatGrid(
-                columns: 2,
-                children: [
-                  StatTile(label: 'Hoy', value: '45 min', icon: Icons.today),
-                  StatTile(
-                    label: 'Racha actual',
-                    value: '5 días',
-                    icon: Icons.local_fire_department,
-                  ),
-                  StatTile(label: 'Sesiones completas', value: '30'),
-                ],
               ),
             }),
             _component('SessionCard', {
@@ -160,25 +262,6 @@ class EnfoqueWidgetbook extends StatelessWidget {
                     statusLabel: 'Omitido',
                   ),
                 ],
-              ),
-            }),
-            _component('HeatmapCalendar', {
-              '12 semanas': (_) => HeatmapCalendar(
-                minutesByDay: {
-                  for (var i = 0; i < 80; i++)
-                    DateTime(2026, 11, 9 - i): (i * 13) % 70,
-                },
-                endDay: DateTime(2026, 11, 9),
-                goalMinutes: 25,
-                semanticsLabel: 'Últimas 12 semanas',
-              ),
-            }),
-            _component('WeekBarChart', {
-              '7 días': (_) => const WeekBarChart(
-                values: [10, 30, 0, 55, 25, 40, 20],
-                labels: ['mar', 'mié', 'jue', 'vie', 'sáb', 'dom', 'lun'],
-                goalMinutes: 25,
-                semanticsLabel: 'Minutos de los últimos 7 días',
               ),
             }),
             _component('ExitCostSheet', {

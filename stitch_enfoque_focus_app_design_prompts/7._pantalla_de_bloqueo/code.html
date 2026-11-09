@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-bright": "#393841", "primary": "#c1c1ff", "tertiary": "#ffb68d", "on-primary-container": "#edeaff", "on-secondary-fixed": "#002018", "inverse-primary": "#4e4ec9", "on-secondary-container": "#004939", "on-background": "#e4e1ed", "background": "#13131b", "on-secondary": "#00382b", "primary-fixed": "#e2dfff", "on-tertiary-container": "#ffe8dd", "on-primary": "#1b119b", "secondary-fixed-dim": "#41deb7", "surface-container": "#1f1f27", "on-tertiary": "#532200", "secondary": "#41deb7", "on-tertiary-fixed-variant": "#763300", "tertiary-container": "#ae4f00", "on-surface-variant": "#c7c4d6", "on-tertiary-fixed": "#321200", "error": "#ffb4ab", "outline-variant": "#464553", "surface-tint": "#c1c1ff", "primary-fixed-dim": "#c1c1ff", "error-container": "#93000a", "on-secondary-fixed-variant": "#005140", "secondary-fixed": "#65fbd2", "primary-container": "#5b5bd6", "on-error-container": "#ffdad6", "secondary-container": "#00c19c", "on-primary-fixed-variant": "#3533b0", "surface-container-low": "#1b1b23", "inverse-surface": "#e4e1ed", "on-surface": "#e4e1ed", "surface-container-lowest": "#0d0d15", "outline": "#918f9f", "surface": "#13131b", "on-error": "#690005", "on-primary-fixed": "#0a006b", "surface-container-high": "#292932", "surface-dim": "#13131b", "inverse-on-surface": "#302f38", "tertiary-fixed-dim": "#ffb68d", "surface-container-highest": "#34343d", "tertiary-fixed": "#ffdbc9", "surface-variant": "#34343d" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "1rem", "gutter": "1rem", "space-lg": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem", "space-xl": "2rem" }, fontFamily: { "body-sm": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "display-timer": ["Plus Jakarta Sans"] }, fontSize: { "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "500" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.005em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "display-timer": ["64px", { lineHeight: "72px", letterSpacing: "-0.02em", fontWeight: "700" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;background-color:#13131b;color:#e4e1ed;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen relative antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.45)]"><div class="pt-safe"><div class="w-full h-6 px-margin flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm select-none"><span class="tracking-wide font-medium text-on-surface">09:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[16px]">signal_cellular_4_bar</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Volver" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors focus:outline-none" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Enfoque Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrB7XAoImLkfm_1UazPP3O1qSflykfAPVGD6sc0aVTaAO1eIyA1NSjCLHqf8cxlk4XIQQ_sfOGo4ygviP9Lwk97mC5QLe67yqp_bQJAk83L9id_57ijFc4ZwoZN1kV8l23LkV4Z-000cOlOSZxpQOKG1MWrqNX46N4sTIOgeHFB0adpnHaqYQ7fr_2MPlmhbqR2yGmlB64uiTXS_p4Qm45sJi59AINS_CTMZRGKkzuNm1Q"/><h1 class="font-headline-sm text-headline-sm text-on-surface leading-tight truncate">Configurar Bloqueo</h1></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUs1XcBPxEILaRa5yXGHKywhIEQcAGaMrg3Tv13O1_HSKoRDEcifDIcU2p6tSeROqdwafqpwZUdj9KuDxa9z4EoKx0jINHKKhzQ0P4GY28itr841qUbhbbXlJlGYhF7x7-O_WGjm9jiH-CcaI72OHYe9BhO3AJj5FmulCA8gIdBZMxWrUhtHbpxYP2vOutTgomjRUOYopthwvQlOpxAuoAFCQVUoQvt4DJfzBi1A1E"/></div></div></div></header><main class="flex flex-col relative w-full pt-[88px] pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full relative px-margin pb-space-xl overflow-hidden select-none">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-20 right-4 w-48 h-48 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Simulated Glassmorphism Card Overlay -->
+<div class="relative w-full rounded-xl bg-surface-container-low/90 shadow-2xl backdrop-blur-2xl p-space-md flex flex-col items-center text-center">
+<!-- Top Blocked App Badge -->
+<div class="flex flex-col items-center mt-space-xs">
+<div class="relative flex items-center justify-center">
+<!-- Grayscale App Container -->
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center shadow-md">
+<svg class="w-8 h-8 text-on-surface-variant/40" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+</svg>
+</div>
+<!-- Lock Pill Overlap -->
+<div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center shadow-lg text-secondary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+<p class="font-title-md text-title-md text-on-surface mt-space-sm font-semibold tracking-tight">
+        Instagram está bloqueada
+      </p>
+</div>
+<!-- Motivational Anchor Phrase -->
+<div class="mt-space-sm mb-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">
+        Vuelve a lo tuyo. <span class="text-secondary font-bold">Tú puedes.</span>
+</h2>
+</div>
+<!-- Circular Timer Centerpiece -->
+<div class="relative my-space-sm flex flex-col items-center justify-center">
+<div class="relative w-44 h-44 flex items-center justify-center">
+<!-- SVG Ring Progress -->
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 160 160">
+<!-- Background Track -->
+<circle class="text-surface-container-high" cx="80" cy="80" fill="none" r="66" stroke="currentColor" stroke-width="10"></circle>
+<!-- Active Mint Arc (e.g. 70% completed) -->
+<circle class="text-secondary transition-all duration-1000 ease-linear" cx="80" cy="80" fill="none" id="timer-ring" r="66" stroke="currentColor" stroke-dasharray="414.69" stroke-dashoffset="124.4" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<!-- Inner Ambient Ring Glow -->
+<div class="absolute inset-0 rounded-full shadow-[0_0_28px_rgba(65,222,183,0.12)] pointer-events-none"></div>
+<!-- Center Counter Metrics -->
+<div class="absolute flex flex-col items-center text-center">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight" id="countdown-display">18:42</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mt-0.5">Enfoque activo</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+        restantes de tu sesión de <span class="text-on-surface font-semibold">Cálculo</span>
+</p>
+</div>
+<!-- Live Social Accountability Banner -->
+<div class="w-full mt-space-xs mb-space-md bg-surface-container rounded-lg p-space-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<!-- Overlapping Avatar Group -->
+<div class="flex -space-x-2 shrink-0">
+<img class="w-7 h-7 rounded-full object-cover" data-alt="Student girl with glasses focused taking handwritten notes in an atmospheric low light study library with ambient mint glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNly86RZtgohfH65VsiQuqt0vO-r9de79ho8WsrYPXUIFySoowU16d4UFJdpWmvQThah_o2dULGLmZ_7-RuW6OO_sQ-HHKwe9oSkDa7Agz_2zQru6gwHrn1JEdwp0EhV48qqyVTmuTCxcqwP8iOEvJS3hB1QWhH5Fp7hnJODuglOMbxdii6IZzEKrAvcfgSOOUJHjBJ2il9DWkd2Ne8vLxrzXcfVrUumulArkwQQZB"/>
+<img class="w-7 h-7 rounded-full object-cover" data-alt="Focused young student working diligently with tablet in dark dorm room setting with deep violet mood lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYBg5nqHj474X_wcyC2E2j3RSafR8M1lGs3CmxNm4wPaHobE-Ag0GZrWKyUQC8g-JvQjLmtoMUQeLLJKSyo1EARaTLA7_1WwpwHGIQMa_gRObCaKTiGMNFRVRYvAO0fngNeXGQPd5awPljOuVTOhu1wAz4Vc_JROmktTmp4TQ8jm17qWQk7qGILfW-PwBAD95H_UYBPEC9EfKUnBvW8tAJd2-fyoNLeFFmAqKuwOmc"/>
+<div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm font-bold">
+            +2
+          </div>
+</div>
+<!-- Context Copy -->
+<p class="font-body-sm text-body-sm text-on-surface-variant text-left truncate">
+<span class="text-on-surface font-semibold">Ana y 2 más</span> siguen concentrados en <span class="text-secondary font-medium">Grupo Física II</span>
+</p>
+</div>
+<!-- Live Pulse Beacon -->
+<span class="flex h-2.5 w-2.5 relative shrink-0 ml-space-xs">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+</div>
+<!-- Main Action Button -->
+<button class="w-full h-14 bg-secondary active:scale-[0.98] transition-transform rounded-full flex items-center justify-center gap-space-xs shadow-[0_4px_20px_rgba(65,222,183,0.3)] focus:outline-none select-none" id="resume-button">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[22px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-label-lg text-label-lg font-bold text-on-secondary-fixed">Volver a estudiar</span>
+</button>
+<!-- Whitelisted Companion Apps Grid -->
+<div class="w-full mt-space-md pt-space-sm flex flex-col items-center">
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">
+          Puedes usar mientras estudias:
+        </span>
+</div>
+<div class="grid grid-cols-4 gap-space-sm w-full max-w-xs">
+<!-- App 1: Calculadora -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high group-active:bg-surface-bright flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-primary" style="font-variation-settings: 'FILL' 1;">calculate</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface truncate w-full text-center">Calculadora</span>
+</button>
+<!-- App 2: Diccionario -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high group-active:bg-surface-bright flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-secondary" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface truncate w-full text-center">Diccionario</span>
+</button>
+<!-- App 3: Drive -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high group-active:bg-surface-bright flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-tertiary" style="font-variation-settings: 'FILL' 1;">add_to_drive</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface truncate w-full text-center">Drive</span>
+</button>
+<!-- App 4: PDF Viewer -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high group-active:bg-surface-bright flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-primary-container" style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface truncate w-full text-center">PDF Lector</span>
+</button>
+</div>
+</div>
+<!-- Soft Escape Link -->
+<div class="mt-space-lg mb-space-xs">
+<button class="py-space-xs px-space-md text-on-surface-variant/60 hover:text-on-surface-variant active:text-error transition-colors focus:outline-none" id="giveup-trigger">
+<span class="font-body-sm text-body-sm font-normal underline decoration-outline-variant/40 underline-offset-4">Salir de la sesión antes</span>
+</button>
+</div>
+</div>
+<!-- Interactive Subtle Confirmation Bottom Sheet Overlay (Hidden by Default) -->
+<div class="hidden fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-sm flex flex-col justify-end p-margin" id="abandon-sheet">
+<div class="w-full bg-surface-container-high rounded-xl p-space-md flex flex-col text-left shadow-2xl">
+<div class="flex items-center gap-space-sm text-error">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold">¿Pausar tu progreso?</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+        Llevas 32 minutos de racha continua y tus compañeros siguen en la sala. Si sales ahora, se reiniciará el multiplicador de enfoque.
+      </p>
+<div class="flex flex-col gap-space-xs mt-space-md">
+<button class="w-full h-12 bg-secondary rounded-full font-label-lg text-label-lg font-bold text-on-secondary-fixed flex items-center justify-center" id="cancel-abandon">
+          Continuar estudiando
+        </button>
+<button class="w-full h-11 bg-surface-container rounded-full font-label-lg text-label-lg font-medium text-error hover:bg-surface-bright flex items-center justify-center" onclick="history.back()">
+          Abandonar de todos modos
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const resumeBtn = document.getElementById('resume-button');
+    const giveupTrigger = document.getElementById('giveup-trigger');
+    const abandonSheet = document.getElementById('abandon-sheet');
+    const cancelAbandon = document.getElementById('cancel-abandon');
+    const display = document.getElementById('countdown-display');
+    const ring = document.getElementById('timer-ring');
+
+    // Quick Action: Return immediately
+    if (resumeBtn) {
+      resumeBtn.addEventListener('click', function() {
+        resumeBtn.classList.add('scale-95');
+        setTimeout(() => {
+          resumeBtn.classList.remove('scale-95');
+          if (window.history.length > 1) {
+            window.history.back();
+          }
+        }, 150);
+      });
+    }
+
+    // Modal Interaction
+    if (giveupTrigger && abandonSheet) {
+      giveupTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        abandonSheet.classList.remove('hidden');
+      });
+    }
+
+    if (cancelAbandon && abandonSheet) {
+      cancelAbandon.addEventListener('click', function() {
+        abandonSheet.classList.add('hidden');
+      });
+    }
+
+    // Live countdown simulation
+    let secondsLeft = 18 * 60 + 42;
+    const totalSeconds = 25 * 60;
+    const circumference = 2 * Math.PI * 66;
+
+    const timer = setInterval(() => {
+      if (secondsLeft <= 0) {
+        clearInterval(timer);
+        return;
+      }
+      secondsLeft--;
+      const mins = Math.floor(secondsLeft / 60);
+      const secs = secondsLeft % 60;
+      if (display) {
+        display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
+      if (ring) {
+        const offset = circumference - (secondsLeft / totalSeconds) * circumference;
+        ring.style.strokeDashoffset = offset;
+      }
+    }, 1000);
+  })();
+</script><div class="mt-auto pb-safe flex justify-center pb-2 pt-4"><div class="w-32 h-1 rounded-full bg-outline-variant/60"></div></div></main></body></html>

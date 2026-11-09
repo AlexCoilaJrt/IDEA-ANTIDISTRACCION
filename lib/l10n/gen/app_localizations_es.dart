@@ -173,11 +173,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get commonDelete => 'Eliminar';
 
   @override
-  String homeNextScheduled(String title, String when) {
-    return 'Próxima en tu horario: $title, $when';
-  }
-
-  @override
   String get commonRetry => 'Reintentar';
 
   @override
@@ -201,23 +196,338 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get welcomeBrand => 'ENFOQUE';
+
+  @override
+  String get welcomeSkip => 'Saltar';
+
+  @override
+  String get welcomeNext => 'Siguiente';
+
+  @override
+  String get welcome1Badge => 'Modo Zen activo';
+
+  @override
+  String get welcome1Body =>
+      'Enfoque bloquea las apps que te distraen mientras estudias.';
+
+  @override
+  String get welcome2Badge => 'Pomodoro y horario';
+
+  @override
+  String get welcome2Title => 'Tu semana organizada';
+
+  @override
+  String get welcome2Body =>
+      'Programa tus sesiones de estudio y te avisamos a la hora, con descansos incluidos.';
+
+  @override
+  String get welcome3Badge => 'Racha y progreso';
+
+  @override
+  String get welcome3Title => 'Cada día cuenta';
+
+  @override
+  String get welcome3Body =>
+      'Mantén tu racha, mira tu progreso y aprende a resistir las distracciones. Todo queda en tu celular.';
+
+  @override
+  String homeHello(String name) {
+    return 'Hola, $name';
+  }
+
+  @override
+  String get homeHelloNoName => 'Hola';
+
+  @override
+  String get homeReady => 'Todo listo para hoy';
+
+  @override
+  String homeStreakRun(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count días seguidos',
+      one: '1 día seguido',
+      zero: 'Sin racha',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String streakChip(int count) {
+    return '$count d';
+  }
+
+  @override
+  String streakSemantics(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count días de racha',
+      one: '1 día de racha',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeNextSession => 'Próxima sesión';
+
+  @override
+  String get homeNowSession => 'Ahora, según tu horario';
+
+  @override
+  String homeWhenRange(String day, String start, String end) {
+    return '$day $start a $end';
+  }
+
+  @override
+  String homeBlocksPomodoro(int cycles, int focus) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cycles,
+      locale: localeName,
+      other: '$cycles bloques Pomodoro de $focus min',
+      one: '1 bloque Pomodoro de $focus min',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeBlocksFree(int minutes) {
+    return '$minutes min de enfoque libre';
+  }
+
+  @override
+  String get homeNoScheduleTitle => 'Sin sesiones programadas';
+
+  @override
+  String get homeNoScheduleBody =>
+      'Organiza tu semana en Horario y te avisaremos a la hora de estudiar.';
+
+  @override
+  String get homeOpenSchedule => 'Ir a Horario';
+
+  @override
+  String get homeQuickTitle => 'Sesión rápida';
+
+  @override
+  String homeQuickPomodoro(int cycles, int focus, int rest) {
+    return '$cycles × $focus/$rest min · toca para ajustar';
+  }
+
+  @override
+  String homeQuickFree(int minutes) {
+    return 'Temporizador libre de $minutes min';
+  }
+
+  @override
+  String get homeToday => 'Hoy';
+
+  @override
+  String homeGoal(String goal) {
+    return 'Meta: $goal';
+  }
+
+  @override
+  String get homeMetricFocused => 'concentrado';
+
+  @override
+  String get homeMetricSessions => 'sesiones';
+
+  @override
+  String get homeMetricExits => 'salidas';
+
+  @override
+  String get homeThisWeek => 'Esta semana';
+
+  @override
+  String homeWeekTotal(String total) {
+    return 'Total: $total';
+  }
+
+  @override
+  String homeVsLastWeek(String change) {
+    return '$change % vs semana pasada';
+  }
+
+  @override
+  String homeBestDay(String day, String time) {
+    return 'Mejor día: $day ($time)';
+  }
+
+  @override
+  String get homeDetails => 'Detalles';
+
+  @override
+  String get weekdayInitials => 'L,M,X,J,V,S,D';
+
+  @override
+  String durationHm(int hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String durationShortHm(int hours, int minutes) {
+    return '${hours}h ${minutes}m';
+  }
+
+  @override
+  String durationShortM(int minutes) {
+    return '${minutes}m';
+  }
+
+  @override
+  String get sessionTitle => 'Sesión activa';
+
+  @override
+  String get sessionBlockingOn => 'Bloqueo activo';
+
+  @override
+  String get sessionBlockingPaused => 'Bloqueo en pausa';
+
+  @override
+  String get sessionStateFocus => 'Concentrado';
+
+  @override
+  String get sessionStateRest => 'Descanso';
+
+  @override
+  String sessionCaption(int current, int total, String phase) {
+    return 'Bloque $current de $total · $phase';
+  }
+
+  @override
+  String get sessionNoSubject => 'Sesión de enfoque';
+
+  @override
+  String get sessionCheer1 => 'Cada minuto cuenta. Vas muy bien.';
+
+  @override
+  String get sessionCheer2 => 'Respira y sigue a tu ritmo.';
+
+  @override
+  String get sessionCheer3 => 'Tu yo del futuro te lo va a agradecer.';
+
+  @override
+  String get statsWeek => 'Semana';
+
+  @override
+  String get statsMonth => 'Mes';
+
+  @override
+  String get statsYear => 'Año';
+
+  @override
+  String get statsFocused => 'Concentrado';
+
+  @override
+  String get statsCompleted => 'Completadas';
+
+  @override
+  String get statsActive => 'Activa';
+
+  @override
+  String get statsHours => 'Horas de estudio';
+
+  @override
+  String get statsHoursSub => 'Distribución por materia';
+
+  @override
+  String get statsConsistency => 'Consistencia mensual';
+
+  @override
+  String get statsLess => 'Menos tiempo';
+
+  @override
+  String get statsMore => 'Más de 3 h';
+
+  @override
+  String get statsBySubject => 'Por materia';
+
+  @override
+  String statsTotal(String total) {
+    return 'Total: $total';
+  }
+
+  @override
+  String statsSubjectsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'materias',
+      one: 'materia',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get statsNoSubject => 'Sin materia';
+
+  @override
+  String get statsDistractionTitle => 'Filtro de distracciones';
+
+  @override
+  String get statsDistractionSub => 'Protección activa de tu enfoque';
+
+  @override
+  String statsDistractionApp(String app) {
+    return '$app bloqueada';
+  }
+
+  @override
+  String statsDistractionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count intentos interceptados',
+      one: '1 intento interceptado',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get statsDistractionNone =>
+      'Sin intentos de distracción en este período. ¡Excelente!';
+
+  @override
+  String statsDistractionBetter(int percent) {
+    return '¡Excelente autodisciplina! Bajaste un $percent % respecto al período anterior.';
+  }
+
+  @override
+  String statsDistractionWorse(int percent) {
+    return 'Subiste un $percent % respecto al período anterior. Tú puedes.';
+  }
+
+  @override
+  String get roomsTitle => 'Salas de estudio';
+
+  @override
+  String get roomsSoon => 'Próximamente';
+
+  @override
+  String get roomsCreate => 'Crear sala';
+
+  @override
+  String get roomsCode => 'Con código';
+
+  @override
+  String get roomsFeature1 => 'Estudia en grupo con presencia en vivo.';
+
+  @override
+  String get roomsFeature2 => 'Mira quién está concentrado o en descanso.';
+
+  @override
+  String get roomsFeature3 => 'La sala se entera si alguien sale antes.';
+
+  @override
+  String get settingsName => 'Tu nombre';
+
+  @override
+  String get settingsNameHint => 'Para saludarte en Inicio';
+
+  @override
   String get welcomeTitle => 'Estudia sin distracciones';
-
-  @override
-  String get welcomeBody =>
-      'Enfoque bloquea las apps que te distraen mientras estudias. Tú eliges qué apps quedan permitidas.';
-
-  @override
-  String get welcomePointBlock =>
-      'Bloqueo de apps durante tus sesiones Pomodoro';
-
-  @override
-  String get welcomePointExit =>
-      'Salir antes tiene un costo: piénsalo dos veces';
-
-  @override
-  String get welcomePointStreak =>
-      'Racha diaria y estadísticas, todo guardado en tu celular';
 
   @override
   String get welcomeStart => 'Empezar';
@@ -429,17 +739,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get allowlistDone => 'Listo';
 
   @override
-  String get homeGreeting => '¿Listo para concentrarte?';
-
-  @override
-  String homeTodayProgress(int done, int goal) {
-    return 'Hoy: $done de $goal min';
-  }
-
-  @override
-  String get homeGoalReached => '¡Meta de hoy cumplida!';
-
-  @override
   String get homePresetLabel => 'Tipo de sesión';
 
   @override
@@ -462,11 +761,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String homeSessionSummary(int focus, String time) {
-    return '$focus min de enfoque · termina a las $time';
-  }
-
-  @override
   String homeLongBreakIncluded(int minutes) {
     return 'Incluye un descanso largo de $minutes min después del bloque 4.';
   }
@@ -486,12 +780,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeSettings => 'Ajustes';
 
   @override
-  String get homeNeedsPermissions => 'Faltan permisos para bloquear apps.';
-
-  @override
-  String get homeReviewPermissions => 'Revisar';
-
-  @override
   String streakDays(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -502,9 +790,6 @@ class AppLocalizationsEs extends AppLocalizations {
     );
     return '$_temp0';
   }
-
-  @override
-  String get streakLabel => 'Racha';
 
   @override
   String get sessionPhaseFocus => 'Enfoque';

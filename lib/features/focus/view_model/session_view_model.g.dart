@@ -44,7 +44,7 @@ final class SessionViewModelProvider
   }
 }
 
-String _$sessionViewModelHash() => r'6080c45c578a67ba4238dc662372a193bba044ac';
+String _$sessionViewModelHash() => r'090daffa7ebd2dfa9f64ba8c06346b84d7c01ff5';
 
 /// Sesión activa a pantalla completa. Se actualiza cada segundo.
 

@@ -112,6 +112,9 @@ abstract class AppSettings with _$AppSettings {
 
     /// Si ya se preseleccionaron las apps sugeridas (calculadora, PDF...).
     @Default(false) bool allowlistSeeded,
+
+    /// Nombre para el saludo de Inicio (opcional).
+    @Default('') String displayName,
   }) = _AppSettings;
 
   const new _();
@@ -166,6 +169,7 @@ abstract class BlockerConfig with _$BlockerConfig {
     required PomodoroPlan plan,
     required List<String> allowedPackages,
     required Strictness strictness,
+    String? label,
   }) = _BlockerConfig;
 
   const new _();

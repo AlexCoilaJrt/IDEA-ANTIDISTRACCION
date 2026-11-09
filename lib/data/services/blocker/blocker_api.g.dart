@@ -143,6 +143,7 @@ class SessionConfigDto {
     required this.longBreakMinutes,
     required this.allowedPackages,
     required this.strictness,
+    this.label,
   });
 
   int sessionId;
@@ -164,6 +165,9 @@ class SessionConfigDto {
 
   StrictnessDto strictness;
 
+  /// Materia de la sesión, para la pantalla de bloqueo.
+  String? label;
+
   List<Object?> _toList() {
     return <Object?>[
       sessionId,
@@ -175,6 +179,7 @@ class SessionConfigDto {
       longBreakMinutes,
       allowedPackages,
       strictness,
+      label,
     ];
   }
 
@@ -194,6 +199,7 @@ class SessionConfigDto {
       longBreakMinutes: result[6]! as int,
       allowedPackages: (result[7]! as List<Object?>).cast<String>(),
       strictness: result[8]! as StrictnessDto,
+      label: result[9] as String?,
     );
   }
 
@@ -214,7 +220,8 @@ class SessionConfigDto {
         _deepEquals(cycles, other.cycles) &&
         _deepEquals(longBreakMinutes, other.longBreakMinutes) &&
         _deepEquals(allowedPackages, other.allowedPackages) &&
-        _deepEquals(strictness, other.strictness);
+        _deepEquals(strictness, other.strictness) &&
+        _deepEquals(label, other.label);
   }
 
   @override
@@ -223,7 +230,7 @@ class SessionConfigDto {
 
   @override
   String toString() {
-    return 'SessionConfigDto(sessionId: $sessionId, startedAtMillis: $startedAtMillis, endsAtMillis: $endsAtMillis, focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles, longBreakMinutes: $longBreakMinutes, allowedPackages: $allowedPackages, strictness: $strictness)';
+    return 'SessionConfigDto(sessionId: $sessionId, startedAtMillis: $startedAtMillis, endsAtMillis: $endsAtMillis, focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles, longBreakMinutes: $longBreakMinutes, allowedPackages: $allowedPackages, strictness: $strictness, label: $label)';
   }
 }
 

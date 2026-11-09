@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:enfoque/app/router.dart';
 import 'package:enfoque/app/schedule_coordinator.dart';
+import 'package:enfoque/app/tab_header.dart';
 import 'package:enfoque/app/theme/semantic_colors.dart';
 import 'package:enfoque/app/theme/tokens.dart';
 import 'package:enfoque/core/ui/ui.dart';
@@ -23,7 +24,7 @@ class ScheduleScreen extends ConsumerWidget {
     final state = ref.watch(scheduleViewModelProvider);
 
     return FocusScaffold(
-      title: l10n.navSchedule,
+      header: TabHeader(section: l10n.navSchedule),
       scrollable: state.value?.isEmpty != true,
       body: switch (state) {
         AsyncData(:final value) when value.isEmpty => EmptyState(
@@ -156,11 +157,15 @@ class _BlockTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: ListTile(
         onTap: onTap,
-        leading: Icon(
-          Icons.menu_book_outlined,
-          color: muted
-              ? theme.colorScheme.onSurfaceVariant
-              : theme.colorScheme.primary,
+        leading: Container(
+          width: AppSpacing.xs,
+          height: AppSizes.iconLg,
+          decoration: BoxDecoration(
+            color: muted
+                ? theme.colorScheme.outlineVariant
+                : AppColors.subject(block.label),
+            borderRadius: BorderRadius.circular(AppRadius.circle),
+          ),
         ),
         title: Text(rule.title),
         subtitle: Text(
@@ -246,17 +251,26 @@ class NextScheduledCard extends StatelessWidget {
   }
 }
 
-/// "Hoy a las 18:00", "Mañana a las 07:30" o "Miércoles a las 18:00".
-String scheduleWhenText(BuildContext context, DateTime start, DateTime now) {
+/// "Hoy", "Mañana" o el nombre del día.
+String scheduleDayText(BuildContext context, DateTime start, DateTime now) {
   final l10n = AppLocalizations.of(context);
   final locale = Localizations.localeOf(context).toLanguageTag();
   final today = DateTime(now.year, now.month, now.day);
   final day = DateTime(start.year, start.month, start.day);
   final tomorrow = DateTime(today.year, today.month, today.day + 1);
-  final dayText = day == today
+  return day == today
       ? l10n.scheduleToday
       : day == tomorrow
       ? l10n.scheduleTomorrow
       : Formatters.weekdayName(start.weekday, locale);
-  return l10n.scheduleWhen(dayText, Formatters.time(start, locale));
+}
+
+/// "Hoy a las 18:00", "Mañana a las 07:30" o "Miércoles a las 18:00".
+String scheduleWhenText(BuildContext context, DateTime start, DateTime now) {
+  final l10n = AppLocalizations.of(context);
+  final locale = Localizations.localeOf(context).toLanguageTag();
+  return l10n.scheduleWhen(
+    scheduleDayText(context, start, now),
+    Formatters.time(start, locale),
+  );
 }

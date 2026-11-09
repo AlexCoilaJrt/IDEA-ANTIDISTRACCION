@@ -246,7 +246,9 @@ data class SessionConfigDto (
   /** Descanso tras cada 4 bloques (0 = sin descanso largo). */
   val longBreakMinutes: Long,
   val allowedPackages: List<String>,
-  val strictness: StrictnessDto
+  val strictness: StrictnessDto,
+  /** Materia de la sesión, para la pantalla de bloqueo. */
+  val label: String? = null
 )
  {
   companion object {
@@ -260,7 +262,8 @@ data class SessionConfigDto (
       val longBreakMinutes = pigeonVar_list[6] as Long
       val allowedPackages = pigeonVar_list[7] as List<String>
       val strictness = pigeonVar_list[8] as StrictnessDto
-      return SessionConfigDto(sessionId, startedAtMillis, endsAtMillis, focusMinutes, breakMinutes, cycles, longBreakMinutes, allowedPackages, strictness)
+      val label = pigeonVar_list[9] as String?
+      return SessionConfigDto(sessionId, startedAtMillis, endsAtMillis, focusMinutes, breakMinutes, cycles, longBreakMinutes, allowedPackages, strictness, label)
     }
   }
   fun toList(): List<Any?> {
@@ -274,6 +277,7 @@ data class SessionConfigDto (
       longBreakMinutes,
       allowedPackages,
       strictness,
+      label,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -284,7 +288,7 @@ data class SessionConfigDto (
       return true
     }
     val other = other as SessionConfigDto
-    return BlockerApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && BlockerApiPigeonUtils.deepEquals(this.startedAtMillis, other.startedAtMillis) && BlockerApiPigeonUtils.deepEquals(this.endsAtMillis, other.endsAtMillis) && BlockerApiPigeonUtils.deepEquals(this.focusMinutes, other.focusMinutes) && BlockerApiPigeonUtils.deepEquals(this.breakMinutes, other.breakMinutes) && BlockerApiPigeonUtils.deepEquals(this.cycles, other.cycles) && BlockerApiPigeonUtils.deepEquals(this.longBreakMinutes, other.longBreakMinutes) && BlockerApiPigeonUtils.deepEquals(this.allowedPackages, other.allowedPackages) && BlockerApiPigeonUtils.deepEquals(this.strictness, other.strictness)
+    return BlockerApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && BlockerApiPigeonUtils.deepEquals(this.startedAtMillis, other.startedAtMillis) && BlockerApiPigeonUtils.deepEquals(this.endsAtMillis, other.endsAtMillis) && BlockerApiPigeonUtils.deepEquals(this.focusMinutes, other.focusMinutes) && BlockerApiPigeonUtils.deepEquals(this.breakMinutes, other.breakMinutes) && BlockerApiPigeonUtils.deepEquals(this.cycles, other.cycles) && BlockerApiPigeonUtils.deepEquals(this.longBreakMinutes, other.longBreakMinutes) && BlockerApiPigeonUtils.deepEquals(this.allowedPackages, other.allowedPackages) && BlockerApiPigeonUtils.deepEquals(this.strictness, other.strictness) && BlockerApiPigeonUtils.deepEquals(this.label, other.label)
   }
 
   override fun hashCode(): Int {
@@ -298,10 +302,11 @@ data class SessionConfigDto (
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.longBreakMinutes)
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.allowedPackages)
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.strictness)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.label)
     return result
   }
   override fun toString(): String {
-    return "SessionConfigDto(sessionId=$sessionId, startedAtMillis=$startedAtMillis, endsAtMillis=$endsAtMillis, focusMinutes=$focusMinutes, breakMinutes=$breakMinutes, cycles=$cycles, longBreakMinutes=$longBreakMinutes, allowedPackages=$allowedPackages, strictness=$strictness)"
+    return "SessionConfigDto(sessionId=$sessionId, startedAtMillis=$startedAtMillis, endsAtMillis=$endsAtMillis, focusMinutes=$focusMinutes, breakMinutes=$breakMinutes, cycles=$cycles, longBreakMinutes=$longBreakMinutes, allowedPackages=$allowedPackages, strictness=$strictness, label=$label)"
   }
 }
 

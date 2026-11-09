@@ -31,12 +31,14 @@ class FakeSessionRepository implements SessionRepository {
   Future<Result<FocusSession>> create({
     required DateTime startedAt,
     required PomodoroPlan plan,
+    String? label,
   }) async {
     final s = FocusSession(
       id: _nextId++,
       startedAt: startedAt,
       plan: plan,
       outcome: SessionOutcome.active,
+      label: label,
     );
     sessions[s.id] = s;
     _notify();
@@ -101,6 +103,22 @@ class FakeSessionRepository implements SessionRepository {
     for (final s in sessions.values)
       if (!s.startedAt.isBefore(from) && s.startedAt.isBefore(to)) s,
   ]);
+
+  @override
+  Future<Result<Map<String, int>>> distractionsByApp(
+    DateTime from,
+    DateTime to,
+  ) async {
+    final counts = <String, int>{};
+    for (final list in distractions.values) {
+      for (final d in list) {
+        if (!d.at.isBefore(from) && d.at.isBefore(to)) {
+          counts.update(d.packageName, (v) => v + 1, ifAbsent: () => 1);
+        }
+      }
+    }
+    return Result.ok(counts);
+  }
 
   @override
   Stream<List<FocusSession>> watchSince(DateTime from) => _watch(

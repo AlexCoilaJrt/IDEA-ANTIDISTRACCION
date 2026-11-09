@@ -45,6 +45,16 @@ class _SettingsBody extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        TextFormField(
+          initialValue: settings.displayName,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
+            labelText: l10n.settingsName,
+            hintText: l10n.settingsNameHint,
+            prefixIcon: const Icon(Icons.person_outline),
+          ),
+          onChanged: vm.setDisplayName,
+        ),
         SectionTitle(l10n.settingsDailyGoal),
         Text(l10n.settingsDailyGoalValue(settings.dailyGoalMinutes)),
         Slider(

@@ -1,0 +1,5 @@
+# Las capturas de diseño solo se generan a pedido:
+#   flutter test --run-skipped --update-goldens --tags screenshots test/screenshots
+tags:
+  screenshots:
+    skip: "Capturas bajo demanda (ver dart_test.yaml)"

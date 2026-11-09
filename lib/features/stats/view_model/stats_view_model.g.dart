@@ -8,61 +8,74 @@ part of 'stats_view_model.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Sesiones de las últimas 12 semanas (para estadísticas).
+/// Semana, mes o año seleccionado en Progreso.
 
-@ProviderFor(statsSessions)
-final statsSessionsProvider = StatsSessionsProvider._();
+@ProviderFor(SelectedStatsPeriod)
+final selectedStatsPeriodProvider = SelectedStatsPeriodProvider._();
 
-/// Sesiones de las últimas 12 semanas (para estadísticas).
-
-final class StatsSessionsProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<List<FocusSession>>,
-          List<FocusSession>,
-          Stream<List<FocusSession>>
-        >
-    with
-        $FutureModifier<List<FocusSession>>,
-        $StreamProvider<List<FocusSession>> {
-  /// Sesiones de las últimas 12 semanas (para estadísticas).
-  StatsSessionsProvider._()
+/// Semana, mes o año seleccionado en Progreso.
+final class SelectedStatsPeriodProvider
+    extends $NotifierProvider<SelectedStatsPeriod, StatsPeriod> {
+  /// Semana, mes o año seleccionado en Progreso.
+  SelectedStatsPeriodProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'statsSessionsProvider',
+        name: r'selectedStatsPeriodProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$statsSessionsHash();
+  String debugGetCreateSourceHash() => _$selectedStatsPeriodHash();
 
   @$internal
   @override
-  $StreamProviderElement<List<FocusSession>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  SelectedStatsPeriod create() => SelectedStatsPeriod();
 
-  @override
-  Stream<List<FocusSession>> create(Ref ref) {
-    return statsSessions(ref);
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StatsPeriod value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StatsPeriod>(value),
+    );
   }
 }
 
-String _$statsSessionsHash() => r'a9d72734324cefc2aa577fbe0bff1734e2de46fa';
+String _$selectedStatsPeriodHash() =>
+    r'7fd21572fc7556339f640b232fac70e9f23e2434';
 
-/// Racha y estadísticas locales.
+/// Semana, mes o año seleccionado en Progreso.
+
+abstract class _$SelectedStatsPeriod extends $Notifier<StatsPeriod> {
+  StatsPeriod build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<StatsPeriod, StatsPeriod>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<StatsPeriod, StatsPeriod>,
+              StatsPeriod,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
+
+/// Progreso: métricas del período, gráficos, consistencia y distracciones.
 
 @ProviderFor(StatsViewModel)
 final statsViewModelProvider = StatsViewModelProvider._();
 
-/// Racha y estadísticas locales.
+/// Progreso: métricas del período, gráficos, consistencia y distracciones.
 final class StatsViewModelProvider
     extends $AsyncNotifierProvider<StatsViewModel, StatsState> {
-  /// Racha y estadísticas locales.
+  /// Progreso: métricas del período, gráficos, consistencia y distracciones.
   StatsViewModelProvider._()
     : super(
         from: null,
@@ -82,9 +95,9 @@ final class StatsViewModelProvider
   StatsViewModel create() => StatsViewModel();
 }
 
-String _$statsViewModelHash() => r'89b5393a8849e6baa3d01df500ab90e5504b7012';
+String _$statsViewModelHash() => r'a91c3a21522d29985e961ba0e5a312b7fe5c279c';
 
-/// Racha y estadísticas locales.
+/// Progreso: métricas del período, gráficos, consistencia y distracciones.
 
 abstract class _$StatsViewModel extends $AsyncNotifier<StatsState> {
   FutureOr<StatsState> build();

@@ -1380,7 +1380,8 @@ as String,
 mixin _$AppSettings {
 
  int get dailyGoalMinutes; PomodoroPreset get preset; int get freeMinutes; int get cycles; Strictness get strictness; AppThemeMode get themeMode; bool get onboardingDone;/// Si ya se preseleccionaron las apps sugeridas (calculadora, PDF...).
- bool get allowlistSeeded;
+ bool get allowlistSeeded;/// Nombre para el saludo de Inicio (opcional).
+ String get displayName;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1392,20 +1393,20 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 @override
 bool operator ==(Object other) {
   final _this = this as AppSettings;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.dailyGoalMinutes, _this.dailyGoalMinutes) || other.dailyGoalMinutes == _this.dailyGoalMinutes)&&(identical(other.preset, _this.preset) || other.preset == _this.preset)&&(identical(other.freeMinutes, _this.freeMinutes) || other.freeMinutes == _this.freeMinutes)&&(identical(other.cycles, _this.cycles) || other.cycles == _this.cycles)&&(identical(other.strictness, _this.strictness) || other.strictness == _this.strictness)&&(identical(other.themeMode, _this.themeMode) || other.themeMode == _this.themeMode)&&(identical(other.onboardingDone, _this.onboardingDone) || other.onboardingDone == _this.onboardingDone)&&(identical(other.allowlistSeeded, _this.allowlistSeeded) || other.allowlistSeeded == _this.allowlistSeeded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.dailyGoalMinutes, _this.dailyGoalMinutes) || other.dailyGoalMinutes == _this.dailyGoalMinutes)&&(identical(other.preset, _this.preset) || other.preset == _this.preset)&&(identical(other.freeMinutes, _this.freeMinutes) || other.freeMinutes == _this.freeMinutes)&&(identical(other.cycles, _this.cycles) || other.cycles == _this.cycles)&&(identical(other.strictness, _this.strictness) || other.strictness == _this.strictness)&&(identical(other.themeMode, _this.themeMode) || other.themeMode == _this.themeMode)&&(identical(other.onboardingDone, _this.onboardingDone) || other.onboardingDone == _this.onboardingDone)&&(identical(other.allowlistSeeded, _this.allowlistSeeded) || other.allowlistSeeded == _this.allowlistSeeded)&&(identical(other.displayName, _this.displayName) || other.displayName == _this.displayName));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AppSettings;
-  return Object.hash(runtimeType,_this.dailyGoalMinutes,_this.preset,_this.freeMinutes,_this.cycles,_this.strictness,_this.themeMode,_this.onboardingDone,_this.allowlistSeeded);
+  return Object.hash(runtimeType,_this.dailyGoalMinutes,_this.preset,_this.freeMinutes,_this.cycles,_this.strictness,_this.themeMode,_this.onboardingDone,_this.allowlistSeeded,_this.displayName);
 }
 
 @override
 String toString() {
   final _this = this as AppSettings;
-  return 'AppSettings(dailyGoalMinutes: ${_this.dailyGoalMinutes}, preset: ${_this.preset}, freeMinutes: ${_this.freeMinutes}, cycles: ${_this.cycles}, strictness: ${_this.strictness}, themeMode: ${_this.themeMode}, onboardingDone: ${_this.onboardingDone}, allowlistSeeded: ${_this.allowlistSeeded})';
+  return 'AppSettings(dailyGoalMinutes: ${_this.dailyGoalMinutes}, preset: ${_this.preset}, freeMinutes: ${_this.freeMinutes}, cycles: ${_this.cycles}, strictness: ${_this.strictness}, themeMode: ${_this.themeMode}, onboardingDone: ${_this.onboardingDone}, allowlistSeeded: ${_this.allowlistSeeded}, displayName: ${_this.displayName})';
 }
 
 
@@ -1416,7 +1417,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- int dailyGoalMinutes, PomodoroPreset preset, int freeMinutes, int cycles, Strictness strictness, AppThemeMode themeMode, bool onboardingDone, bool allowlistSeeded
+ int dailyGoalMinutes, PomodoroPreset preset, int freeMinutes, int cycles, Strictness strictness, AppThemeMode themeMode, bool onboardingDone, bool allowlistSeeded, String displayName
 });
 
 
@@ -1433,7 +1434,7 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? dailyGoalMinutes = null,Object? preset = null,Object? freeMinutes = null,Object? cycles = null,Object? strictness = null,Object? themeMode = null,Object? onboardingDone = null,Object? allowlistSeeded = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? dailyGoalMinutes = null,Object? preset = null,Object? freeMinutes = null,Object? cycles = null,Object? strictness = null,Object? themeMode = null,Object? onboardingDone = null,Object? allowlistSeeded = null,Object? displayName = null,}) {
   return _then(AppSettings(
 dailyGoalMinutes: null == dailyGoalMinutes ? _self.dailyGoalMinutes : dailyGoalMinutes // ignore: cast_nullable_to_non_nullable
 as int,preset: null == preset ? _self.preset : preset // ignore: cast_nullable_to_non_nullable
@@ -1443,7 +1444,8 @@ as int,strictness: null == strictness ? _self.strictness : strictness // ignore:
 as Strictness,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as AppThemeMode,onboardingDone: null == onboardingDone ? _self.onboardingDone : onboardingDone // ignore: cast_nullable_to_non_nullable
 as bool,allowlistSeeded: null == allowlistSeeded ? _self.allowlistSeeded : allowlistSeeded // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -1528,10 +1530,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded,  String displayName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded);case _:
+return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded,_that.displayName);case _:
   return orElse();
 
 }
@@ -1549,10 +1551,10 @@ return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycl
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded,  String displayName)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded);case _:
+return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded,_that.displayName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1569,10 +1571,10 @@ return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycl
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int dailyGoalMinutes,  PomodoroPreset preset,  int freeMinutes,  int cycles,  Strictness strictness,  AppThemeMode themeMode,  bool onboardingDone,  bool allowlistSeeded,  String displayName)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded);case _:
+return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycles,_that.strictness,_that.themeMode,_that.onboardingDone,_that.allowlistSeeded,_that.displayName);case _:
   return null;
 
 }
@@ -1584,7 +1586,7 @@ return $default(_that.dailyGoalMinutes,_that.preset,_that.freeMinutes,_that.cycl
 
 
 class _AppSettings extends AppSettings {
-  const _AppSettings({this.dailyGoalMinutes = 25, this.preset = PomodoroPreset.classic, this.freeMinutes = 45, this.cycles = 1, this.strictness = Strictness.standard, this.themeMode = AppThemeMode.dark, this.onboardingDone = false, this.allowlistSeeded = false}): super._();
+  const _AppSettings({this.dailyGoalMinutes = 25, this.preset = PomodoroPreset.classic, this.freeMinutes = 45, this.cycles = 1, this.strictness = Strictness.standard, this.themeMode = AppThemeMode.dark, this.onboardingDone = false, this.allowlistSeeded = false, this.displayName = ''}): super._();
   
 
 @override@JsonKey() final  int dailyGoalMinutes;
@@ -1596,6 +1598,8 @@ class _AppSettings extends AppSettings {
 @override@JsonKey() final  bool onboardingDone;
 /// Si ya se preseleccionaron las apps sugeridas (calculadora, PDF...).
 @override@JsonKey() final  bool allowlistSeeded;
+/// Nombre para el saludo de Inicio (opcional).
+@override@JsonKey() final  String displayName;
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
@@ -1607,18 +1611,18 @@ _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.preset, preset) || other.preset == preset)&&(identical(other.freeMinutes, freeMinutes) || other.freeMinutes == freeMinutes)&&(identical(other.cycles, cycles) || other.cycles == cycles)&&(identical(other.strictness, strictness) || other.strictness == strictness)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.onboardingDone, onboardingDone) || other.onboardingDone == onboardingDone)&&(identical(other.allowlistSeeded, allowlistSeeded) || other.allowlistSeeded == allowlistSeeded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.dailyGoalMinutes, dailyGoalMinutes) || other.dailyGoalMinutes == dailyGoalMinutes)&&(identical(other.preset, preset) || other.preset == preset)&&(identical(other.freeMinutes, freeMinutes) || other.freeMinutes == freeMinutes)&&(identical(other.cycles, cycles) || other.cycles == cycles)&&(identical(other.strictness, strictness) || other.strictness == strictness)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.onboardingDone, onboardingDone) || other.onboardingDone == onboardingDone)&&(identical(other.allowlistSeeded, allowlistSeeded) || other.allowlistSeeded == allowlistSeeded)&&(identical(other.displayName, displayName) || other.displayName == displayName));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,dailyGoalMinutes,preset,freeMinutes,cycles,strictness,themeMode,onboardingDone,allowlistSeeded);
+    return Object.hash(runtimeType,dailyGoalMinutes,preset,freeMinutes,cycles,strictness,themeMode,onboardingDone,allowlistSeeded,displayName);
 }
 
 @override
 String toString() {
-    return 'AppSettings(dailyGoalMinutes: $dailyGoalMinutes, preset: $preset, freeMinutes: $freeMinutes, cycles: $cycles, strictness: $strictness, themeMode: $themeMode, onboardingDone: $onboardingDone, allowlistSeeded: $allowlistSeeded)';
+    return 'AppSettings(dailyGoalMinutes: $dailyGoalMinutes, preset: $preset, freeMinutes: $freeMinutes, cycles: $cycles, strictness: $strictness, themeMode: $themeMode, onboardingDone: $onboardingDone, allowlistSeeded: $allowlistSeeded, displayName: $displayName)';
 }
 
 
@@ -1629,7 +1633,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- int dailyGoalMinutes, PomodoroPreset preset, int freeMinutes, int cycles, Strictness strictness, AppThemeMode themeMode, bool onboardingDone, bool allowlistSeeded
+ int dailyGoalMinutes, PomodoroPreset preset, int freeMinutes, int cycles, Strictness strictness, AppThemeMode themeMode, bool onboardingDone, bool allowlistSeeded, String displayName
 });
 
 
@@ -1646,7 +1650,7 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? dailyGoalMinutes = null,Object? preset = null,Object? freeMinutes = null,Object? cycles = null,Object? strictness = null,Object? themeMode = null,Object? onboardingDone = null,Object? allowlistSeeded = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? dailyGoalMinutes = null,Object? preset = null,Object? freeMinutes = null,Object? cycles = null,Object? strictness = null,Object? themeMode = null,Object? onboardingDone = null,Object? allowlistSeeded = null,Object? displayName = null,}) {
   return _then(_AppSettings(
 dailyGoalMinutes: null == dailyGoalMinutes ? _self.dailyGoalMinutes : dailyGoalMinutes // ignore: cast_nullable_to_non_nullable
 as int,preset: null == preset ? _self.preset : preset // ignore: cast_nullable_to_non_nullable
@@ -1656,7 +1660,8 @@ as int,strictness: null == strictness ? _self.strictness : strictness // ignore:
 as Strictness,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as AppThemeMode,onboardingDone: null == onboardingDone ? _self.onboardingDone : onboardingDone // ignore: cast_nullable_to_non_nullable
 as bool,allowlistSeeded: null == allowlistSeeded ? _self.allowlistSeeded : allowlistSeeded // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -2487,7 +2492,7 @@ as DateTime?,
 /// @nodoc
 mixin _$BlockerConfig {
 
- int get sessionId; DateTime get startedAt; PomodoroPlan get plan; List<String> get allowedPackages; Strictness get strictness;
+ int get sessionId; DateTime get startedAt; PomodoroPlan get plan; List<String> get allowedPackages; Strictness get strictness; String? get label;
 /// Create a copy of BlockerConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2499,20 +2504,20 @@ $BlockerConfigCopyWith<BlockerConfig> get copyWith => _$BlockerConfigCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as BlockerConfig;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlockerConfig&&(identical(other.sessionId, _this.sessionId) || other.sessionId == _this.sessionId)&&(identical(other.startedAt, _this.startedAt) || other.startedAt == _this.startedAt)&&(identical(other.plan, _this.plan) || other.plan == _this.plan)&&const DeepCollectionEquality().equals(other.allowedPackages, _this.allowedPackages)&&(identical(other.strictness, _this.strictness) || other.strictness == _this.strictness));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlockerConfig&&(identical(other.sessionId, _this.sessionId) || other.sessionId == _this.sessionId)&&(identical(other.startedAt, _this.startedAt) || other.startedAt == _this.startedAt)&&(identical(other.plan, _this.plan) || other.plan == _this.plan)&&const DeepCollectionEquality().equals(other.allowedPackages, _this.allowedPackages)&&(identical(other.strictness, _this.strictness) || other.strictness == _this.strictness)&&(identical(other.label, _this.label) || other.label == _this.label));
 }
 
 
 @override
 int get hashCode {
   final _this = this as BlockerConfig;
-  return Object.hash(runtimeType,_this.sessionId,_this.startedAt,_this.plan,const DeepCollectionEquality().hash(_this.allowedPackages),_this.strictness);
+  return Object.hash(runtimeType,_this.sessionId,_this.startedAt,_this.plan,const DeepCollectionEquality().hash(_this.allowedPackages),_this.strictness,_this.label);
 }
 
 @override
 String toString() {
   final _this = this as BlockerConfig;
-  return 'BlockerConfig(sessionId: ${_this.sessionId}, startedAt: ${_this.startedAt}, plan: ${_this.plan}, allowedPackages: ${_this.allowedPackages}, strictness: ${_this.strictness})';
+  return 'BlockerConfig(sessionId: ${_this.sessionId}, startedAt: ${_this.startedAt}, plan: ${_this.plan}, allowedPackages: ${_this.allowedPackages}, strictness: ${_this.strictness}, label: ${_this.label})';
 }
 
 
@@ -2523,7 +2528,7 @@ abstract mixin class $BlockerConfigCopyWith<$Res>  {
   factory $BlockerConfigCopyWith(BlockerConfig value, $Res Function(BlockerConfig) _then) = _$BlockerConfigCopyWithImpl;
 @useResult
 $Res call({
- int sessionId, DateTime startedAt, PomodoroPlan plan, List<String> allowedPackages, Strictness strictness
+ int sessionId, DateTime startedAt, PomodoroPlan plan, List<String> allowedPackages, Strictness strictness, String? label
 });
 
 
@@ -2540,14 +2545,15 @@ class _$BlockerConfigCopyWithImpl<$Res>
 
 /// Create a copy of BlockerConfig
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? sessionId = null,Object? startedAt = null,Object? plan = null,Object? allowedPackages = null,Object? strictness = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? sessionId = null,Object? startedAt = null,Object? plan = null,Object? allowedPackages = null,Object? strictness = null,Object? label = freezed,}) {
   return _then(BlockerConfig(
 sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as int,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,plan: null == plan ? _self.plan : plan // ignore: cast_nullable_to_non_nullable
 as PomodoroPlan,allowedPackages: null == allowedPackages ? _self.allowedPackages : allowedPackages // ignore: cast_nullable_to_non_nullable
 as List<String>,strictness: null == strictness ? _self.strictness : strictness // ignore: cast_nullable_to_non_nullable
-as Strictness,
+as Strictness,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of BlockerConfig
@@ -2641,10 +2647,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness,  String? label)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BlockerConfig() when $default != null:
-return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness);case _:
+return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness,_that.label);case _:
   return orElse();
 
 }
@@ -2662,10 +2668,10 @@ return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness,  String? label)  $default,) {final _that = this;
 switch (_that) {
 case _BlockerConfig():
-return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness);case _:
+return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness,_that.label);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2682,10 +2688,10 @@ return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int sessionId,  DateTime startedAt,  PomodoroPlan plan,  List<String> allowedPackages,  Strictness strictness,  String? label)?  $default,) {final _that = this;
 switch (_that) {
 case _BlockerConfig() when $default != null:
-return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness);case _:
+return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages,_that.strictness,_that.label);case _:
   return null;
 
 }
@@ -2697,7 +2703,7 @@ return $default(_that.sessionId,_that.startedAt,_that.plan,_that.allowedPackages
 
 
 class _BlockerConfig extends BlockerConfig {
-  const _BlockerConfig({required this.sessionId, required this.startedAt, required this.plan, required  List<String> allowedPackages, required this.strictness}): _allowedPackages = allowedPackages,super._();
+  const _BlockerConfig({required this.sessionId, required this.startedAt, required this.plan, required  List<String> allowedPackages, required this.strictness, this.label}): _allowedPackages = allowedPackages,super._();
   
 
 @override final  int sessionId;
@@ -2711,6 +2717,7 @@ class _BlockerConfig extends BlockerConfig {
 }
 
 @override final  Strictness strictness;
+@override final  String? label;
 
 /// Create a copy of BlockerConfig
 /// with the given fields replaced by the non-null parameter values.
@@ -2722,18 +2729,18 @@ _$BlockerConfigCopyWith<_BlockerConfig> get copyWith => __$BlockerConfigCopyWith
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BlockerConfig&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.plan, plan) || other.plan == plan)&&const DeepCollectionEquality().equals(other.allowedPackages, _allowedPackages)&&(identical(other.strictness, strictness) || other.strictness == strictness));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BlockerConfig&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.plan, plan) || other.plan == plan)&&const DeepCollectionEquality().equals(other.allowedPackages, _allowedPackages)&&(identical(other.strictness, strictness) || other.strictness == strictness)&&(identical(other.label, label) || other.label == label));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,sessionId,startedAt,plan,const DeepCollectionEquality().hash(_allowedPackages),strictness);
+    return Object.hash(runtimeType,sessionId,startedAt,plan,const DeepCollectionEquality().hash(_allowedPackages),strictness,label);
 }
 
 @override
 String toString() {
-    return 'BlockerConfig(sessionId: $sessionId, startedAt: $startedAt, plan: $plan, allowedPackages: $allowedPackages, strictness: $strictness)';
+    return 'BlockerConfig(sessionId: $sessionId, startedAt: $startedAt, plan: $plan, allowedPackages: $allowedPackages, strictness: $strictness, label: $label)';
 }
 
 
@@ -2744,7 +2751,7 @@ abstract mixin class _$BlockerConfigCopyWith<$Res> implements $BlockerConfigCopy
   factory _$BlockerConfigCopyWith(_BlockerConfig value, $Res Function(_BlockerConfig) _then) = __$BlockerConfigCopyWithImpl;
 @override @useResult
 $Res call({
- int sessionId, DateTime startedAt, PomodoroPlan plan, List<String> allowedPackages, Strictness strictness
+ int sessionId, DateTime startedAt, PomodoroPlan plan, List<String> allowedPackages, Strictness strictness, String? label
 });
 
 
@@ -2761,14 +2768,15 @@ class __$BlockerConfigCopyWithImpl<$Res>
 
 /// Create a copy of BlockerConfig
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? sessionId = null,Object? startedAt = null,Object? plan = null,Object? allowedPackages = null,Object? strictness = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? sessionId = null,Object? startedAt = null,Object? plan = null,Object? allowedPackages = null,Object? strictness = null,Object? label = freezed,}) {
   return _then(_BlockerConfig(
 sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as int,startedAt: null == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,plan: null == plan ? _self.plan : plan // ignore: cast_nullable_to_non_nullable
 as PomodoroPlan,allowedPackages: null == allowedPackages ? _self._allowedPackages : allowedPackages // ignore: cast_nullable_to_non_nullable
 as List<String>,strictness: null == strictness ? _self.strictness : strictness // ignore: cast_nullable_to_non_nullable
-as Strictness,
+as Strictness,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
