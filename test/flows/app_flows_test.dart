@@ -9,5 +9,6 @@ void main() {
   testWidgets('bienvenida, permisos y apps permitidas', onboardingFlow);
   testWidgets('asistente de permisos paso a paso', permissionsWizardFlow);
   testWidgets('salida con costo en tres escalones', earlyExitFlow);
+  testWidgets('descanso largo después del bloque 4', longBreakFlow);
   testWidgets('sesión completada actualiza la racha', completedFlow);
 }

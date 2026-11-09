@@ -56,6 +56,7 @@ class SessionRepositoryImpl implements SessionRepository {
             focusMin: plan.focusMinutes,
             breakMin: plan.breakMinutes,
             cycles: plan.cycles,
+            longBreakMin: Value(plan.longBreakMinutes),
             outcome: SessionOutcome.active.index,
           ),
         );
@@ -170,6 +171,7 @@ class SessionRepositoryImpl implements SessionRepository {
       focusMinutes: r.focusMin,
       breakMinutes: r.breakMin,
       cycles: r.cycles,
+      longBreakMinutes: r.longBreakMin,
     ),
     outcome: SessionOutcome.values[r.outcome],
     focusedMinutes: r.focusedMin,

@@ -63,7 +63,10 @@ class _SessionBody extends ConsumerWidget {
     final phase = state.phase;
     final (label, color) = switch (phase.kind) {
       PomodoroPhaseKind.focus => (l10n.sessionPhaseFocus, colors.focus),
-      PomodoroPhaseKind.rest => (l10n.sessionPhaseRest, colors.onBreak),
+      PomodoroPhaseKind.rest => (
+        phase.isLongBreak ? l10n.sessionPhaseLongRest : l10n.sessionPhaseRest,
+        colors.onBreak,
+      ),
       PomodoroPhaseKind.done => (l10n.sessionPhaseDone, colors.focus),
     };
     final time = Formatters.countdown(phase.remainingInPhase);

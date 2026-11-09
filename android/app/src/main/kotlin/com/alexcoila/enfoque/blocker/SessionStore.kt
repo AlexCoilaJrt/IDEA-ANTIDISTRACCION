@@ -24,6 +24,7 @@ class SessionStore(context: Context) {
             focusMinutes = prefs.getInt(KEY_FOCUS, 25),
             breakMinutes = prefs.getInt(KEY_BREAK, 5),
             cycles = prefs.getInt(KEY_CYCLES, 1),
+            longBreakMinutes = prefs.getInt(KEY_LONG_BREAK, 0),
         )
 
     fun start(config: SessionConfigDto) {
@@ -36,6 +37,7 @@ class SessionStore(context: Context) {
             .putInt(KEY_FOCUS, config.focusMinutes.toInt())
             .putInt(KEY_BREAK, config.breakMinutes.toInt())
             .putInt(KEY_CYCLES, config.cycles.toInt())
+            .putInt(KEY_LONG_BREAK, config.longBreakMinutes.toInt())
             .putStringSet(KEY_ALLOWED, config.allowedPackages.toSet())
             .putInt(KEY_STRICTNESS, config.strictness.raw)
             .putString(KEY_DISTRACTIONS, "[]")
@@ -91,6 +93,7 @@ class SessionStore(context: Context) {
         private const val KEY_FOCUS = "focus_min"
         private const val KEY_BREAK = "break_min"
         private const val KEY_CYCLES = "cycles"
+        private const val KEY_LONG_BREAK = "long_break_min"
         private const val KEY_ALLOWED = "allowed"
         private const val KEY_STRICTNESS = "strictness"
         private const val KEY_DISTRACTIONS = "distractions"

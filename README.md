@@ -11,7 +11,7 @@ Esta versión es la **fase 1 (núcleo sin conexión)**: todo funciona en el celu
 | --- | --- |
 | Motor de bloqueo (Kotlin) | Servicio en primer plano `specialUse`, detección de la app al frente con `UsageStatsManager` cada 700 ms, pantalla de bloqueo `TYPE_APPLICATION_OVERLAY`, reinicio con `START_STICKY` + `BOOT_COMPLETED` + alarma vigilante inexacta. Sin `AccessibilityService` ni `QUERY_ALL_PACKAGES`. |
 | Contrato Dart ↔ Kotlin | Pigeon (`pigeons/blocker.dart`). |
-| Sesiones | Pomodoro 25/5, 50/10 y libre, con varios bloques. Modo estricto opcional (bloquea también los descansos). |
+| Sesiones | Pomodoro 25/5, 50/10 y libre, con varios bloques y descanso largo (15 o 30 min) cada 4 bloques. Aviso con sonido y vibración al cambiar de fase y al terminar. Modo estricto opcional (bloquea también los descansos). |
 | Salida con costo | Escalón 1: espera de 60 s · Escalón 2: motivo de 150+ caracteres · Escalón 3: confirmar pérdida de racha. También desde el botón "Salir antes" de la pantalla de bloqueo. |
 | Apps permitidas | Lista de apps del lanzador; sugiere calculadora, diccionario, PDF y teléfono. Llamadas y pantalla de inicio siempre funcionan. |
 | Racha y estadísticas | Racha actual y mejor, minutos de hoy/semana, gráfico de 7 días, calendario de calor de 12 semanas, sesiones recientes. |
@@ -49,7 +49,7 @@ La app guía al usuario, pero estos son los permisos:
 ## Calidad
 
 ```bash
-dart format . && flutter analyze && flutter test                 # Flutter: 88 pruebas
+dart format . && flutter analyze && flutter test                 # Flutter: 96 pruebas
 cd android && ./gradlew :app:testLocalDebugUnitTest -Ptarget=lib/main_local.dart   # Kotlin (JUnit)
 flutter test integration_test --flavor local                   # en un celular/emulador
 cd widgetbook && flutter test                                  # catálogo de componentes

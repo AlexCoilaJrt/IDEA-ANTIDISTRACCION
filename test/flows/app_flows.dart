@@ -137,6 +137,35 @@ Future<void> earlyExitFlow(WidgetTester tester) async {
   expect(find.text('¿Listo para concentrarte?'), findsOneWidget);
 }
 
+/// 5 bloques de 25/5: después del 4.º viene el descanso largo de 15 min.
+Future<void> longBreakFlow(WidgetTester tester) async {
+  final deps = TestDeps(
+    settings: const AppSettings(onboardingDone: true, cycles: 5),
+  );
+  await _pumpApp(tester, deps);
+  expect(
+    find.text('Incluye un descanso largo de 15 min después del bloque 4.'),
+    findsOneWidget,
+  );
+
+  await _tap(tester, find.text('Empezar sesión'));
+  expect(deps.blocker.config!.plan.longBreakMinutes, 15);
+  // 5 x 25 + 5 + 5 + 5 + 15 = 155 min.
+  expect(deps.blocker.config!.endsAt, DateTime(2026, 11, 9, 11, 35));
+
+  // Bloque 4 termina a los 115 min.
+  deps.clock.advance(const Duration(minutes: 116));
+  await _settle(tester, 15);
+  expect(find.text('Descanso largo'), findsOneWidget);
+  expect(find.text('14:00'), findsOneWidget);
+  expect(find.text('Bloque 4 de 5'), findsOneWidget);
+
+  deps.clock.advance(const Duration(minutes: 15));
+  await _settle(tester, 15);
+  expect(find.text('Enfoque'), findsOneWidget);
+  expect(find.text('Bloque 5 de 5'), findsOneWidget);
+}
+
 Future<void> completedFlow(WidgetTester tester) async {
   final deps = TestDeps();
   await _pumpApp(tester, deps);

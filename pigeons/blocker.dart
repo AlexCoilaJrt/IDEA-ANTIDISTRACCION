@@ -37,6 +37,7 @@ class SessionConfigDto {
     required this.focusMinutes,
     required this.breakMinutes,
     required this.cycles,
+    required this.longBreakMinutes,
     required this.allowedPackages,
     required this.strictness,
   });
@@ -47,6 +48,9 @@ class SessionConfigDto {
   int focusMinutes;
   int breakMinutes;
   int cycles;
+
+  /// Descanso tras cada 4 bloques (0 = sin descanso largo).
+  int longBreakMinutes;
   List<String> allowedPackages;
   StrictnessDto strictness;
 }

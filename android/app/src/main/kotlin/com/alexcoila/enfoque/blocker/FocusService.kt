@@ -26,6 +26,8 @@ class FocusService : Service() {
     private lateinit var overlay: BlockOverlay
     private val tracker = ForegroundTracker()
     private val counter = DistractionCounter()
+    private lateinit var notifier: PhaseNotifier
+    private var phaseTracker: PhaseTracker? = null
     private var allowedLabels: List<Pair<String, String>> = emptyList()
     private var lastQueryAt = 0L
     private var running = false
@@ -43,6 +45,7 @@ class FocusService : Service() {
     override fun onCreate() {
         super.onCreate()
         store = SessionStore(this)
+        notifier = PhaseNotifier(this)
         overlay = BlockOverlay(
             context = this,
             onBackToApp = { openOwnApp(requestExit = false) },
@@ -67,6 +70,8 @@ class FocusService : Service() {
                 .sortedBy { it.second.lowercase() }
             // Ventana inicial amplia para saber qué app está al frente ahora mismo.
             lastQueryAt = System.currentTimeMillis() - INITIAL_LOOKBACK_MS
+            // Tras un reinicio solo memoriza la fase actual, sin avisar.
+            phaseTracker = PhaseTracker(store.plan.cycles)
             running = true
             handler.post(tick)
         }
@@ -100,7 +105,11 @@ class FocusService : Service() {
         lastQueryAt = now - QUERY_OVERLAP_MS
         val foreground = tracker.consume(events)
 
-        val inBreak = PomodoroClock.isBreak(store.plan, store.startedAt, now)
+        val phase = PomodoroClock.phaseAt(store.plan, store.startedAt, now)
+        val inBreak = phase.isBreak
+        phaseTracker?.onPoll(phase)?.let { alert ->
+            notifier.show(alert, strict = store.strictness == StrictnessDto.STRICT)
+        }
         val block = policy.shouldBlock(foreground, store.strictness, inBreak)
 
         if (counter.onPoll(foreground, block) && foreground != null) {
@@ -119,6 +128,7 @@ class FocusService : Service() {
     private fun finishSession() {
         val id = store.sessionId
         store.deactivate()
+        notifier.sessionFinished()
         BlockerEvents.finished(id)
         stopEverything()
     }

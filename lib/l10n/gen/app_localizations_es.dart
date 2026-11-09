@@ -211,7 +211,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permissionNotificationsBody =>
-      'Para mostrar el aviso fijo con el tiempo restante.';
+      'Para avisarte con sonido cuando empieza un descanso, cuando vuelves al enfoque y cuando termina la sesión.';
 
   @override
   String get permissionBatteryTitle => 'Sin optimización de batería';
@@ -299,6 +299,16 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String homeLongBreakIncluded(int minutes) {
+    return 'Incluye un descanso largo de $minutes min después del bloque 4.';
+  }
+
+  @override
+  String homeLongBreakHint(int minutes) {
+    return 'Con 5 bloques o más, después del 4.º hay un descanso largo de $minutes min.';
+  }
+
+  @override
   String get homeStart => 'Empezar sesión';
 
   @override
@@ -333,6 +343,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sessionPhaseRest => 'Descanso';
+
+  @override
+  String get sessionPhaseLongRest => 'Descanso largo';
 
   @override
   String get sessionPhaseDone => 'Terminado';

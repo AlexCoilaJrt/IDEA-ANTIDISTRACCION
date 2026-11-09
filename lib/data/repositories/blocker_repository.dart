@@ -41,6 +41,7 @@ class BlockerRepositoryImpl implements BlockerRepository {
         focusMinutes: config.plan.focusMinutes,
         breakMinutes: config.plan.breakMinutes,
         cycles: config.plan.cycles,
+        longBreakMinutes: config.plan.longBreakMinutes,
         allowedPackages: config.allowedPackages,
         strictness: switch (config.strictness) {
           Strictness.standard => StrictnessDto.standard,

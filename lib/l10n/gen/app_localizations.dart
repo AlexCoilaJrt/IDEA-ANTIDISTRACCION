@@ -439,7 +439,7 @@ abstract class AppLocalizations {
   /// No description provided for @permissionNotificationsBody.
   ///
   /// In es, this message translates to:
-  /// **'Para mostrar el aviso fijo con el tiempo restante.'**
+  /// **'Para avisarte con sonido cuando empieza un descanso, cuando vuelves al enfoque y cuando termina la sesión.'**
   String get permissionNotificationsBody;
 
   /// No description provided for @permissionBatteryTitle.
@@ -574,6 +574,18 @@ abstract class AppLocalizations {
   /// **'{focus} min de enfoque · termina a las {time}'**
   String homeSessionSummary(int focus, String time);
 
+  /// No description provided for @homeLongBreakIncluded.
+  ///
+  /// In es, this message translates to:
+  /// **'Incluye un descanso largo de {minutes} min después del bloque 4.'**
+  String homeLongBreakIncluded(int minutes);
+
+  /// No description provided for @homeLongBreakHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Con 5 bloques o más, después del 4.º hay un descanso largo de {minutes} min.'**
+  String homeLongBreakHint(int minutes);
+
   /// No description provided for @homeStart.
   ///
   /// In es, this message translates to:
@@ -627,6 +639,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Descanso'**
   String get sessionPhaseRest;
+
+  /// No description provided for @sessionPhaseLongRest.
+  ///
+  /// In es, this message translates to:
+  /// **'Descanso largo'**
+  String get sessionPhaseLongRest;
 
   /// No description provided for @sessionPhaseDone.
   ///

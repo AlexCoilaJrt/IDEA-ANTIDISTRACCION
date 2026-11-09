@@ -13,6 +13,9 @@ class Sessions extends Table {
   IntColumn get focusMin => integer()();
   IntColumn get breakMin => integer()();
   IntColumn get cycles => integer()();
+
+  /// Desde la versión 2 del esquema.
+  IntColumn get longBreakMin => integer().withDefault(const Constant(0))();
   IntColumn get focusedMin => integer().withDefault(const Constant(0))();
   IntColumn get outcome => integer()();
   BoolColumn get earlyExit => boolean().withDefault(const Constant(false))();
@@ -71,10 +74,15 @@ class AppDatabase extends _$AppDatabase {
     : super(executor ?? driftDatabase(name: 'enfoque'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) => m.createAll(),
+    onUpgrade: (m, from, to) async {
+      // v2: descanso largo cada 4 bloques.
+      if (from < 2) await m.addColumn(sessions, sessions.longBreakMin);
+    },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
     },

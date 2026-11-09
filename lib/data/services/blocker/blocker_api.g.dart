@@ -137,6 +137,7 @@ class SessionConfigDto {
     required this.focusMinutes,
     required this.breakMinutes,
     required this.cycles,
+    required this.longBreakMinutes,
     required this.allowedPackages,
     required this.strictness,
   });
@@ -153,6 +154,9 @@ class SessionConfigDto {
 
   int cycles;
 
+  /// Descanso tras cada 4 bloques (0 = sin descanso largo).
+  int longBreakMinutes;
+
   List<String> allowedPackages;
 
   StrictnessDto strictness;
@@ -165,6 +169,7 @@ class SessionConfigDto {
       focusMinutes,
       breakMinutes,
       cycles,
+      longBreakMinutes,
       allowedPackages,
       strictness,
     ];
@@ -183,8 +188,9 @@ class SessionConfigDto {
       focusMinutes: result[3]! as int,
       breakMinutes: result[4]! as int,
       cycles: result[5]! as int,
-      allowedPackages: (result[6]! as List<Object?>).cast<String>(),
-      strictness: result[7]! as StrictnessDto,
+      longBreakMinutes: result[6]! as int,
+      allowedPackages: (result[7]! as List<Object?>).cast<String>(),
+      strictness: result[8]! as StrictnessDto,
     );
   }
 
@@ -203,6 +209,7 @@ class SessionConfigDto {
         _deepEquals(focusMinutes, other.focusMinutes) &&
         _deepEquals(breakMinutes, other.breakMinutes) &&
         _deepEquals(cycles, other.cycles) &&
+        _deepEquals(longBreakMinutes, other.longBreakMinutes) &&
         _deepEquals(allowedPackages, other.allowedPackages) &&
         _deepEquals(strictness, other.strictness);
   }
@@ -213,7 +220,7 @@ class SessionConfigDto {
 
   @override
   String toString() {
-    return 'SessionConfigDto(sessionId: $sessionId, startedAtMillis: $startedAtMillis, endsAtMillis: $endsAtMillis, focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles, allowedPackages: $allowedPackages, strictness: $strictness)';
+    return 'SessionConfigDto(sessionId: $sessionId, startedAtMillis: $startedAtMillis, endsAtMillis: $endsAtMillis, focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles, longBreakMinutes: $longBreakMinutes, allowedPackages: $allowedPackages, strictness: $strictness)';
   }
 }
 

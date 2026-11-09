@@ -12,4 +12,14 @@
     <string name="block_back">Volver a Enfoque</string>
     <string name="block_allowed">Apps permitidas</string>
     <string name="block_exit">Salir antes</string>
+    <string name="phase_channel_name">Cambios de fase</string>
+    <string name="phase_channel_description">Avisa con sonido y vibración cuando empieza un descanso, cuando vuelves al enfoque y cuando termina la sesión.</string>
+    <string name="phase_break_title">¡Descanso! %1$d minutos</string>
+    <string name="phase_long_break_title">¡Descanso largo! %1$d minutos</string>
+    <string name="phase_break_text">Puedes usar el celular. Te avisaremos cuando vuelva el enfoque.</string>
+    <string name="phase_break_text_strict">Modo estricto: el bloqueo sigue activo. Levántate, estírate o toma agua.</string>
+    <string name="phase_focus_title">De vuelta al enfoque</string>
+    <string name="phase_focus_text">Empieza el bloque %1$d de %2$d. Las apps no permitidas vuelven a estar bloqueadas.</string>
+    <string name="phase_done_title">¡Sesión completada!</string>
+    <string name="phase_done_text">Buen trabajo. Abre Enfoque para ver tu resumen.</string>
 </resources>

@@ -10,6 +10,7 @@ class PomodoroPhase {
     required this.remainingInPhase,
     required this.remainingTotal,
     required this.phaseLength,
+    this.isLongBreak = false,
   });
 
   final PomodoroPhaseKind kind;
@@ -19,6 +20,9 @@ class PomodoroPhase {
   final Duration remainingInPhase;
   final Duration remainingTotal;
   final Duration phaseLength;
+
+  /// Si es un descanso, si es el largo (cada 4 bloques).
+  final bool isLongBreak;
 
   /// Progreso de la fase actual entre 0 y 1.
   double get progress {
@@ -38,29 +42,25 @@ abstract final class PomodoroClock {
     final total = plan.totalDuration;
     var elapsed = now.difference(startedAt);
     if (elapsed.isNegative) elapsed = Duration.zero;
-    final focus = Duration(minutes: plan.focusMinutes);
     if (elapsed >= total) {
       return PomodoroPhase(
         kind: PomodoroPhaseKind.done,
         cycle: plan.cycles,
         remainingInPhase: Duration.zero,
         remainingTotal: Duration.zero,
-        phaseLength: focus,
+        phaseLength: Duration(minutes: plan.focusMinutes),
       );
     }
-    final rest = Duration(minutes: plan.breakMinutes);
-    final cycleLength = focus + rest;
-    final index = elapsed.inMilliseconds ~/ cycleLength.inMilliseconds;
-    final within = Duration(
-      milliseconds: elapsed.inMilliseconds % cycleLength.inMilliseconds,
-    );
-    final inFocus = within < focus;
+    final segment = plan.segments.firstWhere((s) => elapsed < s.end);
     return PomodoroPhase(
-      kind: inFocus ? PomodoroPhaseKind.focus : PomodoroPhaseKind.rest,
-      cycle: index + 1,
-      remainingInPhase: inFocus ? focus - within : cycleLength - within,
+      kind: segment.kind == SegmentKind.focus
+          ? PomodoroPhaseKind.focus
+          : PomodoroPhaseKind.rest,
+      isLongBreak: segment.kind == SegmentKind.longBreak,
+      cycle: segment.cycle,
+      remainingInPhase: segment.end - elapsed,
       remainingTotal: total - elapsed,
-      phaseLength: inFocus ? focus : rest,
+      phaseLength: segment.length,
     );
   }
 
@@ -70,18 +70,14 @@ abstract final class PomodoroClock {
     DateTime startedAt,
     DateTime now,
   ) {
-    var elapsed = now.difference(startedAt);
+    final elapsed = now.difference(startedAt);
     if (elapsed.isNegative) return 0;
-    final total = plan.totalDuration;
-    if (elapsed > total) elapsed = total;
-    final focus = Duration(minutes: plan.focusMinutes);
-    final cycleLength = focus + Duration(minutes: plan.breakMinutes);
-    final fullCycles = elapsed.inMilliseconds ~/ cycleLength.inMilliseconds;
-    final within = Duration(
-      milliseconds: elapsed.inMilliseconds % cycleLength.inMilliseconds,
-    );
-    final partial = within < focus ? within : focus;
-    final focused = focus * fullCycles + partial;
+    var focused = Duration.zero;
+    for (final s in plan.segments) {
+      if (s.kind != SegmentKind.focus || elapsed <= s.start) continue;
+      final inSegment = elapsed - s.start;
+      focused += inSegment < s.length ? inSegment : s.length;
+    }
     return focused.inMinutes.clamp(0, plan.plannedFocusMinutes);
   }
 }

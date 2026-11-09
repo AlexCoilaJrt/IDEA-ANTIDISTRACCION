@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PomodoroPlan {
 
- int get focusMinutes; int get breakMinutes; int get cycles;
+ int get focusMinutes; int get breakMinutes; int get cycles; int get longBreakMinutes;
 /// Create a copy of PomodoroPlan
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $PomodoroPlanCopyWith<PomodoroPlan> get copyWith => _$PomodoroPlanCopyWithImpl<P
 @override
 bool operator ==(Object other) {
   final _this = this as PomodoroPlan;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PomodoroPlan&&(identical(other.focusMinutes, _this.focusMinutes) || other.focusMinutes == _this.focusMinutes)&&(identical(other.breakMinutes, _this.breakMinutes) || other.breakMinutes == _this.breakMinutes)&&(identical(other.cycles, _this.cycles) || other.cycles == _this.cycles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PomodoroPlan&&(identical(other.focusMinutes, _this.focusMinutes) || other.focusMinutes == _this.focusMinutes)&&(identical(other.breakMinutes, _this.breakMinutes) || other.breakMinutes == _this.breakMinutes)&&(identical(other.cycles, _this.cycles) || other.cycles == _this.cycles)&&(identical(other.longBreakMinutes, _this.longBreakMinutes) || other.longBreakMinutes == _this.longBreakMinutes));
 }
 
 
 @override
 int get hashCode {
   final _this = this as PomodoroPlan;
-  return Object.hash(runtimeType,_this.focusMinutes,_this.breakMinutes,_this.cycles);
+  return Object.hash(runtimeType,_this.focusMinutes,_this.breakMinutes,_this.cycles,_this.longBreakMinutes);
 }
 
 @override
 String toString() {
   final _this = this as PomodoroPlan;
-  return 'PomodoroPlan(focusMinutes: ${_this.focusMinutes}, breakMinutes: ${_this.breakMinutes}, cycles: ${_this.cycles})';
+  return 'PomodoroPlan(focusMinutes: ${_this.focusMinutes}, breakMinutes: ${_this.breakMinutes}, cycles: ${_this.cycles}, longBreakMinutes: ${_this.longBreakMinutes})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $PomodoroPlanCopyWith<$Res>  {
   factory $PomodoroPlanCopyWith(PomodoroPlan value, $Res Function(PomodoroPlan) _then) = _$PomodoroPlanCopyWithImpl;
 @useResult
 $Res call({
- int focusMinutes, int breakMinutes, int cycles
+ int focusMinutes, int breakMinutes, int cycles, int longBreakMinutes
 });
 
 
@@ -68,11 +68,12 @@ class _$PomodoroPlanCopyWithImpl<$Res>
 
 /// Create a copy of PomodoroPlan
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? focusMinutes = null,Object? breakMinutes = null,Object? cycles = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? focusMinutes = null,Object? breakMinutes = null,Object? cycles = null,Object? longBreakMinutes = null,}) {
   return _then(PomodoroPlan(
 focusMinutes: null == focusMinutes ? _self.focusMinutes : focusMinutes // ignore: cast_nullable_to_non_nullable
 as int,breakMinutes: null == breakMinutes ? _self.breakMinutes : breakMinutes // ignore: cast_nullable_to_non_nullable
 as int,cycles: null == cycles ? _self.cycles : cycles // ignore: cast_nullable_to_non_nullable
+as int,longBreakMinutes: null == longBreakMinutes ? _self.longBreakMinutes : longBreakMinutes // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int focusMinutes,  int breakMinutes,  int cycles)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int focusMinutes,  int breakMinutes,  int cycles,  int longBreakMinutes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PomodoroPlan() when $default != null:
-return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
+return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles,_that.longBreakMinutes);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int focusMinutes,  int breakMinutes,  int cycles)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int focusMinutes,  int breakMinutes,  int cycles,  int longBreakMinutes)  $default,) {final _that = this;
 switch (_that) {
 case _PomodoroPlan():
-return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
+return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles,_that.longBreakMinutes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int focusMinutes,  int breakMinutes,  int cycles)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int focusMinutes,  int breakMinutes,  int cycles,  int longBreakMinutes)?  $default,) {final _that = this;
 switch (_that) {
 case _PomodoroPlan() when $default != null:
-return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
+return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles,_that.longBreakMinutes);case _:
   return null;
 
 }
@@ -214,12 +215,13 @@ return $default(_that.focusMinutes,_that.breakMinutes,_that.cycles);case _:
 
 
 class _PomodoroPlan extends PomodoroPlan {
-  const _PomodoroPlan({required this.focusMinutes, required this.breakMinutes, required this.cycles}): super._();
+  const _PomodoroPlan({required this.focusMinutes, required this.breakMinutes, required this.cycles, this.longBreakMinutes = 0}): super._();
   
 
 @override final  int focusMinutes;
 @override final  int breakMinutes;
 @override final  int cycles;
+@override@JsonKey() final  int longBreakMinutes;
 
 /// Create a copy of PomodoroPlan
 /// with the given fields replaced by the non-null parameter values.
@@ -231,18 +233,18 @@ _$PomodoroPlanCopyWith<_PomodoroPlan> get copyWith => __$PomodoroPlanCopyWithImp
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PomodoroPlan&&(identical(other.focusMinutes, focusMinutes) || other.focusMinutes == focusMinutes)&&(identical(other.breakMinutes, breakMinutes) || other.breakMinutes == breakMinutes)&&(identical(other.cycles, cycles) || other.cycles == cycles));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PomodoroPlan&&(identical(other.focusMinutes, focusMinutes) || other.focusMinutes == focusMinutes)&&(identical(other.breakMinutes, breakMinutes) || other.breakMinutes == breakMinutes)&&(identical(other.cycles, cycles) || other.cycles == cycles)&&(identical(other.longBreakMinutes, longBreakMinutes) || other.longBreakMinutes == longBreakMinutes));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,focusMinutes,breakMinutes,cycles);
+    return Object.hash(runtimeType,focusMinutes,breakMinutes,cycles,longBreakMinutes);
 }
 
 @override
 String toString() {
-    return 'PomodoroPlan(focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles)';
+    return 'PomodoroPlan(focusMinutes: $focusMinutes, breakMinutes: $breakMinutes, cycles: $cycles, longBreakMinutes: $longBreakMinutes)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$PomodoroPlanCopyWith<$Res> implements $PomodoroPlanCopyWi
   factory _$PomodoroPlanCopyWith(_PomodoroPlan value, $Res Function(_PomodoroPlan) _then) = __$PomodoroPlanCopyWithImpl;
 @override @useResult
 $Res call({
- int focusMinutes, int breakMinutes, int cycles
+ int focusMinutes, int breakMinutes, int cycles, int longBreakMinutes
 });
 
 
@@ -270,11 +272,12 @@ class __$PomodoroPlanCopyWithImpl<$Res>
 
 /// Create a copy of PomodoroPlan
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? focusMinutes = null,Object? breakMinutes = null,Object? cycles = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? focusMinutes = null,Object? breakMinutes = null,Object? cycles = null,Object? longBreakMinutes = null,}) {
   return _then(_PomodoroPlan(
 focusMinutes: null == focusMinutes ? _self.focusMinutes : focusMinutes // ignore: cast_nullable_to_non_nullable
 as int,breakMinutes: null == breakMinutes ? _self.breakMinutes : breakMinutes // ignore: cast_nullable_to_non_nullable
 as int,cycles: null == cycles ? _self.cycles : cycles // ignore: cast_nullable_to_non_nullable
+as int,longBreakMinutes: null == longBreakMinutes ? _self.longBreakMinutes : longBreakMinutes // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

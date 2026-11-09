@@ -55,6 +55,62 @@ void main() {
     });
   });
 
+  group('descanso largo cada 4 bloques', () {
+    final classic = PomodoroPlan.fromPreset(PomodoroPreset.classic, cycles: 6);
+
+    test('el preset clásico usa 15 min y el de 50/10 usa 30 min', () {
+      expect(classic.longBreakMinutes, 15);
+      expect(
+        PomodoroPlan.fromPreset(PomodoroPreset.long, cycles: 5).breakAfter(4),
+        30,
+      );
+    });
+
+    test('solo el descanso tras el bloque 4 es largo', () {
+      expect(classic.breakAfter(3), 5);
+      expect(classic.breakAfter(4), 15);
+      expect(classic.breakAfter(5), 5);
+      expect(classic.hasLongBreak, isTrue);
+      // 6 x 25 + 4 x 5 + 15 = 185 min.
+      expect(classic.totalDuration, const Duration(minutes: 185));
+    });
+
+    test('con 4 bloques o menos no hay descanso largo', () {
+      final four = PomodoroPlan.fromPreset(PomodoroPreset.classic, cycles: 4);
+      expect(four.hasLongBreak, isFalse);
+      expect(four.totalDuration, const Duration(minutes: 115));
+    });
+
+    test('phaseAt reconoce el descanso largo', () {
+      // Bloque 4 termina en 4 x 25 + 3 x 5 = 115 min.
+      final p = PomodoroClock.phaseAt(classic, start, at(120));
+      expect(p.kind, PomodoroPhaseKind.rest);
+      expect(p.isLongBreak, isTrue);
+      expect(p.cycle, 4);
+      expect(p.remainingInPhase, const Duration(minutes: 10));
+      final next = PomodoroClock.phaseAt(classic, start, at(130));
+      expect(next.kind, PomodoroPhaseKind.focus);
+      expect(next.cycle, 5);
+    });
+
+    test('focusedMinutesAt no cuenta el descanso largo', () {
+      expect(PomodoroClock.focusedMinutesAt(classic, start, at(130)), 100);
+      expect(PomodoroClock.focusedMinutesAt(classic, start, at(140)), 110);
+    });
+
+    test('los planes viejos sin descanso largo no cambian', () {
+      expect(plan.longBreakMinutes, 0);
+      expect(
+        const PomodoroPlan(
+          focusMinutes: 25,
+          breakMinutes: 5,
+          cycles: 6,
+        ).totalDuration,
+        const Duration(minutes: 175),
+      );
+    });
+  });
+
   group('PomodoroClock.focusedMinutesAt', () {
     test('no cuenta los descansos', () {
       expect(PomodoroClock.focusedMinutesAt(plan, start, at(10)), 10);

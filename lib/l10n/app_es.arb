@@ -74,7 +74,7 @@
   "permissionOverlayTitle": "Mostrar sobre otras apps",
   "permissionOverlayBody": "Para mostrar la pantalla de bloqueo encima de una app no permitida.",
   "permissionNotificationsTitle": "Notificaciones",
-  "permissionNotificationsBody": "Para mostrar el aviso fijo con el tiempo restante.",
+  "permissionNotificationsBody": "Para avisarte con sonido cuando empieza un descanso, cuando vuelves al enfoque y cuando termina la sesión.",
   "permissionBatteryTitle": "Sin optimización de batería",
   "permissionBatteryBody": "Para que Android no detenga el bloqueo a mitad de la sesión.",
   "permissionRequired": "Obligatorio",
@@ -138,6 +138,22 @@
       }
     }
   },
+  "homeLongBreakIncluded": "Incluye un descanso largo de {minutes} min después del bloque 4.",
+  "@homeLongBreakIncluded": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeLongBreakHint": "Con 5 bloques o más, después del 4.º hay un descanso largo de {minutes} min.",
+  "@homeLongBreakHint": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeStart": "Empezar sesión",
   "homeAllowedApps": "Apps permitidas",
   "homeSettings": "Ajustes",
@@ -154,6 +170,7 @@
   "streakLabel": "Racha",
   "sessionPhaseFocus": "Enfoque",
   "sessionPhaseRest": "Descanso",
+  "sessionPhaseLongRest": "Descanso largo",
   "sessionPhaseDone": "Terminado",
   "sessionCycle": "Bloque {current} de {total}",
   "@sessionCycle": {

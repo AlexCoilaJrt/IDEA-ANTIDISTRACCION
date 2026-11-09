@@ -170,6 +170,31 @@ class _HomeBody extends ConsumerWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
+        if (settings.preset != PomodoroPreset.free) ...[
+          const Gap(AppSpacing.sm),
+          Row(
+            children: [
+              Icon(
+                Icons.free_breakfast_outlined,
+                size: AppSizes.iconSm,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const Gap(AppSpacing.sm),
+              Expanded(
+                child: Text(
+                  settings.plan.hasLongBreak
+                      ? l10n.homeLongBreakIncluded(
+                          settings.plan.longBreakMinutes,
+                        )
+                      : l10n.homeLongBreakHint(settings.plan.longBreakMinutes),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }
