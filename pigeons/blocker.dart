@@ -26,6 +26,9 @@ enum PermissionKindDto {
   overlay,
   notifications,
   batteryOptimization,
+
+  /// Alarmas puntuales para los recordatorios del horario (Android 12+).
+  exactAlarms,
 }
 
 /// Configuración que Flutter envía para empezar una sesión.
@@ -85,12 +88,38 @@ class PermissionsDto {
     required this.overlay,
     required this.notifications,
     required this.batteryOptimization,
+    required this.exactAlarms,
   });
 
   bool usageAccess;
   bool overlay;
   bool notifications;
   bool batteryOptimization;
+  bool exactAlarms;
+}
+
+/// Regla semanal de recordatorio. El motor nativo calcula las fechas, así
+/// los avisos siguen llegando aunque la app no se abra.
+class ReminderRuleDto {
+  new({
+    required this.blockId,
+    required this.weekdays,
+    required this.startMinute,
+    required this.title,
+    required this.detail,
+  });
+
+  int blockId;
+
+  /// 1 = lunes ... 7 = domingo.
+  List<int> weekdays;
+
+  /// Minutos desde la medianoche.
+  int startMinute;
+
+  /// Ya traducidos en Dart.
+  String title;
+  String detail;
 }
 
 /// App instalada que aparece en el lanzador.
@@ -125,6 +154,12 @@ abstract class BlockerHostApi {
   /// Abre "Información de la app" (para "Permitir ajustes restringidos").
   void openAppDetails();
 
+  /// Reemplaza las reglas del horario y reprograma los avisos.
+  void setReminderRules(List<ReminderRuleDto> rules);
+
+  /// Bloque cuyo aviso "Empezar ahora" se tocó; se consume al leerlo.
+  int? consumeStartRequest();
+
   /// Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES).
   @async
   List<InstalledAppDto> getLaunchableApps();
@@ -142,4 +177,7 @@ abstract class BlockerFlutterApi {
 
   /// El usuario tocó "Salir antes" en la pantalla de bloqueo.
   void onEarlyExitRequested();
+
+  /// El usuario tocó "Empezar ahora" en un recordatorio del horario.
+  void onStartRequested();
 }

@@ -36,7 +36,9 @@ class StartSessionUseCase {
   final BlockerRepository _blocker;
   final Clock _clock;
 
-  Future<Result<FocusSession>> call() async {
+  /// Empieza con el plan de los ajustes, o con [plan] si viene de un bloque
+  /// del horario.
+  Future<Result<FocusSession>> call({PomodoroPlan? plan}) async {
     final permissions = await _blocker.permissions();
     if (permissions case Ok(:final value) when !value.canBlock) {
       return const Result.error(MissingPermissionsException());
@@ -56,9 +58,10 @@ class StartSessionUseCase {
     if (allowedResult case Failure(:final error)) return Result.error(error);
 
     final startedAt = _clock();
+    final sessionPlan = plan ?? settings.plan;
     final created = await _sessions.create(
       startedAt: startedAt,
-      plan: settings.plan,
+      plan: sessionPlan,
     );
     if (created case Failure(:final error)) return Result.error(error);
     final session = created.valueOrNull!;
@@ -67,7 +70,7 @@ class StartSessionUseCase {
       BlockerConfig(
         sessionId: session.id,
         startedAt: startedAt,
-        plan: settings.plan,
+        plan: sessionPlan,
         allowedPackages: [
           for (final app in allowedResult.valueOrNull!) app.packageName,
         ],

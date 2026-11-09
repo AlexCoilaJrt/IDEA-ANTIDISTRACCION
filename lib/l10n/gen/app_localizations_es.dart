@@ -25,6 +25,159 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navProgress => 'Progreso';
 
   @override
+  String get scheduleTitle => 'Tu horario de estudio';
+
+  @override
+  String get scheduleDefaultTitle => 'Sesión de estudio';
+
+  @override
+  String scheduleKindPomodoro(int focus, int rest, int cycles) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cycles,
+      locale: localeName,
+      other: '$cycles bloques de $focus/$rest',
+      one: '1 bloque de $focus/$rest',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String scheduleKindFree(int minutes) {
+    return '$minutes min seguidos';
+  }
+
+  @override
+  String scheduleReminderDetail(String kind, String end) {
+    return '$kind · termina a las $end';
+  }
+
+  @override
+  String get scheduleNextTitle => 'Próxima sesión';
+
+  @override
+  String get scheduleNowTitle => 'Ahora, según tu horario';
+
+  @override
+  String scheduleWhen(String day, String time) {
+    return '$day a las $time';
+  }
+
+  @override
+  String get scheduleToday => 'Hoy';
+
+  @override
+  String get scheduleTomorrow => 'Mañana';
+
+  @override
+  String scheduleRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String get scheduleEmptyTitle => 'Aún no tienes horario';
+
+  @override
+  String get scheduleEmptyBody =>
+      'Agrega los días y horas en que quieres estudiar. Te avisaremos 10 minutos antes y a la hora, con un botón para empezar.';
+
+  @override
+  String get scheduleAdd => 'Agregar bloque';
+
+  @override
+  String get scheduleDayFree => 'Libre';
+
+  @override
+  String get schedulePaused => 'Pausado';
+
+  @override
+  String get scheduleRemindersNote =>
+      'Te avisamos 10 min antes y a la hora, con el botón «Empezar ahora».';
+
+  @override
+  String get scheduleExactWarning =>
+      'Los avisos pueden llegar unos minutos tarde. Activa «Alarmas y recordatorios» para que lleguen a la hora exacta.';
+
+  @override
+  String get scheduleExactAction => 'Activar';
+
+  @override
+  String get scheduleStartNow => 'Empezar ahora';
+
+  @override
+  String get scheduleProblemPermissions =>
+      'No se pudo empezar la sesión: faltan permisos.';
+
+  @override
+  String get scheduleProblemActive => 'Ya tienes una sesión en curso.';
+
+  @override
+  String get scheduleProblemOther =>
+      'No se pudo empezar la sesión. Inténtalo desde Inicio.';
+
+  @override
+  String get scheduleReview => 'Revisar';
+
+  @override
+  String scheduleToggleSemantics(String name) {
+    return 'Activar o pausar $name';
+  }
+
+  @override
+  String get blockEditorNewTitle => 'Nuevo bloque';
+
+  @override
+  String get blockEditorEditTitle => 'Editar bloque';
+
+  @override
+  String get blockEditorLabel => 'Materia o tema (opcional)';
+
+  @override
+  String get blockEditorLabelHint => 'Ej.: Matemáticas';
+
+  @override
+  String get blockEditorDays => 'Días';
+
+  @override
+  String get blockEditorTime => 'Hora de inicio';
+
+  @override
+  String get blockEditorChangeTime => 'Cambiar hora';
+
+  @override
+  String get blockEditorType => 'Tipo de sesión';
+
+  @override
+  String blockEditorSummary(int focus, String start, String end) {
+    return '$focus min de enfoque · de $start a $end';
+  }
+
+  @override
+  String get blockEditorNoDays => 'Elige al menos un día.';
+
+  @override
+  String blockEditorOverlap(String other) {
+    return 'Se cruza con «$other». Cambia la hora o los días.';
+  }
+
+  @override
+  String get blockEditorDelete => 'Eliminar bloque';
+
+  @override
+  String get blockEditorDeleteTitle => '¿Eliminar este bloque?';
+
+  @override
+  String get blockEditorDeleteBody =>
+      'Dejarás de recibir sus avisos. Tus sesiones pasadas no se borran.';
+
+  @override
+  String get commonDelete => 'Eliminar';
+
+  @override
+  String homeNextScheduled(String title, String when) {
+    return 'Próxima en tu horario: $title, $when';
+  }
+
+  @override
   String get commonRetry => 'Reintentar';
 
   @override
@@ -219,6 +372,21 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get permissionBatteryBody =>
       'Para que Android no detenga el bloqueo a mitad de la sesión.';
+
+  @override
+  String get permissionExactTitle => 'Alarmas y recordatorios';
+
+  @override
+  String get permissionExactBody =>
+      'Para que los avisos de tu horario de estudio lleguen a la hora exacta y no con minutos de retraso.';
+
+  @override
+  String get permExactStep1 =>
+      'Toca «Abrir ajustes». Se abrirá «Alarmas y recordatorios».';
+
+  @override
+  String get permExactStep2 =>
+      'Activa «Permitir configurar alarmas y recordatorios».';
 
   @override
   String get permissionRequired => 'Obligatorio';
@@ -491,13 +659,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sessionCardActive => 'En curso';
-
-  @override
-  String get scheduleComingTitle => 'Horario y exámenes';
-
-  @override
-  String get scheduleComingBody =>
-      'Llega en la fase 2: materias, horario, exámenes y planificador automático.';
 
   @override
   String get roomsComingTitle => 'Salas de estudio';

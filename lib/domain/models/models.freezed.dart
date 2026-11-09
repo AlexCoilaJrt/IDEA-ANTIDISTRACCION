@@ -819,7 +819,8 @@ as DateTime,
 /// @nodoc
 mixin _$AppPermissions {
 
- bool get usageAccess; bool get overlay; bool get notifications; bool get batteryOptimization;
+ bool get usageAccess; bool get overlay; bool get notifications; bool get batteryOptimization;/// Alarmas puntuales para los avisos del horario.
+ bool get exactAlarms;
 /// Create a copy of AppPermissions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -831,20 +832,20 @@ $AppPermissionsCopyWith<AppPermissions> get copyWith => _$AppPermissionsCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as AppPermissions;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppPermissions&&(identical(other.usageAccess, _this.usageAccess) || other.usageAccess == _this.usageAccess)&&(identical(other.overlay, _this.overlay) || other.overlay == _this.overlay)&&(identical(other.notifications, _this.notifications) || other.notifications == _this.notifications)&&(identical(other.batteryOptimization, _this.batteryOptimization) || other.batteryOptimization == _this.batteryOptimization));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppPermissions&&(identical(other.usageAccess, _this.usageAccess) || other.usageAccess == _this.usageAccess)&&(identical(other.overlay, _this.overlay) || other.overlay == _this.overlay)&&(identical(other.notifications, _this.notifications) || other.notifications == _this.notifications)&&(identical(other.batteryOptimization, _this.batteryOptimization) || other.batteryOptimization == _this.batteryOptimization)&&(identical(other.exactAlarms, _this.exactAlarms) || other.exactAlarms == _this.exactAlarms));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AppPermissions;
-  return Object.hash(runtimeType,_this.usageAccess,_this.overlay,_this.notifications,_this.batteryOptimization);
+  return Object.hash(runtimeType,_this.usageAccess,_this.overlay,_this.notifications,_this.batteryOptimization,_this.exactAlarms);
 }
 
 @override
 String toString() {
   final _this = this as AppPermissions;
-  return 'AppPermissions(usageAccess: ${_this.usageAccess}, overlay: ${_this.overlay}, notifications: ${_this.notifications}, batteryOptimization: ${_this.batteryOptimization})';
+  return 'AppPermissions(usageAccess: ${_this.usageAccess}, overlay: ${_this.overlay}, notifications: ${_this.notifications}, batteryOptimization: ${_this.batteryOptimization}, exactAlarms: ${_this.exactAlarms})';
 }
 
 
@@ -855,7 +856,7 @@ abstract mixin class $AppPermissionsCopyWith<$Res>  {
   factory $AppPermissionsCopyWith(AppPermissions value, $Res Function(AppPermissions) _then) = _$AppPermissionsCopyWithImpl;
 @useResult
 $Res call({
- bool usageAccess, bool overlay, bool notifications, bool batteryOptimization
+ bool usageAccess, bool overlay, bool notifications, bool batteryOptimization, bool exactAlarms
 });
 
 
@@ -872,12 +873,13 @@ class _$AppPermissionsCopyWithImpl<$Res>
 
 /// Create a copy of AppPermissions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? usageAccess = null,Object? overlay = null,Object? notifications = null,Object? batteryOptimization = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? usageAccess = null,Object? overlay = null,Object? notifications = null,Object? batteryOptimization = null,Object? exactAlarms = null,}) {
   return _then(AppPermissions(
 usageAccess: null == usageAccess ? _self.usageAccess : usageAccess // ignore: cast_nullable_to_non_nullable
 as bool,overlay: null == overlay ? _self.overlay : overlay // ignore: cast_nullable_to_non_nullable
 as bool,notifications: null == notifications ? _self.notifications : notifications // ignore: cast_nullable_to_non_nullable
 as bool,batteryOptimization: null == batteryOptimization ? _self.batteryOptimization : batteryOptimization // ignore: cast_nullable_to_non_nullable
+as bool,exactAlarms: null == exactAlarms ? _self.exactAlarms : exactAlarms // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -963,10 +965,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization,  bool exactAlarms)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppPermissions() when $default != null:
-return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization);case _:
+return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization,_that.exactAlarms);case _:
   return orElse();
 
 }
@@ -984,10 +986,10 @@ return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batter
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization,  bool exactAlarms)  $default,) {final _that = this;
 switch (_that) {
 case _AppPermissions():
-return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization);case _:
+return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization,_that.exactAlarms);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1004,10 +1006,10 @@ return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batter
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool usageAccess,  bool overlay,  bool notifications,  bool batteryOptimization,  bool exactAlarms)?  $default,) {final _that = this;
 switch (_that) {
 case _AppPermissions() when $default != null:
-return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization);case _:
+return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batteryOptimization,_that.exactAlarms);case _:
   return null;
 
 }
@@ -1019,13 +1021,15 @@ return $default(_that.usageAccess,_that.overlay,_that.notifications,_that.batter
 
 
 class _AppPermissions extends AppPermissions {
-  const _AppPermissions({required this.usageAccess, required this.overlay, required this.notifications, required this.batteryOptimization}): super._();
+  const _AppPermissions({required this.usageAccess, required this.overlay, required this.notifications, required this.batteryOptimization, this.exactAlarms = true}): super._();
   
 
 @override final  bool usageAccess;
 @override final  bool overlay;
 @override final  bool notifications;
 @override final  bool batteryOptimization;
+/// Alarmas puntuales para los avisos del horario.
+@override@JsonKey() final  bool exactAlarms;
 
 /// Create a copy of AppPermissions
 /// with the given fields replaced by the non-null parameter values.
@@ -1037,18 +1041,18 @@ _$AppPermissionsCopyWith<_AppPermissions> get copyWith => __$AppPermissionsCopyW
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppPermissions&&(identical(other.usageAccess, usageAccess) || other.usageAccess == usageAccess)&&(identical(other.overlay, overlay) || other.overlay == overlay)&&(identical(other.notifications, notifications) || other.notifications == notifications)&&(identical(other.batteryOptimization, batteryOptimization) || other.batteryOptimization == batteryOptimization));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppPermissions&&(identical(other.usageAccess, usageAccess) || other.usageAccess == usageAccess)&&(identical(other.overlay, overlay) || other.overlay == overlay)&&(identical(other.notifications, notifications) || other.notifications == notifications)&&(identical(other.batteryOptimization, batteryOptimization) || other.batteryOptimization == batteryOptimization)&&(identical(other.exactAlarms, exactAlarms) || other.exactAlarms == exactAlarms));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,usageAccess,overlay,notifications,batteryOptimization);
+    return Object.hash(runtimeType,usageAccess,overlay,notifications,batteryOptimization,exactAlarms);
 }
 
 @override
 String toString() {
-    return 'AppPermissions(usageAccess: $usageAccess, overlay: $overlay, notifications: $notifications, batteryOptimization: $batteryOptimization)';
+    return 'AppPermissions(usageAccess: $usageAccess, overlay: $overlay, notifications: $notifications, batteryOptimization: $batteryOptimization, exactAlarms: $exactAlarms)';
 }
 
 
@@ -1059,7 +1063,7 @@ abstract mixin class _$AppPermissionsCopyWith<$Res> implements $AppPermissionsCo
   factory _$AppPermissionsCopyWith(_AppPermissions value, $Res Function(_AppPermissions) _then) = __$AppPermissionsCopyWithImpl;
 @override @useResult
 $Res call({
- bool usageAccess, bool overlay, bool notifications, bool batteryOptimization
+ bool usageAccess, bool overlay, bool notifications, bool batteryOptimization, bool exactAlarms
 });
 
 
@@ -1076,13 +1080,296 @@ class __$AppPermissionsCopyWithImpl<$Res>
 
 /// Create a copy of AppPermissions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? usageAccess = null,Object? overlay = null,Object? notifications = null,Object? batteryOptimization = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? usageAccess = null,Object? overlay = null,Object? notifications = null,Object? batteryOptimization = null,Object? exactAlarms = null,}) {
   return _then(_AppPermissions(
 usageAccess: null == usageAccess ? _self.usageAccess : usageAccess // ignore: cast_nullable_to_non_nullable
 as bool,overlay: null == overlay ? _self.overlay : overlay // ignore: cast_nullable_to_non_nullable
 as bool,notifications: null == notifications ? _self.notifications : notifications // ignore: cast_nullable_to_non_nullable
 as bool,batteryOptimization: null == batteryOptimization ? _self.batteryOptimization : batteryOptimization // ignore: cast_nullable_to_non_nullable
+as bool,exactAlarms: null == exactAlarms ? _self.exactAlarms : exactAlarms // ignore: cast_nullable_to_non_nullable
 as bool,
+  ));
+}
+
+
+}
+
+/// @nodoc
+mixin _$ReminderRule {
+
+ int get blockId; Set<int> get weekdays; int get startMinute; String get title; String get detail;
+/// Create a copy of ReminderRule
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ReminderRuleCopyWith<ReminderRule> get copyWith => _$ReminderRuleCopyWithImpl<ReminderRule>(this as ReminderRule, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  final _this = this as ReminderRule;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderRule&&(identical(other.blockId, _this.blockId) || other.blockId == _this.blockId)&&const DeepCollectionEquality().equals(other.weekdays, _this.weekdays)&&(identical(other.startMinute, _this.startMinute) || other.startMinute == _this.startMinute)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.detail, _this.detail) || other.detail == _this.detail));
+}
+
+
+@override
+int get hashCode {
+  final _this = this as ReminderRule;
+  return Object.hash(runtimeType,_this.blockId,const DeepCollectionEquality().hash(_this.weekdays),_this.startMinute,_this.title,_this.detail);
+}
+
+@override
+String toString() {
+  final _this = this as ReminderRule;
+  return 'ReminderRule(blockId: ${_this.blockId}, weekdays: ${_this.weekdays}, startMinute: ${_this.startMinute}, title: ${_this.title}, detail: ${_this.detail})';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ReminderRuleCopyWith<$Res>  {
+  factory $ReminderRuleCopyWith(ReminderRule value, $Res Function(ReminderRule) _then) = _$ReminderRuleCopyWithImpl;
+@useResult
+$Res call({
+ int blockId, Set<int> weekdays, int startMinute, String title, String detail
+});
+
+
+
+
+}
+/// @nodoc
+class _$ReminderRuleCopyWithImpl<$Res>
+    implements $ReminderRuleCopyWith<$Res> {
+  _$ReminderRuleCopyWithImpl(this._self, this._then);
+
+  final ReminderRule _self;
+  final $Res Function(ReminderRule) _then;
+
+/// Create a copy of ReminderRule
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? blockId = null,Object? weekdays = null,Object? startMinute = null,Object? title = null,Object? detail = null,}) {
+  return _then(ReminderRule(
+blockId: null == blockId ? _self.blockId : blockId // ignore: cast_nullable_to_non_nullable
+as int,weekdays: null == weekdays ? _self.weekdays : weekdays // ignore: cast_nullable_to_non_nullable
+as Set<int>,startMinute: null == startMinute ? _self.startMinute : startMinute // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,detail: null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ReminderRule].
+extension ReminderRulePatterns on ReminderRule {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ReminderRule value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ReminderRule() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ReminderRule value)  $default,){
+final _that = this;
+switch (_that) {
+case _ReminderRule():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ReminderRule value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ReminderRule() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int blockId,  Set<int> weekdays,  int startMinute,  String title,  String detail)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ReminderRule() when $default != null:
+return $default(_that.blockId,_that.weekdays,_that.startMinute,_that.title,_that.detail);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int blockId,  Set<int> weekdays,  int startMinute,  String title,  String detail)  $default,) {final _that = this;
+switch (_that) {
+case _ReminderRule():
+return $default(_that.blockId,_that.weekdays,_that.startMinute,_that.title,_that.detail);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int blockId,  Set<int> weekdays,  int startMinute,  String title,  String detail)?  $default,) {final _that = this;
+switch (_that) {
+case _ReminderRule() when $default != null:
+return $default(_that.blockId,_that.weekdays,_that.startMinute,_that.title,_that.detail);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _ReminderRule implements ReminderRule {
+  const _ReminderRule({required this.blockId, required  Set<int> weekdays, required this.startMinute, required this.title, required this.detail}): _weekdays = weekdays;
+  
+
+@override final  int blockId;
+ final  Set<int> _weekdays;
+@override Set<int> get weekdays {
+  if (_weekdays is EqualUnmodifiableSetView) return _weekdays;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_weekdays);
+}
+
+@override final  int startMinute;
+@override final  String title;
+@override final  String detail;
+
+/// Create a copy of ReminderRule
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ReminderRuleCopyWith<_ReminderRule> get copyWith => __$ReminderRuleCopyWithImpl<_ReminderRule>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReminderRule&&(identical(other.blockId, blockId) || other.blockId == blockId)&&const DeepCollectionEquality().equals(other.weekdays, _weekdays)&&(identical(other.startMinute, startMinute) || other.startMinute == startMinute)&&(identical(other.title, title) || other.title == title)&&(identical(other.detail, detail) || other.detail == detail));
+}
+
+
+@override
+int get hashCode {
+    return Object.hash(runtimeType,blockId,const DeepCollectionEquality().hash(_weekdays),startMinute,title,detail);
+}
+
+@override
+String toString() {
+    return 'ReminderRule(blockId: $blockId, weekdays: $weekdays, startMinute: $startMinute, title: $title, detail: $detail)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ReminderRuleCopyWith<$Res> implements $ReminderRuleCopyWith<$Res> {
+  factory _$ReminderRuleCopyWith(_ReminderRule value, $Res Function(_ReminderRule) _then) = __$ReminderRuleCopyWithImpl;
+@override @useResult
+$Res call({
+ int blockId, Set<int> weekdays, int startMinute, String title, String detail
+});
+
+
+
+
+}
+/// @nodoc
+class __$ReminderRuleCopyWithImpl<$Res>
+    implements _$ReminderRuleCopyWith<$Res> {
+  __$ReminderRuleCopyWithImpl(this._self, this._then);
+
+  final _ReminderRule _self;
+  final $Res Function(_ReminderRule) _then;
+
+/// Create a copy of ReminderRule
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? blockId = null,Object? weekdays = null,Object? startMinute = null,Object? title = null,Object? detail = null,}) {
+  return _then(_ReminderRule(
+blockId: null == blockId ? _self.blockId : blockId // ignore: cast_nullable_to_non_nullable
+as int,weekdays: null == weekdays ? _self._weekdays : weekdays // ignore: cast_nullable_to_non_nullable
+as Set<int>,startMinute: null == startMinute ? _self.startMinute : startMinute // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,detail: null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

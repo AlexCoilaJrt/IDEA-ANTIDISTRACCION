@@ -320,6 +320,54 @@ final class AllowedAppsRepositoryProvider
 String _$allowedAppsRepositoryHash() =>
     r'38d234f1f176815fa7be516eb32da0fd4e808c50';
 
+@ProviderFor(scheduleRepository)
+final scheduleRepositoryProvider = ScheduleRepositoryProvider._();
+
+final class ScheduleRepositoryProvider
+    extends
+        $FunctionalProvider<
+          ScheduleRepository,
+          ScheduleRepository,
+          ScheduleRepository
+        >
+    with $Provider<ScheduleRepository> {
+  ScheduleRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'scheduleRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$scheduleRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<ScheduleRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ScheduleRepository create(Ref ref) {
+    return scheduleRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ScheduleRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ScheduleRepository>(value),
+    );
+  }
+}
+
+String _$scheduleRepositoryHash() =>
+    r'84eaefa98bf75b438ee8413ae150570721b3f862';
+
 @ProviderFor(blockerRepository)
 final blockerRepositoryProvider = BlockerRepositoryProvider._();
 
@@ -627,6 +675,45 @@ final class StreakDaysProvider
 }
 
 String _$streakDaysHash() => r'780836394d97d28b9a9eaf4f191cb4a2dfdf475c';
+
+@ProviderFor(studyBlocks)
+final studyBlocksProvider = StudyBlocksProvider._();
+
+final class StudyBlocksProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<StudyBlock>>,
+          List<StudyBlock>,
+          Stream<List<StudyBlock>>
+        >
+    with $FutureModifier<List<StudyBlock>>, $StreamProvider<List<StudyBlock>> {
+  StudyBlocksProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'studyBlocksProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$studyBlocksHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<StudyBlock>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<StudyBlock>> create(Ref ref) {
+    return studyBlocks(ref);
+  }
+}
+
+String _$studyBlocksHash() => r'64987c587d1f79ed291e980978055db1fb20c729';
 
 @ProviderFor(allowedAppsStream)
 final allowedAppsStreamProvider = AllowedAppsStreamProvider._();

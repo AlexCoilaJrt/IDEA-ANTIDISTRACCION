@@ -1905,6 +1905,514 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   }
 }
 
+class $StudyBlocksTable extends StudyBlocks
+    with TableInfo<$StudyBlocksTable, StudyBlockRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StudyBlocksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _weekdaysMeta = const VerificationMeta(
+    'weekdays',
+  );
+  @override
+  late final GeneratedColumn<String> weekdays = GeneratedColumn<String>(
+    'weekdays',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startMinuteMeta = const VerificationMeta(
+    'startMinute',
+  );
+  @override
+  late final GeneratedColumn<int> startMinute = GeneratedColumn<int>(
+    'start_minute',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _presetMeta = const VerificationMeta('preset');
+  @override
+  late final GeneratedColumn<String> preset = GeneratedColumn<String>(
+    'preset',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cyclesMeta = const VerificationMeta('cycles');
+  @override
+  late final GeneratedColumn<int> cycles = GeneratedColumn<int>(
+    'cycles',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _freeMinutesMeta = const VerificationMeta(
+    'freeMinutes',
+  );
+  @override
+  late final GeneratedColumn<int> freeMinutes = GeneratedColumn<int>(
+    'free_minutes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _enabledMeta = const VerificationMeta(
+    'enabled',
+  );
+  @override
+  late final GeneratedColumn<bool> enabled = GeneratedColumn<bool>(
+    'enabled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("enabled" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    weekdays,
+    startMinute,
+    preset,
+    cycles,
+    freeMinutes,
+    label,
+    enabled,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'study_blocks';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<StudyBlockRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('weekdays')) {
+      context.handle(
+        _weekdaysMeta,
+        weekdays.isAcceptableOrUnknown(data['weekdays']!, _weekdaysMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_weekdaysMeta);
+    }
+    if (data.containsKey('start_minute')) {
+      context.handle(
+        _startMinuteMeta,
+        startMinute.isAcceptableOrUnknown(
+          data['start_minute']!,
+          _startMinuteMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_startMinuteMeta);
+    }
+    if (data.containsKey('preset')) {
+      context.handle(
+        _presetMeta,
+        preset.isAcceptableOrUnknown(data['preset']!, _presetMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_presetMeta);
+    }
+    if (data.containsKey('cycles')) {
+      context.handle(
+        _cyclesMeta,
+        cycles.isAcceptableOrUnknown(data['cycles']!, _cyclesMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cyclesMeta);
+    }
+    if (data.containsKey('free_minutes')) {
+      context.handle(
+        _freeMinutesMeta,
+        freeMinutes.isAcceptableOrUnknown(
+          data['free_minutes']!,
+          _freeMinutesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_freeMinutesMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    }
+    if (data.containsKey('enabled')) {
+      context.handle(
+        _enabledMeta,
+        enabled.isAcceptableOrUnknown(data['enabled']!, _enabledMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  StudyBlockRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StudyBlockRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      weekdays: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}weekdays'],
+      )!,
+      startMinute: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_minute'],
+      )!,
+      preset: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}preset'],
+      )!,
+      cycles: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cycles'],
+      )!,
+      freeMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}free_minutes'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      ),
+      enabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}enabled'],
+      )!,
+    );
+  }
+
+  @override
+  $StudyBlocksTable createAlias(String alias) {
+    return $StudyBlocksTable(attachedDatabase, alias);
+  }
+}
+
+class StudyBlockRow extends DataClass implements Insertable<StudyBlockRow> {
+  final int id;
+  final String weekdays;
+  final int startMinute;
+  final String preset;
+  final int cycles;
+  final int freeMinutes;
+  final String? label;
+  final bool enabled;
+  const StudyBlockRow({
+    required this.id,
+    required this.weekdays,
+    required this.startMinute,
+    required this.preset,
+    required this.cycles,
+    required this.freeMinutes,
+    this.label,
+    required this.enabled,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['weekdays'] = Variable<String>(weekdays);
+    map['start_minute'] = Variable<int>(startMinute);
+    map['preset'] = Variable<String>(preset);
+    map['cycles'] = Variable<int>(cycles);
+    map['free_minutes'] = Variable<int>(freeMinutes);
+    if (!nullToAbsent || label != null) {
+      map['label'] = Variable<String>(label);
+    }
+    map['enabled'] = Variable<bool>(enabled);
+    return map;
+  }
+
+  StudyBlocksCompanion toCompanion(bool nullToAbsent) {
+    return StudyBlocksCompanion(
+      id: Value(id),
+      weekdays: Value(weekdays),
+      startMinute: Value(startMinute),
+      preset: Value(preset),
+      cycles: Value(cycles),
+      freeMinutes: Value(freeMinutes),
+      label: label == null && nullToAbsent
+          ? const Value.absent()
+          : Value(label),
+      enabled: Value(enabled),
+    );
+  }
+
+  factory StudyBlockRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StudyBlockRow(
+      id: serializer.fromJson<int>(json['id']),
+      weekdays: serializer.fromJson<String>(json['weekdays']),
+      startMinute: serializer.fromJson<int>(json['startMinute']),
+      preset: serializer.fromJson<String>(json['preset']),
+      cycles: serializer.fromJson<int>(json['cycles']),
+      freeMinutes: serializer.fromJson<int>(json['freeMinutes']),
+      label: serializer.fromJson<String?>(json['label']),
+      enabled: serializer.fromJson<bool>(json['enabled']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'weekdays': serializer.toJson<String>(weekdays),
+      'startMinute': serializer.toJson<int>(startMinute),
+      'preset': serializer.toJson<String>(preset),
+      'cycles': serializer.toJson<int>(cycles),
+      'freeMinutes': serializer.toJson<int>(freeMinutes),
+      'label': serializer.toJson<String?>(label),
+      'enabled': serializer.toJson<bool>(enabled),
+    };
+  }
+
+  StudyBlockRow copyWith({
+    int? id,
+    String? weekdays,
+    int? startMinute,
+    String? preset,
+    int? cycles,
+    int? freeMinutes,
+    Value<String?> label = const Value.absent(),
+    bool? enabled,
+  }) => StudyBlockRow(
+    id: id ?? this.id,
+    weekdays: weekdays ?? this.weekdays,
+    startMinute: startMinute ?? this.startMinute,
+    preset: preset ?? this.preset,
+    cycles: cycles ?? this.cycles,
+    freeMinutes: freeMinutes ?? this.freeMinutes,
+    label: label.present ? label.value : this.label,
+    enabled: enabled ?? this.enabled,
+  );
+  StudyBlockRow copyWithCompanion(StudyBlocksCompanion data) {
+    return StudyBlockRow(
+      id: data.id.present ? data.id.value : this.id,
+      weekdays: data.weekdays.present ? data.weekdays.value : this.weekdays,
+      startMinute: data.startMinute.present
+          ? data.startMinute.value
+          : this.startMinute,
+      preset: data.preset.present ? data.preset.value : this.preset,
+      cycles: data.cycles.present ? data.cycles.value : this.cycles,
+      freeMinutes: data.freeMinutes.present
+          ? data.freeMinutes.value
+          : this.freeMinutes,
+      label: data.label.present ? data.label.value : this.label,
+      enabled: data.enabled.present ? data.enabled.value : this.enabled,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyBlockRow(')
+          ..write('id: $id, ')
+          ..write('weekdays: $weekdays, ')
+          ..write('startMinute: $startMinute, ')
+          ..write('preset: $preset, ')
+          ..write('cycles: $cycles, ')
+          ..write('freeMinutes: $freeMinutes, ')
+          ..write('label: $label, ')
+          ..write('enabled: $enabled')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    weekdays,
+    startMinute,
+    preset,
+    cycles,
+    freeMinutes,
+    label,
+    enabled,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StudyBlockRow &&
+          other.id == this.id &&
+          other.weekdays == this.weekdays &&
+          other.startMinute == this.startMinute &&
+          other.preset == this.preset &&
+          other.cycles == this.cycles &&
+          other.freeMinutes == this.freeMinutes &&
+          other.label == this.label &&
+          other.enabled == this.enabled);
+}
+
+class StudyBlocksCompanion extends UpdateCompanion<StudyBlockRow> {
+  final Value<int> id;
+  final Value<String> weekdays;
+  final Value<int> startMinute;
+  final Value<String> preset;
+  final Value<int> cycles;
+  final Value<int> freeMinutes;
+  final Value<String?> label;
+  final Value<bool> enabled;
+  const StudyBlocksCompanion({
+    this.id = const Value.absent(),
+    this.weekdays = const Value.absent(),
+    this.startMinute = const Value.absent(),
+    this.preset = const Value.absent(),
+    this.cycles = const Value.absent(),
+    this.freeMinutes = const Value.absent(),
+    this.label = const Value.absent(),
+    this.enabled = const Value.absent(),
+  });
+  StudyBlocksCompanion.insert({
+    this.id = const Value.absent(),
+    required String weekdays,
+    required int startMinute,
+    required String preset,
+    required int cycles,
+    required int freeMinutes,
+    this.label = const Value.absent(),
+    this.enabled = const Value.absent(),
+  }) : weekdays = Value(weekdays),
+       startMinute = Value(startMinute),
+       preset = Value(preset),
+       cycles = Value(cycles),
+       freeMinutes = Value(freeMinutes);
+  static Insertable<StudyBlockRow> custom({
+    Expression<int>? id,
+    Expression<String>? weekdays,
+    Expression<int>? startMinute,
+    Expression<String>? preset,
+    Expression<int>? cycles,
+    Expression<int>? freeMinutes,
+    Expression<String>? label,
+    Expression<bool>? enabled,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (weekdays != null) 'weekdays': weekdays,
+      if (startMinute != null) 'start_minute': startMinute,
+      if (preset != null) 'preset': preset,
+      if (cycles != null) 'cycles': cycles,
+      if (freeMinutes != null) 'free_minutes': freeMinutes,
+      if (label != null) 'label': label,
+      if (enabled != null) 'enabled': enabled,
+    });
+  }
+
+  StudyBlocksCompanion copyWith({
+    Value<int>? id,
+    Value<String>? weekdays,
+    Value<int>? startMinute,
+    Value<String>? preset,
+    Value<int>? cycles,
+    Value<int>? freeMinutes,
+    Value<String?>? label,
+    Value<bool>? enabled,
+  }) {
+    return StudyBlocksCompanion(
+      id: id ?? this.id,
+      weekdays: weekdays ?? this.weekdays,
+      startMinute: startMinute ?? this.startMinute,
+      preset: preset ?? this.preset,
+      cycles: cycles ?? this.cycles,
+      freeMinutes: freeMinutes ?? this.freeMinutes,
+      label: label ?? this.label,
+      enabled: enabled ?? this.enabled,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (weekdays.present) {
+      map['weekdays'] = Variable<String>(weekdays.value);
+    }
+    if (startMinute.present) {
+      map['start_minute'] = Variable<int>(startMinute.value);
+    }
+    if (preset.present) {
+      map['preset'] = Variable<String>(preset.value);
+    }
+    if (cycles.present) {
+      map['cycles'] = Variable<int>(cycles.value);
+    }
+    if (freeMinutes.present) {
+      map['free_minutes'] = Variable<int>(freeMinutes.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (enabled.present) {
+      map['enabled'] = Variable<bool>(enabled.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyBlocksCompanion(')
+          ..write('id: $id, ')
+          ..write('weekdays: $weekdays, ')
+          ..write('startMinute: $startMinute, ')
+          ..write('preset: $preset, ')
+          ..write('cycles: $cycles, ')
+          ..write('freeMinutes: $freeMinutes, ')
+          ..write('label: $label, ')
+          ..write('enabled: $enabled')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1914,6 +2422,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $AllowedAppsTable allowedApps = $AllowedAppsTable(this);
   late final $StreakDaysTable streakDays = $StreakDaysTable(this);
   late final $SettingsTable settings = $SettingsTable(this);
+  late final $StudyBlocksTable studyBlocks = $StudyBlocksTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1924,6 +2433,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     allowedApps,
     streakDays,
     settings,
+    studyBlocks,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -3221,6 +3731,270 @@ typedef $$SettingsTableProcessedTableManager =
       SettingRow,
       PrefetchHooks Function()
     >;
+typedef $$StudyBlocksTableCreateCompanionBuilder =
+    StudyBlocksCompanion Function({
+      Value<int> id,
+      required String weekdays,
+      required int startMinute,
+      required String preset,
+      required int cycles,
+      required int freeMinutes,
+      Value<String?> label,
+      Value<bool> enabled,
+    });
+typedef $$StudyBlocksTableUpdateCompanionBuilder =
+    StudyBlocksCompanion Function({
+      Value<int> id,
+      Value<String> weekdays,
+      Value<int> startMinute,
+      Value<String> preset,
+      Value<int> cycles,
+      Value<int> freeMinutes,
+      Value<String?> label,
+      Value<bool> enabled,
+    });
+
+class $$StudyBlocksTableFilterComposer
+    extends Composer<_$AppDatabase, $StudyBlocksTable> {
+  $$StudyBlocksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weekdays => $composableBuilder(
+    column: $table.weekdays,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get preset => $composableBuilder(
+    column: $table.preset,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get cycles => $composableBuilder(
+    column: $table.cycles,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get freeMinutes => $composableBuilder(
+    column: $table.freeMinutes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get enabled => $composableBuilder(
+    column: $table.enabled,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$StudyBlocksTableOrderingComposer
+    extends Composer<_$AppDatabase, $StudyBlocksTable> {
+  $$StudyBlocksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weekdays => $composableBuilder(
+    column: $table.weekdays,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get preset => $composableBuilder(
+    column: $table.preset,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get cycles => $composableBuilder(
+    column: $table.cycles,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get freeMinutes => $composableBuilder(
+    column: $table.freeMinutes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get enabled => $composableBuilder(
+    column: $table.enabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$StudyBlocksTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StudyBlocksTable> {
+  $$StudyBlocksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get weekdays =>
+      $composableBuilder(column: $table.weekdays, builder: (column) => column);
+
+  GeneratedColumn<int> get startMinute => $composableBuilder(
+    column: $table.startMinute,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get preset =>
+      $composableBuilder(column: $table.preset, builder: (column) => column);
+
+  GeneratedColumn<int> get cycles =>
+      $composableBuilder(column: $table.cycles, builder: (column) => column);
+
+  GeneratedColumn<int> get freeMinutes => $composableBuilder(
+    column: $table.freeMinutes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<bool> get enabled =>
+      $composableBuilder(column: $table.enabled, builder: (column) => column);
+}
+
+class $$StudyBlocksTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $StudyBlocksTable,
+          StudyBlockRow,
+          $$StudyBlocksTableFilterComposer,
+          $$StudyBlocksTableOrderingComposer,
+          $$StudyBlocksTableAnnotationComposer,
+          $$StudyBlocksTableCreateCompanionBuilder,
+          $$StudyBlocksTableUpdateCompanionBuilder,
+          (
+            StudyBlockRow,
+            BaseReferences<_$AppDatabase, $StudyBlocksTable, StudyBlockRow>,
+          ),
+          StudyBlockRow,
+          PrefetchHooks Function()
+        > {
+  $$StudyBlocksTableTableManager(_$AppDatabase db, $StudyBlocksTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$StudyBlocksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StudyBlocksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StudyBlocksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> weekdays = const Value.absent(),
+                Value<int> startMinute = const Value.absent(),
+                Value<String> preset = const Value.absent(),
+                Value<int> cycles = const Value.absent(),
+                Value<int> freeMinutes = const Value.absent(),
+                Value<String?> label = const Value.absent(),
+                Value<bool> enabled = const Value.absent(),
+              }) => StudyBlocksCompanion(
+                id: id,
+                weekdays: weekdays,
+                startMinute: startMinute,
+                preset: preset,
+                cycles: cycles,
+                freeMinutes: freeMinutes,
+                label: label,
+                enabled: enabled,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String weekdays,
+                required int startMinute,
+                required String preset,
+                required int cycles,
+                required int freeMinutes,
+                Value<String?> label = const Value.absent(),
+                Value<bool> enabled = const Value.absent(),
+              }) => StudyBlocksCompanion.insert(
+                id: id,
+                weekdays: weekdays,
+                startMinute: startMinute,
+                preset: preset,
+                cycles: cycles,
+                freeMinutes: freeMinutes,
+                label: label,
+                enabled: enabled,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$StudyBlocksTable, StudyBlockRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $StudyBlocksTable,
+                    StudyBlockRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$StudyBlocksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $StudyBlocksTable,
+      StudyBlockRow,
+      $$StudyBlocksTableFilterComposer,
+      $$StudyBlocksTableOrderingComposer,
+      $$StudyBlocksTableAnnotationComposer,
+      $$StudyBlocksTableCreateCompanionBuilder,
+      $$StudyBlocksTableUpdateCompanionBuilder,
+      (
+        StudyBlockRow,
+        BaseReferences<_$AppDatabase, $StudyBlocksTable, StudyBlockRow>,
+      ),
+      StudyBlockRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3235,4 +4009,6 @@ class $AppDatabaseManager {
       $$StreakDaysTableTableManager(_db, _db.streakDays);
   $$SettingsTableTableManager get settings =>
       $$SettingsTableTableManager(_db, _db.settings);
+  $$StudyBlocksTableTableManager get studyBlocks =>
+      $$StudyBlocksTableTableManager(_db, _db.studyBlocks);
 }

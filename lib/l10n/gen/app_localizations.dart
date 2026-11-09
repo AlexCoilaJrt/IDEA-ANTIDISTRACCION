@@ -124,6 +124,252 @@ abstract class AppLocalizations {
   /// **'Progreso'**
   String get navProgress;
 
+  /// No description provided for @scheduleTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu horario de estudio'**
+  String get scheduleTitle;
+
+  /// No description provided for @scheduleDefaultTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión de estudio'**
+  String get scheduleDefaultTitle;
+
+  /// No description provided for @scheduleKindPomodoro.
+  ///
+  /// In es, this message translates to:
+  /// **'{cycles, plural, =1{1 bloque de {focus}/{rest}} other{{cycles} bloques de {focus}/{rest}}}'**
+  String scheduleKindPomodoro(int focus, int rest, int cycles);
+
+  /// No description provided for @scheduleKindFree.
+  ///
+  /// In es, this message translates to:
+  /// **'{minutes} min seguidos'**
+  String scheduleKindFree(int minutes);
+
+  /// No description provided for @scheduleReminderDetail.
+  ///
+  /// In es, this message translates to:
+  /// **'{kind} · termina a las {end}'**
+  String scheduleReminderDetail(String kind, String end);
+
+  /// No description provided for @scheduleNextTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima sesión'**
+  String get scheduleNextTitle;
+
+  /// No description provided for @scheduleNowTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora, según tu horario'**
+  String get scheduleNowTitle;
+
+  /// No description provided for @scheduleWhen.
+  ///
+  /// In es, this message translates to:
+  /// **'{day} a las {time}'**
+  String scheduleWhen(String day, String time);
+
+  /// No description provided for @scheduleToday.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get scheduleToday;
+
+  /// No description provided for @scheduleTomorrow.
+  ///
+  /// In es, this message translates to:
+  /// **'Mañana'**
+  String get scheduleTomorrow;
+
+  /// No description provided for @scheduleRange.
+  ///
+  /// In es, this message translates to:
+  /// **'{start} – {end}'**
+  String scheduleRange(String start, String end);
+
+  /// No description provided for @scheduleEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes horario'**
+  String get scheduleEmptyTitle;
+
+  /// No description provided for @scheduleEmptyBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Agrega los días y horas en que quieres estudiar. Te avisaremos 10 minutos antes y a la hora, con un botón para empezar.'**
+  String get scheduleEmptyBody;
+
+  /// No description provided for @scheduleAdd.
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar bloque'**
+  String get scheduleAdd;
+
+  /// No description provided for @scheduleDayFree.
+  ///
+  /// In es, this message translates to:
+  /// **'Libre'**
+  String get scheduleDayFree;
+
+  /// No description provided for @schedulePaused.
+  ///
+  /// In es, this message translates to:
+  /// **'Pausado'**
+  String get schedulePaused;
+
+  /// No description provided for @scheduleRemindersNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Te avisamos 10 min antes y a la hora, con el botón «Empezar ahora».'**
+  String get scheduleRemindersNote;
+
+  /// No description provided for @scheduleExactWarning.
+  ///
+  /// In es, this message translates to:
+  /// **'Los avisos pueden llegar unos minutos tarde. Activa «Alarmas y recordatorios» para que lleguen a la hora exacta.'**
+  String get scheduleExactWarning;
+
+  /// No description provided for @scheduleExactAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Activar'**
+  String get scheduleExactAction;
+
+  /// No description provided for @scheduleStartNow.
+  ///
+  /// In es, this message translates to:
+  /// **'Empezar ahora'**
+  String get scheduleStartNow;
+
+  /// No description provided for @scheduleProblemPermissions.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo empezar la sesión: faltan permisos.'**
+  String get scheduleProblemPermissions;
+
+  /// No description provided for @scheduleProblemActive.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya tienes una sesión en curso.'**
+  String get scheduleProblemActive;
+
+  /// No description provided for @scheduleProblemOther.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo empezar la sesión. Inténtalo desde Inicio.'**
+  String get scheduleProblemOther;
+
+  /// No description provided for @scheduleReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisar'**
+  String get scheduleReview;
+
+  /// No description provided for @scheduleToggleSemantics.
+  ///
+  /// In es, this message translates to:
+  /// **'Activar o pausar {name}'**
+  String scheduleToggleSemantics(String name);
+
+  /// No description provided for @blockEditorNewTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo bloque'**
+  String get blockEditorNewTitle;
+
+  /// No description provided for @blockEditorEditTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar bloque'**
+  String get blockEditorEditTitle;
+
+  /// No description provided for @blockEditorLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Materia o tema (opcional)'**
+  String get blockEditorLabel;
+
+  /// No description provided for @blockEditorLabelHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Ej.: Matemáticas'**
+  String get blockEditorLabelHint;
+
+  /// No description provided for @blockEditorDays.
+  ///
+  /// In es, this message translates to:
+  /// **'Días'**
+  String get blockEditorDays;
+
+  /// No description provided for @blockEditorTime.
+  ///
+  /// In es, this message translates to:
+  /// **'Hora de inicio'**
+  String get blockEditorTime;
+
+  /// No description provided for @blockEditorChangeTime.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar hora'**
+  String get blockEditorChangeTime;
+
+  /// No description provided for @blockEditorType.
+  ///
+  /// In es, this message translates to:
+  /// **'Tipo de sesión'**
+  String get blockEditorType;
+
+  /// No description provided for @blockEditorSummary.
+  ///
+  /// In es, this message translates to:
+  /// **'{focus} min de enfoque · de {start} a {end}'**
+  String blockEditorSummary(int focus, String start, String end);
+
+  /// No description provided for @blockEditorNoDays.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige al menos un día.'**
+  String get blockEditorNoDays;
+
+  /// No description provided for @blockEditorOverlap.
+  ///
+  /// In es, this message translates to:
+  /// **'Se cruza con «{other}». Cambia la hora o los días.'**
+  String blockEditorOverlap(String other);
+
+  /// No description provided for @blockEditorDelete.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar bloque'**
+  String get blockEditorDelete;
+
+  /// No description provided for @blockEditorDeleteTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar este bloque?'**
+  String get blockEditorDeleteTitle;
+
+  /// No description provided for @blockEditorDeleteBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejarás de recibir sus avisos. Tus sesiones pasadas no se borran.'**
+  String get blockEditorDeleteBody;
+
+  /// No description provided for @commonDelete.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get commonDelete;
+
+  /// No description provided for @homeNextScheduled.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima en tu horario: {title}, {when}'**
+  String homeNextScheduled(String title, String when);
+
   /// No description provided for @commonRetry.
   ///
   /// In es, this message translates to:
@@ -453,6 +699,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Para que Android no detenga el bloqueo a mitad de la sesión.'**
   String get permissionBatteryBody;
+
+  /// No description provided for @permissionExactTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Alarmas y recordatorios'**
+  String get permissionExactTitle;
+
+  /// No description provided for @permissionExactBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Para que los avisos de tu horario de estudio lleguen a la hora exacta y no con minutos de retraso.'**
+  String get permissionExactBody;
+
+  /// No description provided for @permExactStep1.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca «Abrir ajustes». Se abrirá «Alarmas y recordatorios».'**
+  String get permExactStep1;
+
+  /// No description provided for @permExactStep2.
+  ///
+  /// In es, this message translates to:
+  /// **'Activa «Permitir configurar alarmas y recordatorios».'**
+  String get permExactStep2;
 
   /// No description provided for @permissionRequired.
   ///
@@ -885,18 +1155,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'En curso'**
   String get sessionCardActive;
-
-  /// No description provided for @scheduleComingTitle.
-  ///
-  /// In es, this message translates to:
-  /// **'Horario y exámenes'**
-  String get scheduleComingTitle;
-
-  /// No description provided for @scheduleComingBody.
-  ///
-  /// In es, this message translates to:
-  /// **'Llega en la fase 2: materias, horario, exámenes y planificador automático.'**
-  String get scheduleComingBody;
 
   /// No description provided for @roomsComingTitle.
   ///

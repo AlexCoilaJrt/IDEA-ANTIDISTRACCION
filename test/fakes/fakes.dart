@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:enfoque/core/utils/result.dart';
 import 'package:enfoque/data/repositories/allowed_apps_repository.dart';
 import 'package:enfoque/data/repositories/blocker_repository.dart';
+import 'package:enfoque/data/repositories/schedule_repository.dart';
 import 'package:enfoque/data/repositories/session_repository.dart';
 import 'package:enfoque/data/repositories/settings_repository.dart';
 import 'package:enfoque/data/repositories/streak_repository.dart';
@@ -209,6 +210,44 @@ class FakeAllowedAppsRepository implements AllowedAppsRepository {
   }
 }
 
+class FakeScheduleRepository implements ScheduleRepository {
+  final blocksById = <int, StudyBlock>{};
+  final _changes = StreamController<void>.broadcast();
+  var _nextId = 1;
+
+  List<StudyBlock> get _sorted =>
+      blocksById.values.toList()
+        ..sort((a, b) => a.startMinute.compareTo(b.startMinute));
+
+  @override
+  Stream<List<StudyBlock>> watchBlocks() async* {
+    yield _sorted;
+    yield* _changes.stream.map((_) => _sorted);
+  }
+
+  @override
+  Future<Result<List<StudyBlock>>> blocks() async => Result.ok(_sorted);
+
+  @override
+  Future<Result<StudyBlock?>> getById(int id) async =>
+      Result.ok(blocksById[id]);
+
+  @override
+  Future<Result<StudyBlock>> save(StudyBlock block) async {
+    final saved = block.id == 0 ? block.copyWith(id: _nextId++) : block;
+    blocksById[saved.id] = saved;
+    _changes.add(null);
+    return Result.ok(saved);
+  }
+
+  @override
+  Future<Result<void>> delete(int id) async {
+    blocksById.remove(id);
+    _changes.add(null);
+    return const Result.ok(null);
+  }
+}
+
 /// Motor de bloqueo simulado.
 class FakeBlockerRepository implements BlockerRepository {
   new({
@@ -287,6 +326,21 @@ class FakeBlockerRepository implements BlockerRepository {
   }
 
   int appDetailsOpened = 0;
+  List<ReminderRule> reminderRules = const [];
+  int? pendingStartBlock;
+
+  @override
+  Future<Result<void>> setReminderRules(List<ReminderRule> rules) async {
+    reminderRules = rules;
+    return const Result.ok(null);
+  }
+
+  @override
+  Future<Result<int?>> consumeStartRequest() async {
+    final id = pendingStartBlock;
+    pendingStartBlock = null;
+    return Result.ok(id);
+  }
 
   @override
   Future<Result<void>> openAppDetails() async {

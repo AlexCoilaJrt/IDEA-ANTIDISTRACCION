@@ -22,4 +22,9 @@
     <string name="phase_focus_text">Empieza el bloque %1$d de %2$d. Las apps no permitidas vuelven a estar bloqueadas.</string>
     <string name="phase_done_title">¡Sesión completada!</string>
     <string name="phase_done_text">Buen trabajo. Abre Enfoque para ver tu resumen.</string>
+    <string name="reminder_channel_name">Horario de estudio</string>
+    <string name="reminder_channel_description">Avisos 10 minutos antes y a la hora de cada sesión de tu horario.</string>
+    <string name="reminder_before_title">En 10 minutos: %1$s (%2$s)</string>
+    <string name="reminder_start_title">Es hora de estudiar: %1$s</string>
+    <string name="reminder_start_now">Empezar ahora</string>
 </resources>

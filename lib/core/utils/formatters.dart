@@ -20,4 +20,21 @@ abstract final class Formatters {
 
   static String weekdayShort(DateTime t, String locale) =>
       DateFormat.E(locale).format(t);
+
+  /// `18:00` a partir de minutos desde la medianoche.
+  static String minuteOfDay(int minutes) {
+    final m = minutes % (24 * 60);
+    String two(int v) => v.toString().padLeft(2, '0');
+    return '${two(m ~/ 60)}:${two(m % 60)}';
+  }
+
+  /// Nombre del día (1 = lunes ... 7 = domingo), con mayúscula inicial.
+  static String weekdayName(int weekday, String locale, {bool short = false}) {
+    // 9 nov 2026 es lunes.
+    final date = DateTime(2026, 11, 8 + weekday);
+    final name = (short ? DateFormat.E(locale) : DateFormat.EEEE(locale))
+        .format(date)
+        .replaceAll('.', '');
+    return name.isEmpty ? name : name[0].toUpperCase() + name.substring(1);
+  }
 }

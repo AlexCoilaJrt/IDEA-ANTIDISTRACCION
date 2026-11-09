@@ -42,7 +42,7 @@ Future<void> onboardingFlow(WidgetTester tester) async {
   await _tap(tester, find.text('Empezar'));
 
   expect(find.text('Acceso a datos de uso'), findsOneWidget);
-  expect(find.text('Activado'), findsNWidgets(4));
+  expect(find.text('Activado'), findsNWidgets(5));
   await _tap(tester, find.text('Continuar'));
 
   expect(find.text('Apps permitidas'), findsOneWidget);
@@ -62,7 +62,7 @@ Future<void> permissionsWizardFlow(WidgetTester tester) async {
   await _pumpApp(tester, deps);
   await _tap(tester, find.text('Empezar'));
 
-  expect(find.text('Paso 1 de 4'), findsOneWidget);
+  expect(find.text('Paso 1 de 5'), findsOneWidget);
   expect(
     find.text('Activa los dos permisos obligatorios para continuar.'),
     findsOneWidget,
@@ -78,7 +78,7 @@ Future<void> permissionsWizardFlow(WidgetTester tester) async {
   deps.blocker.perms = deps.blocker.perms.copyWith(usageAccess: true);
   await tester.pump(const Duration(seconds: 2));
   await _settle(tester);
-  expect(find.text('Paso 2 de 4'), findsOneWidget);
+  expect(find.text('Paso 2 de 5'), findsOneWidget);
   expect(find.text('Mostrar sobre otras apps'), findsWidgets);
   // Los obligatorios no se pueden omitir.
   expect(find.text('Omitir por ahora'), findsNothing);
@@ -86,14 +86,17 @@ Future<void> permissionsWizardFlow(WidgetTester tester) async {
   deps.blocker.perms = deps.blocker.perms.copyWith(overlay: true);
   await tester.pump(const Duration(seconds: 2));
   await _settle(tester);
-  expect(find.text('Paso 3 de 4'), findsOneWidget);
+  expect(find.text('Paso 3 de 5'), findsOneWidget);
 
   // Recomendado: se puede omitir.
   await _tap(tester, find.text('Omitir por ahora'));
-  expect(find.text('Paso 4 de 4'), findsOneWidget);
+  expect(find.text('Paso 4 de 5'), findsOneWidget);
+  await _tap(tester, find.text('Omitir por ahora'));
+  expect(find.text('Paso 5 de 5'), findsOneWidget);
+  expect(find.text('Alarmas y recordatorios'), findsWidgets);
   await _tap(tester, find.text('Omitir por ahora'));
   expect(find.text('¡Todo listo! Ya puedes continuar.'), findsOneWidget);
-  expect(find.text('Omitido'), findsNWidgets(2));
+  expect(find.text('Omitido'), findsNWidgets(3));
 
   await _tap(tester, find.text('Continuar'));
   expect(find.text('Apps permitidas'), findsOneWidget);
@@ -164,6 +167,37 @@ Future<void> longBreakFlow(WidgetTester tester) async {
   await _settle(tester, 15);
   expect(find.text('Enfoque'), findsOneWidget);
   expect(find.text('Bloque 5 de 5'), findsOneWidget);
+}
+
+/// Horario: crear un bloque, verlo en la agenda y empezar desde el aviso.
+Future<void> scheduleFlow(WidgetTester tester) async {
+  final deps = TestDeps();
+  await _pumpApp(tester, deps);
+
+  await _tap(tester, find.text('Horario'));
+  expect(find.text('Aún no tienes horario'), findsOneWidget);
+  await _tap(tester, find.text('Agregar bloque'));
+
+  expect(find.text('Nuevo bloque'), findsOneWidget);
+  await tester.enterText(find.byType(TextFormField), 'Matemáticas');
+  await _settle(tester, 3);
+  // Por defecto lunes a viernes 18:00, 2 x 25/5: termina 18:55.
+  expect(find.text('50 min de enfoque · de 18:00 a 18:55'), findsOneWidget);
+  await _tap(tester, find.text('Guardar'));
+
+  // Agenda: aparece en lunes a viernes y como próxima sesión (hoy lunes).
+  expect(find.text('Matemáticas'), findsWidgets);
+  expect(find.text('Próxima sesión'), findsOneWidget);
+  expect(find.text('Hoy a las 18:00'), findsOneWidget);
+  expect(deps.blocker.reminderRules.single.title, 'Matemáticas');
+
+  // Llega el aviso y el usuario toca "Empezar ahora".
+  deps.blocker
+    ..pendingStartBlock = deps.schedule.blocksById.keys.single
+    ..emit(StartRequested());
+  await _settle(tester);
+  expect(find.text('Enfoque'), findsOneWidget);
+  expect(find.text('Bloque 1 de 2'), findsOneWidget);
 }
 
 Future<void> completedFlow(WidgetTester tester) async {

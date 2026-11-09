@@ -126,6 +126,9 @@ enum PermissionKindDto {
   overlay,
   notifications,
   batteryOptimization,
+
+  /// Alarmas puntuales para los recordatorios del horario (Android 12+).
+  exactAlarms,
 }
 
 /// Configuración que Flutter envía para empezar una sesión.
@@ -338,6 +341,7 @@ class PermissionsDto {
     required this.overlay,
     required this.notifications,
     required this.batteryOptimization,
+    required this.exactAlarms,
   });
 
   bool usageAccess;
@@ -348,8 +352,16 @@ class PermissionsDto {
 
   bool batteryOptimization;
 
+  bool exactAlarms;
+
   List<Object?> _toList() {
-    return <Object?>[usageAccess, overlay, notifications, batteryOptimization];
+    return <Object?>[
+      usageAccess,
+      overlay,
+      notifications,
+      batteryOptimization,
+      exactAlarms,
+    ];
   }
 
   Object encode() {
@@ -363,6 +375,7 @@ class PermissionsDto {
       overlay: result[1]! as bool,
       notifications: result[2]! as bool,
       batteryOptimization: result[3]! as bool,
+      exactAlarms: result[4]! as bool,
     );
   }
 
@@ -378,7 +391,8 @@ class PermissionsDto {
     return _deepEquals(usageAccess, other.usageAccess) &&
         _deepEquals(overlay, other.overlay) &&
         _deepEquals(notifications, other.notifications) &&
-        _deepEquals(batteryOptimization, other.batteryOptimization);
+        _deepEquals(batteryOptimization, other.batteryOptimization) &&
+        _deepEquals(exactAlarms, other.exactAlarms);
   }
 
   @override
@@ -387,7 +401,76 @@ class PermissionsDto {
 
   @override
   String toString() {
-    return 'PermissionsDto(usageAccess: $usageAccess, overlay: $overlay, notifications: $notifications, batteryOptimization: $batteryOptimization)';
+    return 'PermissionsDto(usageAccess: $usageAccess, overlay: $overlay, notifications: $notifications, batteryOptimization: $batteryOptimization, exactAlarms: $exactAlarms)';
+  }
+}
+
+/// Regla semanal de recordatorio. El motor nativo calcula las fechas, así
+/// los avisos siguen llegando aunque la app no se abra.
+class ReminderRuleDto {
+  ReminderRuleDto({
+    required this.blockId,
+    required this.weekdays,
+    required this.startMinute,
+    required this.title,
+    required this.detail,
+  });
+
+  int blockId;
+
+  /// 1 = lunes ... 7 = domingo.
+  List<int> weekdays;
+
+  /// Minutos desde la medianoche.
+  int startMinute;
+
+  /// Ya traducidos en Dart.
+  String title;
+
+  String detail;
+
+  List<Object?> _toList() {
+    return <Object?>[blockId, weekdays, startMinute, title, detail];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ReminderRuleDto decode(Object result) {
+    result as List<Object?>;
+    return ReminderRuleDto(
+      blockId: result[0]! as int,
+      weekdays: (result[1]! as List<Object?>).cast<int>(),
+      startMinute: result[2]! as int,
+      title: result[3]! as String,
+      detail: result[4]! as String,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ReminderRuleDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(blockId, other.blockId) &&
+        _deepEquals(weekdays, other.weekdays) &&
+        _deepEquals(startMinute, other.startMinute) &&
+        _deepEquals(title, other.title) &&
+        _deepEquals(detail, other.detail);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+
+  @override
+  String toString() {
+    return 'ReminderRuleDto(blockId: $blockId, weekdays: $weekdays, startMinute: $startMinute, title: $title, detail: $detail)';
   }
 }
 
@@ -471,8 +554,11 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PermissionsDto) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    } else if (value is InstalledAppDto) {
+    } else if (value is ReminderRuleDto) {
       buffer.putUint8(135);
+      writeValue(buffer, value.encode());
+    } else if (value is InstalledAppDto) {
+      buffer.putUint8(136);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -497,6 +583,8 @@ class _PigeonCodec extends StandardMessageCodec {
       case 134:
         return PermissionsDto.decode(readValue(buffer)!);
       case 135:
+        return ReminderRuleDto.decode(readValue(buffer)!);
+      case 136:
         return InstalledAppDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -661,6 +749,47 @@ class BlockerHostApi {
     );
   }
 
+  /// Reemplaza las reglas del horario y reprograma los avisos.
+  Future<void> setReminderRules(List<ReminderRuleDto> rules) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.enfoque.BlockerHostApi.setReminderRules$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[rules],
+    );
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    _extractReplyValueOrThrow(
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
+  }
+
+  /// Bloque cuyo aviso "Empezar ahora" se tocó; se consume al leerlo.
+  Future<int?> consumeStartRequest() async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.enfoque.BlockerHostApi.consumeStartRequest$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
+    return pigeonVar_replyValue as int?;
+  }
+
   /// Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES).
   Future<List<InstalledAppDto>> getLaunchableApps() async {
     final pigeonVar_channelName =
@@ -713,6 +842,9 @@ abstract class BlockerFlutterApi {
 
   /// El usuario tocó "Salir antes" en la pantalla de bloqueo.
   void onEarlyExitRequested();
+
+  /// El usuario tocó "Empezar ahora" en un recordatorio del horario.
+  void onStartRequested();
 
   static void setUp(
     BlockerFlutterApi? api, {
@@ -809,6 +941,29 @@ abstract class BlockerFlutterApi {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           try {
             api.onEarlyExitRequested();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.enfoque.BlockerFlutterApi.onStartRequested$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            api.onStartRequested();
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

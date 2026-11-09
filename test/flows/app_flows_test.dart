@@ -10,5 +10,6 @@ void main() {
   testWidgets('asistente de permisos paso a paso', permissionsWizardFlow);
   testWidgets('salida con costo en tres escalones', earlyExitFlow);
   testWidgets('descanso largo después del bloque 4', longBreakFlow);
+  testWidgets('horario semanal y "Empezar ahora"', scheduleFlow);
   testWidgets('sesión completada actualiza la racha', completedFlow);
 }

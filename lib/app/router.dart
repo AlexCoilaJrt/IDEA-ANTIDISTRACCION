@@ -9,6 +9,7 @@ import 'package:enfoque/features/focus/view/summary_screen.dart';
 import 'package:enfoque/features/onboarding/view/permissions_screen.dart';
 import 'package:enfoque/features/onboarding/view/welcome_screen.dart';
 import 'package:enfoque/features/rooms/view/rooms_screen.dart';
+import 'package:enfoque/features/schedule/view/block_editor_screen.dart';
 import 'package:enfoque/features/schedule/view/schedule_screen.dart';
 import 'package:enfoque/features/settings/view/settings_screen.dart';
 import 'package:enfoque/features/stats/view/stats_screen.dart';
@@ -32,6 +33,10 @@ abstract final class Routes {
   static const session = '/session';
   static const summary = '/summary';
   static const settings = '/settings';
+  static const _block = '/schedule-block';
+
+  /// Editor de un bloque del horario (`0` = nuevo).
+  static String blockEditor(int id) => '$_block/$id';
 
   static const Set<String> _onboarding = {welcome, permissions, allowlist};
 
@@ -113,6 +118,11 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: Routes.settings,
         builder: (context, _) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '${Routes._block}/:id',
+        builder: (context, state) =>
+            BlockEditorScreen(blockId: int.parse(state.pathParameters['id']!)),
       ),
       GoRoute(
         path: Routes.session,

@@ -2,6 +2,7 @@
 // ignore_for_file: no_adjacent_strings_in_list
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:drift/native.dart';
+import 'package:enfoque/data/repositories/schedule_repository.dart';
 import 'package:enfoque/data/repositories/session_repository.dart';
 import 'package:enfoque/data/services/db/app_database.dart';
 import 'package:enfoque/domain/models/models.dart';
@@ -37,7 +38,7 @@ const _v1 = [
 void main() {
   setUpAll(() => driftRuntimeOptions.dontWarnAboutMultipleDatabases = true);
 
-  test('v1 → v2 conserva las sesiones y agrega el descanso largo', () async {
+  test('v1 → v3 conserva sesiones, agrega descanso largo y horario', () async {
     final db = AppDatabase(
       NativeDatabase.memory(setup: (raw) => _v1.forEach(raw.execute)),
     );
@@ -54,5 +55,12 @@ void main() {
       plan: PomodoroPlan.fromPreset(PomodoroPreset.classic, cycles: 5),
     )).valueOrNull!;
     expect(created.plan.longBreakMinutes, 15);
+
+    // v3: la tabla del horario existe y funciona.
+    final schedule = ScheduleRepositoryImpl(db);
+    final block = (await schedule.save(
+      const StudyBlock(weekdays: {1, 3}, startMinute: 18 * 60),
+    )).valueOrNull!;
+    expect(block.id, greaterThan(0));
   });
 }

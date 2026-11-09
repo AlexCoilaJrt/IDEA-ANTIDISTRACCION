@@ -20,6 +20,12 @@ abstract class BlockerRepository {
   /// Abre "Información de la app" (para permitir ajustes restringidos).
   Future<Result<void>> openAppDetails();
 
+  /// Reemplaza las reglas de recordatorio del horario.
+  Future<Result<void>> setReminderRules(List<ReminderRule> rules);
+
+  /// Id del bloque cuyo "Empezar ahora" se tocó (una sola vez).
+  Future<Result<int?>> consumeStartRequest();
+
   /// `true` una sola vez si el usuario tocó "Salir antes" en el bloqueo.
   Future<Result<bool>> consumeExitRequest();
 
@@ -75,7 +81,8 @@ class BlockerRepositoryImpl implements BlockerRepository {
       NativeInterrupted(:final sessionId) => BlockerSessionInterrupted(
         sessionId,
       ),
-      NativeExitRequested() => const EarlyExitRequested(),
+      NativeExitRequested() => EarlyExitRequested(),
+      NativeStartRequested() => StartRequested(),
     },
   );
 
@@ -87,6 +94,7 @@ class BlockerRepositoryImpl implements BlockerRepository {
       overlay: dto.overlay,
       notifications: dto.notifications,
       batteryOptimization: dto.batteryOptimization,
+      exactAlarms: dto.exactAlarms,
     );
   });
 
@@ -98,11 +106,30 @@ class BlockerRepositoryImpl implements BlockerRepository {
       PermissionKind.notifications => PermissionKindDto.notifications,
       PermissionKind.batteryOptimization =>
         PermissionKindDto.batteryOptimization,
+      PermissionKind.exactAlarms => PermissionKindDto.exactAlarms,
     }),
   );
 
   @override
   Future<Result<void>> openAppDetails() => guard(_service.openAppDetails);
+
+  @override
+  Future<Result<void>> setReminderRules(List<ReminderRule> rules) => guard(
+    () => _service.setReminderRules([
+      for (final r in rules)
+        ReminderRuleDto(
+          blockId: r.blockId,
+          weekdays: r.weekdays.toList()..sort(),
+          startMinute: r.startMinute,
+          title: r.title,
+          detail: r.detail,
+        ),
+    ]),
+  );
+
+  @override
+  Future<Result<int?>> consumeStartRequest() =>
+      guard(_service.consumeStartRequest);
 
   @override
   Future<Result<bool>> consumeExitRequest() =>

@@ -225,6 +225,17 @@ class _Wizard extends ConsumerWidget {
         l10n.permBatteryAction,
         null,
       ),
+      PermissionKind.exactAlarms => (
+        l10n.permissionExactBody,
+        [
+          l10n.permExactStep1,
+          l10n.permStepFindApp,
+          l10n.permExactStep2,
+          l10n.permStepBack,
+        ],
+        l10n.permOpenSettings,
+        null,
+      ),
     };
 
     return PermissionGuideCard(
@@ -251,6 +262,7 @@ class _Wizard extends ConsumerWidget {
     PermissionKind.overlay => Icons.layers_outlined,
     PermissionKind.notifications => Icons.notifications_outlined,
     PermissionKind.batteryOptimization => Icons.battery_saver_outlined,
+    PermissionKind.exactAlarms => Icons.alarm,
   };
 
   static String _title(AppLocalizations l10n, PermissionKind kind) =>
@@ -259,6 +271,7 @@ class _Wizard extends ConsumerWidget {
         PermissionKind.overlay => l10n.permissionOverlayTitle,
         PermissionKind.notifications => l10n.permissionNotificationsTitle,
         PermissionKind.batteryOptimization => l10n.permissionBatteryTitle,
+        PermissionKind.exactAlarms => l10n.permissionExactTitle,
       };
 }
 

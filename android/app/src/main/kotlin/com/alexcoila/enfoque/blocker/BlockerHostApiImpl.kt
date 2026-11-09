@@ -41,6 +41,7 @@ class BlockerHostApiImpl(
         overlay = AndroidPlatform.canDrawOverlays(context),
         notifications = AndroidPlatform.notificationsEnabled(context),
         batteryOptimization = AndroidPlatform.ignoresBatteryOptimizations(context),
+        exactAlarms = Reminders.canScheduleExact(context),
     )
 
     override fun requestPermission(kind: PermissionKindDto) {
@@ -61,8 +62,22 @@ class BlockerHostApiImpl(
                 Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS),
             )
             PermissionKindDto.NOTIFICATIONS -> requestNotifications()
+            PermissionKindDto.EXACT_ALARMS -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    startFirstAvailable(
+                        Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, packageUri),
+                        Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM),
+                    )
+                }
+            }
         }
     }
+
+    override fun setReminderRules(rules: List<ReminderRuleDto>) {
+        Reminders.setRules(context, rules)
+    }
+
+    override fun consumeStartRequest(): Long? = Reminders.consumeStartRequest(context)
 
     override fun openAppDetails() {
         startFirstAvailable(

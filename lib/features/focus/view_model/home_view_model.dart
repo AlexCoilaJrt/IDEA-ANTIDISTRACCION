@@ -15,6 +15,7 @@ abstract class HomeState with _$HomeState {
     required int todayMinutes,
     required StreakSummary streak,
     required DateTime plannedEnd,
+    required DateTime now,
     @Default(false) bool starting,
   }) = _HomeState;
 
@@ -44,6 +45,7 @@ class HomeViewModel extends _$HomeViewModel {
         goalMinutes: settings.dailyGoalMinutes,
       ),
       plannedEnd: now.add(settings.plan.totalDuration),
+      now: now,
     );
   }
 

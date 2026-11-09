@@ -17,6 +17,7 @@ class TestDeps {
   final streak = FakeStreakRepository();
   final FakeSettingsRepository settings;
   final allowed = FakeAllowedAppsRepository();
+  final schedule = FakeScheduleRepository();
   final blocker = FakeBlockerRepository();
   final clock = FakeClock(DateTime(2026, 11, 9, 9));
 
@@ -25,6 +26,7 @@ class TestDeps {
     streakRepositoryProvider.overrideWithValue(streak),
     settingsRepositoryProvider.overrideWithValue(settings),
     allowedAppsRepositoryProvider.overrideWithValue(allowed),
+    scheduleRepositoryProvider.overrideWithValue(schedule),
     blockerRepositoryProvider.overrideWithValue(blocker),
     clockProvider.overrideWithValue(clock.call),
     appResumedProvider.overrideWith((ref) => const Stream.empty()),

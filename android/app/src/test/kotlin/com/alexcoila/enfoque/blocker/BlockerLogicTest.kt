@@ -149,3 +149,39 @@ class PhaseTrackerTest {
         assertNull(tracker.onPoll(phase(200)))
     }
 }
+
+class ReminderPlannerTest {
+    private val zone = java.time.ZoneId.of("America/Lima")
+    // Lunes 9 nov 2026.
+    private fun at(day: Int, h: Int, m: Int) = java.time.ZonedDateTime.of(2026, 11, day, h, m, 0, 0, zone)
+    private val math = ReminderRule(1, setOf(1, 3, 5), 18 * 60, "Matemáticas", "2 bloques")
+
+    @Test
+    fun `primero el aviso 10 min antes y luego el de la hora`() {
+        val before = ReminderPlanner.next(listOf(math), at(9, 9, 0))!!
+        assertEquals(ReminderKind.BEFORE, before.kind)
+        assertEquals(at(9, 17, 50), before.at)
+        val start = ReminderPlanner.next(listOf(math), at(9, 17, 50))!!
+        assertEquals(ReminderKind.START, start.kind)
+        assertEquals(at(9, 18, 0), start.at)
+    }
+
+    @Test
+    fun `después de la hora pasa al siguiente día del horario`() {
+        val next = ReminderPlanner.next(listOf(math), at(9, 18, 0))!!
+        assertEquals(at(11, 17, 50), next.at)
+    }
+
+    @Test
+    fun `elige la regla más cercana y sin reglas no hay aviso`() {
+        val early = ReminderRule(2, setOf(2), 7 * 60, "Inglés", "")
+        assertEquals(2L, ReminderPlanner.next(listOf(math, early), at(9, 19, 0))!!.rule.blockId)
+        assertNull(ReminderPlanner.next(emptyList(), at(9, 9, 0)))
+    }
+
+    @Test
+    fun `el domingo programa el aviso del lunes siguiente`() {
+        val next = ReminderPlanner.next(listOf(math), at(15, 20, 0))!!
+        assertEquals(at(16, 17, 50), next.at)
+    }
+}

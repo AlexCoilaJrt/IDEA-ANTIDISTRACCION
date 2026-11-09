@@ -6,6 +6,8 @@ import 'package:enfoque/core/utils/result.dart';
 import 'package:enfoque/domain/models/models.dart';
 import 'package:enfoque/domain/use_cases/session_use_cases.dart';
 import 'package:enfoque/features/focus/view_model/home_view_model.dart';
+import 'package:enfoque/features/schedule/view/schedule_screen.dart';
+import 'package:enfoque/features/schedule/view_model/schedule_view_model.dart';
 import 'package:enfoque/l10n/gen/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -102,6 +104,14 @@ class _HomeBody extends ConsumerWidget {
             ),
           ],
         ),
+        if (ref.watch(nextScheduledProvider).value case final next?) ...[
+          const Gap(AppSpacing.lg),
+          NextScheduledCard(
+            occurrence: next,
+            now: state.now,
+            onTap: () => context.go(Routes.schedule),
+          ),
+        ],
         const Gap(AppSpacing.xl),
         Text(
           state.goalReached

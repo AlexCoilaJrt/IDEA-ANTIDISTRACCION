@@ -19,7 +19,9 @@ Esta versión es la **fase 1 (núcleo sin conexión)**: todo funciona en el celu
 | Datos | drift (SQLite) local. La lista de apps abiertas **nunca sale del celular**. |
 | Diseño | Material 3, modo oscuro primero, tokens en `lib/app/theme/`, componentes en `lib/core/ui/`, textos en español (ARB). |
 
-Las pestañas **Horario** (fase 2) y **Salas** (fase 3) ya existen, pero por ahora solo muestran "próximamente".
+| Horario semanal (adelanto de la F2) | Bloques fijos por días y hora (25/5, 50/10 o libre, con materia opcional), agenda de lunes a domingo, detección de cruces y "Próxima sesión" en Inicio. Avisos nativos 10 min antes y a la hora con el botón **Empezar ahora**; siguen llegando sin abrir la app y tras reiniciar el celular. |
+
+La pestaña **Salas** (fase 3) ya existe, pero por ahora solo muestra "próximamente". De la fase 2 faltan: materias, clases, exámenes, importación .ics y el planificador automático.
 
 ## Requisitos
 
@@ -45,11 +47,12 @@ La app guía al usuario, pero estos son los permisos:
 2. **Mostrar sobre otras apps** (obligatorio).
 3. **Notificaciones** (recomendado): aviso fijo con la cuenta regresiva.
 4. **Sin optimización de batería** (recomendado): evita que Android detenga el bloqueo.
+5. **Alarmas y recordatorios** (recomendado, Android 12+): los avisos del horario llegan a la hora exacta.
 
 ## Calidad
 
 ```bash
-dart format . && flutter analyze && flutter test                 # Flutter: 96 pruebas
+dart format . && flutter analyze && flutter test                 # Flutter: 121 pruebas
 cd android && ./gradlew :app:testLocalDebugUnitTest -Ptarget=lib/main_local.dart   # Kotlin (JUnit)
 flutter test integration_test --flavor local                   # en un celular/emulador
 cd widgetbook && flutter test                                  # catálogo de componentes

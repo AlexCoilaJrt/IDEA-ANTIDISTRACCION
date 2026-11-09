@@ -220,7 +220,9 @@ enum class PermissionKindDto(val raw: Int) {
   USAGE_ACCESS(0),
   OVERLAY(1),
   NOTIFICATIONS(2),
-  BATTERY_OPTIMIZATION(3);
+  BATTERY_OPTIMIZATION(3),
+  /** Alarmas puntuales para los recordatorios del horario (Android 12+). */
+  EXACT_ALARMS(4);
 
   companion object {
     fun ofRaw(raw: Int): PermissionKindDto? {
@@ -410,7 +412,8 @@ data class PermissionsDto (
   val usageAccess: Boolean,
   val overlay: Boolean,
   val notifications: Boolean,
-  val batteryOptimization: Boolean
+  val batteryOptimization: Boolean,
+  val exactAlarms: Boolean
 )
  {
   companion object {
@@ -419,7 +422,8 @@ data class PermissionsDto (
       val overlay = pigeonVar_list[1] as Boolean
       val notifications = pigeonVar_list[2] as Boolean
       val batteryOptimization = pigeonVar_list[3] as Boolean
-      return PermissionsDto(usageAccess, overlay, notifications, batteryOptimization)
+      val exactAlarms = pigeonVar_list[4] as Boolean
+      return PermissionsDto(usageAccess, overlay, notifications, batteryOptimization, exactAlarms)
     }
   }
   fun toList(): List<Any?> {
@@ -428,6 +432,7 @@ data class PermissionsDto (
       overlay,
       notifications,
       batteryOptimization,
+      exactAlarms,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -438,7 +443,7 @@ data class PermissionsDto (
       return true
     }
     val other = other as PermissionsDto
-    return BlockerApiPigeonUtils.deepEquals(this.usageAccess, other.usageAccess) && BlockerApiPigeonUtils.deepEquals(this.overlay, other.overlay) && BlockerApiPigeonUtils.deepEquals(this.notifications, other.notifications) && BlockerApiPigeonUtils.deepEquals(this.batteryOptimization, other.batteryOptimization)
+    return BlockerApiPigeonUtils.deepEquals(this.usageAccess, other.usageAccess) && BlockerApiPigeonUtils.deepEquals(this.overlay, other.overlay) && BlockerApiPigeonUtils.deepEquals(this.notifications, other.notifications) && BlockerApiPigeonUtils.deepEquals(this.batteryOptimization, other.batteryOptimization) && BlockerApiPigeonUtils.deepEquals(this.exactAlarms, other.exactAlarms)
   }
 
   override fun hashCode(): Int {
@@ -447,10 +452,72 @@ data class PermissionsDto (
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.overlay)
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.notifications)
     result = 31 * result + BlockerApiPigeonUtils.deepHash(this.batteryOptimization)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.exactAlarms)
     return result
   }
   override fun toString(): String {
-    return "PermissionsDto(usageAccess=$usageAccess, overlay=$overlay, notifications=$notifications, batteryOptimization=$batteryOptimization)"
+    return "PermissionsDto(usageAccess=$usageAccess, overlay=$overlay, notifications=$notifications, batteryOptimization=$batteryOptimization, exactAlarms=$exactAlarms)"
+  }
+}
+
+/**
+ * Regla semanal de recordatorio. El motor nativo calcula las fechas, así
+ * los avisos siguen llegando aunque la app no se abra.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ReminderRuleDto (
+  val blockId: Long,
+  /** 1 = lunes ... 7 = domingo. */
+  val weekdays: List<Long>,
+  /** Minutos desde la medianoche. */
+  val startMinute: Long,
+  /** Ya traducidos en Dart. */
+  val title: String,
+  val detail: String
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ReminderRuleDto {
+      val blockId = pigeonVar_list[0] as Long
+      val weekdays = pigeonVar_list[1] as List<Long>
+      val startMinute = pigeonVar_list[2] as Long
+      val title = pigeonVar_list[3] as String
+      val detail = pigeonVar_list[4] as String
+      return ReminderRuleDto(blockId, weekdays, startMinute, title, detail)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      blockId,
+      weekdays,
+      startMinute,
+      title,
+      detail,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ReminderRuleDto
+    return BlockerApiPigeonUtils.deepEquals(this.blockId, other.blockId) && BlockerApiPigeonUtils.deepEquals(this.weekdays, other.weekdays) && BlockerApiPigeonUtils.deepEquals(this.startMinute, other.startMinute) && BlockerApiPigeonUtils.deepEquals(this.title, other.title) && BlockerApiPigeonUtils.deepEquals(this.detail, other.detail)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.blockId)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.weekdays)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.startMinute)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.title)
+    result = 31 * result + BlockerApiPigeonUtils.deepHash(this.detail)
+    return result
+  }
+  override fun toString(): String {
+    return "ReminderRuleDto(blockId=$blockId, weekdays=$weekdays, startMinute=$startMinute, title=$title, detail=$detail)"
   }
 }
 
@@ -537,6 +604,11 @@ private open class BlockerApiPigeonCodec : StandardMessageCodec() {
       }
       135.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
+          ReminderRuleDto.fromList(it)
+        }
+      }
+      136.toByte() -> {
+        (readValue(buffer) as? List<Any?>)?.let {
           InstalledAppDto.fromList(it)
         }
       }
@@ -569,8 +641,12 @@ private open class BlockerApiPigeonCodec : StandardMessageCodec() {
         stream.write(134)
         writeValue(stream, value.toList())
       }
-      is InstalledAppDto -> {
+      is ReminderRuleDto -> {
         stream.write(135)
+        writeValue(stream, value.toList())
+      }
+      is InstalledAppDto -> {
+        stream.write(136)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -597,6 +673,10 @@ interface BlockerHostApi {
   fun requestPermission(kind: PermissionKindDto)
   /** Abre "Información de la app" (para "Permitir ajustes restringidos"). */
   fun openAppDetails()
+  /** Reemplaza las reglas del horario y reprograma los avisos. */
+  fun setReminderRules(rules: List<ReminderRuleDto>)
+  /** Bloque cuyo aviso "Empezar ahora" se tocó; se consume al leerlo. */
+  fun consumeStartRequest(): Long?
   /** Apps del lanzador (usa `<queries>`, no QUERY_ALL_PACKAGES). */
   suspend fun getLaunchableApps(): List<InstalledAppDto>
   fun launchApp(packageName: String)
@@ -724,6 +804,39 @@ interface BlockerHostApi {
         }
       }
       run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.enfoque.BlockerHostApi.setReminderRules$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val rulesArg = args[0] as List<ReminderRuleDto>
+            val wrapped: List<Any?> = try {
+              api.setReminderRules(rulesArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              BlockerApiPigeonUtils.wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.enfoque.BlockerHostApi.consumeStartRequest$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.consumeStartRequest())
+            } catch (exception: Throwable) {
+              BlockerApiPigeonUtils.wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.enfoque.BlockerHostApi.getLaunchableApps$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -832,6 +945,26 @@ class BlockerFlutterApi(private val binaryMessenger: BinaryMessenger, private va
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
     return suspendCancellableCoroutine { continuation ->
       val channelName = "dev.flutter.pigeon.enfoque.BlockerFlutterApi.onEarlyExitRequested$separatedMessageChannelSuffix"
+      val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+      channel.send(null) {
+        if (it is List<*>) {
+          if (it.size > 1) {
+            continuation.resumeWithException(FlutterError(it[0] as String, it[1] as String, it[2] as String?))
+          } else {
+            continuation.resume(Unit)
+          }
+        } else {
+          continuation.resumeWithException(BlockerApiPigeonUtils.createConnectionError(channelName))
+        } 
+      }
+    }
+  }
+  /** El usuario tocó "Empezar ahora" en un recordatorio del horario. */
+  suspend fun onStartRequested()
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    return suspendCancellableCoroutine { continuation ->
+      val channelName = "dev.flutter.pigeon.enfoque.BlockerFlutterApi.onStartRequested$separatedMessageChannelSuffix"
       val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
       channel.send(null) {
         if (it is List<*>) {

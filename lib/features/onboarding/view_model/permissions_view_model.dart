@@ -28,6 +28,7 @@ abstract class PermissionsUiState with _$PermissionsUiState {
     PermissionKind.overlay,
     PermissionKind.notifications,
     PermissionKind.batteryOptimization,
+    PermissionKind.exactAlarms,
   ];
 
   static bool isRequired(PermissionKind kind) =>
@@ -38,6 +39,7 @@ abstract class PermissionsUiState with _$PermissionsUiState {
     PermissionKind.overlay => permissions.overlay,
     PermissionKind.notifications => permissions.notifications,
     PermissionKind.batteryOptimization => permissions.batteryOptimization,
+    PermissionKind.exactAlarms => permissions.exactAlarms,
   };
 
   /// Permiso que se está guiando ahora; `null` si no queda ninguno.

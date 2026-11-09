@@ -1,5 +1,6 @@
 import 'package:enfoque/data/repositories/allowed_apps_repository.dart';
 import 'package:enfoque/data/repositories/blocker_repository.dart';
+import 'package:enfoque/data/repositories/schedule_repository.dart';
 import 'package:enfoque/data/repositories/session_repository.dart';
 import 'package:enfoque/data/repositories/settings_repository.dart';
 import 'package:enfoque/data/repositories/streak_repository.dart';
@@ -55,6 +56,10 @@ AllowedAppsRepository allowedAppsRepository(Ref ref) =>
     );
 
 @Riverpod(keepAlive: true)
+ScheduleRepository scheduleRepository(Ref ref) =>
+    ScheduleRepositoryImpl(ref.watch(appDatabaseProvider));
+
+@Riverpod(keepAlive: true)
 BlockerRepository blockerRepository(Ref ref) =>
     BlockerRepositoryImpl(ref.watch(blockerServiceProvider));
 
@@ -99,6 +104,10 @@ Stream<FocusSession?> activeSession(Ref ref) =>
 @Riverpod(keepAlive: true)
 Stream<List<DayFocus>> streakDays(Ref ref) =>
     ref.watch(streakRepositoryProvider).watchDays();
+
+@Riverpod(keepAlive: true)
+Stream<List<StudyBlock>> studyBlocks(Ref ref) =>
+    ref.watch(scheduleRepositoryProvider).watchBlocks();
 
 @Riverpod(keepAlive: true)
 Stream<List<AllowedApp>> allowedAppsStream(Ref ref) =>

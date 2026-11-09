@@ -56,6 +56,20 @@ class StreakDays extends Table {
   Set<Column<Object>> get primaryKey => {day};
 }
 
+/// Bloques del horario semanal (desde la versión 3 del esquema).
+/// `weekdays` guarda los días como texto: "1,3,5".
+@DataClassName('StudyBlockRow')
+class StudyBlocks extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get weekdays => text()();
+  IntColumn get startMinute => integer()();
+  TextColumn get preset => text()();
+  IntColumn get cycles => integer()();
+  IntColumn get freeMinutes => integer()();
+  TextColumn get label => text().nullable()();
+  BoolColumn get enabled => boolean().withDefault(const Constant(true))();
+}
+
 /// Ajustes clave-valor.
 @DataClassName('SettingRow')
 class Settings extends Table {
@@ -67,14 +81,21 @@ class Settings extends Table {
 }
 
 @DriftDatabase(
-  tables: [Sessions, DistractionEvents, AllowedApps, StreakDays, Settings],
+  tables: [
+    Sessions,
+    DistractionEvents,
+    AllowedApps,
+    StreakDays,
+    Settings,
+    StudyBlocks,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   new([QueryExecutor? executor])
     : super(executor ?? driftDatabase(name: 'enfoque'));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -82,6 +103,8 @@ class AppDatabase extends _$AppDatabase {
     onUpgrade: (m, from, to) async {
       // v2: descanso largo cada 4 bloques.
       if (from < 2) await m.addColumn(sessions, sessions.longBreakMin);
+      // v3: horario semanal.
+      if (from < 3) await m.createTable(studyBlocks);
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');

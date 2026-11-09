@@ -28,4 +28,6 @@ object BlockerEvents {
     fun interrupted(sessionId: Long) = send { it.onSessionInterrupted(sessionId) }
 
     fun exitRequested() = send { it.onEarlyExitRequested() }
+
+    fun startRequested() = send { it.onStartRequested() }
 }

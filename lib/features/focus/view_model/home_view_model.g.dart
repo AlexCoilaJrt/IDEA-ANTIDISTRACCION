@@ -36,7 +36,7 @@ final class HomeViewModelProvider
   HomeViewModel create() => HomeViewModel();
 }
 
-String _$homeViewModelHash() => r'1946faaeac417a9c5c61ce02c33e2ae2d3e8926b';
+String _$homeViewModelHash() => r'b2a40820ae8570eefa35b49e86d24fc44fe531ea';
 
 /// Pantalla de inicio: elegir el tipo de sesión y empezar.
 

@@ -51,6 +51,14 @@ class BlockerService implements BlockerFlutterApi {
   @override
   void onEarlyExitRequested() => _events.add(const NativeExitRequested());
 
+  @override
+  void onStartRequested() => _events.add(const NativeStartRequested());
+
+  Future<void> setReminderRules(List<ReminderRuleDto> rules) =>
+      _host.setReminderRules(rules);
+
+  Future<int?> consumeStartRequest() => _host.consumeStartRequest();
+
   void dispose() {
     BlockerFlutterApi.setUp(null);
     unawaited(_events.close());
@@ -78,5 +86,9 @@ final class NativeInterrupted extends NativeBlockerEvent {
 }
 
 final class NativeExitRequested extends NativeBlockerEvent {
+  const new();
+}
+
+final class NativeStartRequested extends NativeBlockerEvent {
   const new();
 }
